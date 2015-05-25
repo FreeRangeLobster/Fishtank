@@ -1,0 +1,15 @@
+To Do list
+
+1. finish html  								 	DONE 
+2. Links to configuration and statistics webpages  	DONE
+3. Status bar  										DONE
+4. Button On/Off  (Use Macros) 					In process
+5. Try writing to a txt
+6. Try sensor
+7. waved
+
+
+8. Go Live
+
+
+

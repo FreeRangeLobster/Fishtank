@@ -1,0 +1,347 @@
+<html>
+<head>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="viewport" content = "height = device-height, width = device-width, user-scalable = no" /> 
+        <title>Fishtank</title>
+        <title>WebIOPi | Light Control</title>
+        <script type="text/javascript" src="/webiopi.js"></script>
+        <script type="text/javascript">
+
+        webiopi().ready(function() {
+                
+                var buttton;
+
+                button = webiopi().createGPIOButton(17, "LIGHT");
+                    $("#LightOn").append(button);
+
+                button = webiopi().createGPIOButton(18, "PUMP");
+                    $("#WaterPumpOn").append(button);
+
+                button = webiopi().createGPIOButton(21, "AIR");
+                    $("#AirOn").append(button);
+
+                button = webiopi().createGPIOButton(22, "AUX");
+                    $("#AuxOn").append(button);
+
+                // Refresh GPIO buttons
+                // pass true to refresh repeatedly or false to refresh once
+                webiopi().refreshGPIO(true);
+        });
+                       
+        </script>
+
+
+        <style type="text/css">
+
+         body {
+            background-image: url("img/BG_Main.png")no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+
+
+        }
+               
+
+        button {             
+                margin: 1px 1px 1px 1px;
+                width: 140px;
+                height: 40px;
+                font-size: 8pt;
+                color: white;
+                border-radius:10px;
+                background-color: Green;
+
+                }
+
+
+        button:hover {
+                background: #3cb0fd;
+                text-decoration: none;
+            }
+
+        button:active {
+                position:relative;
+                top:2px;
+                background-color: Red;
+            }
+
+
+    /*Light*/
+     #gpio17.LOW {
+            background-color: green;
+
+
+        margin: 1px 1px 1px 1px;
+                width: 140px;
+                height: 40px;
+                font-size: 8pt;
+                color: white;
+                border-radius:10px;
+                color: red;
+    }
+        
+    #gpio17.HIGH {
+                background-color: orange;
+                margin: 5px 5px 5px 5px;
+                width: 200px;
+                height: 85px;
+                font-size: 24pt;
+                font-weight: bold;
+                color: red;
+    } 
+
+    /*Pump*/  
+    #gpio18.LOW {
+        background-color: green;
+        margin: 5px 5px 5px 5px;
+        width: 200px;
+        height: 85px;
+        font-size: 24pt;
+        font-weight: bold;
+        color: red;
+    }
+        
+    #gpio18.HIGH {
+        background-color: orange;
+        margin: 5px 5px 5px 5px;
+        width: 200px;
+        height: 85px;
+        font-size: 24pt;
+        font-weight: bold;
+        color: red;
+    }     
+
+    /*Air*/ 
+    #gpio21.LOW {
+        background-color: green;
+        margin: 5px 5px 5px 5px;
+        width: 200px;
+        height: 85px;
+        font-size: 24pt;
+        font-weight: bold;
+        color: red;
+    }
+                
+    #gpio21.HIGH {
+        background-color: orange;
+        margin: 5px 5px 5px 5px;
+        width: 200px;
+        height: 85px;
+        font-size: 24pt;
+        font-weight: bold;
+        color: red;
+    }
+
+
+    /*Aux*/ 
+    #gpio22.LOW {
+        background-color: green;
+        margin: 5px 5px 5px 5px;
+        width: 200px;
+        height: 85px;
+        font-size: 24pt;
+        font-weight: bold;
+        color: red;
+    }
+                
+                
+    #gpio22.HIGH {
+        background-color: orange;
+        margin: 5px 5px 5px 5px;
+        width: 200px;
+        height: 85px;
+        font-size: 24pt;
+        font-weight: bold;
+        color: red;
+    }      
+        </style>        
+</head>
+
+
+
+<body background="img/BG_Main.png">
+
+
+
+
+<table align="center" border="0">
+    <!--Title off the page-->
+    <tr>
+        <th>Fishtank controller</th>
+    </tr>
+    <!--Status cell-->
+</table>
+
+<div id="content" align="left">
+
+        <div id="LightOn"></div>
+        <div id="WaterPumpOn"></div>
+        <div id="AirOn"></div>
+        <div id="AuxOn"></div>
+<br>
+
+
+<table align="center" border="0">
+
+    <tr>
+        <!--Status cell-->
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+
+    </tr>
+        <td> Status</th>
+        <td colspan="3" align="Center"> Auto/Manual</td>
+    </tr>
+
+    <tr>
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+    </tr>
+
+    <tr>
+        <!--Status cell-->
+        
+        <td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:38px;height:42px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:42px;height:42px;border:0"> </a></td>
+    </tr>        
+    <tr>
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+    </tr>
+
+        <td> on/off</th>
+        <td> on/off</th>
+        <td> on/off</th>
+        <td> on/off</th>
+       
+
+<tr>
+        <!--Status cell-->
+    <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320><br><br></img></th>
+    </tr>
+
+
+    <tr>
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+    </tr>
+
+    <tr>
+        <td colspan="4" alighn="Left"> Controls</img></th>
+    </tr>
+
+    <tr>
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+    </tr>
+
+
+
+    <tr>
+        <!--Controls-->
+         <td colspan="2"> <div id="LightOn"></div> </td> 
+       <!-- <td colspan="2"> <button type="button" align="center">Light On</button></td> -->
+        <td colspan="2"> <button type="button" align="center">Light off</button></td>
+
+          
+         
+
+
+
+    </tr>
+
+    <tr>
+        <td colspan="2"> <button type="button" align="center">Pump On</button></td>
+        <td colspan="2"> <button type="button" align="center">Pump Off</button></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"> <button type="button" align="center">Air On</button></td>
+        <td colspan="2"> <button type="button" align="center">Air Off</button></td>
+    </tr>
+
+    <tr>
+        <td colspan="2"> <button type="button" align="center">Aux On</button></td>
+        <td colspan="2"> <button type="button" align="center">Aux Off</button></td>
+    </tr>
+
+
+</table>
+    
+    <br>
+    <br>
+
+<table align="Center">
+
+       <tr> <td colspan="6"> <img align="Center" src="img/Line.png" alt="" border=0 height=2 width=320></img></td> </tr>
+	
+		<td> <a href="index.html"> <img src="img/Btn_Home.png"  style="width:42px;height:42px;border:0"> </a></td>
+		<td> <a href="configuration.html"> <img src="img/Btn_Configuration.png"  style="width:42px;height:42px;border:0"> </a></td>
+		<td> <a href="statistics.html"> <img src="img/Btn_Statistics.png"  style="width:42px;height:42px;border:0"> </a></td>
+		<!--<td> <img  src="img/BG_Configuration.png" style="width:42px;height:42px;border:0"> erase</td>  -->
+	 	<td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:35px;height:35px;border:0"> </a></td>
+		<td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:35px;height:35px;border:0"> </a></td>
+		<td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:35px;height:35px;border:0"> </a></td>
+		<td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:35px;height:35px;border:0"> </a></td>
+	</table>
+
+<div align="center">
+Turn On at :<input type="text" id="inputOn" /><br/>
+Turn Off at: <input type="text" id="inputOff" /><br/>
+<div id="controls"></div>
+</div>
+
+
+</body>
+</html>
+
+
+
+<!--
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="viewport" content = "height = device-height, width = device-width, user-scalable = no" /> 
+        <title>Pi-lights</title>
+        <script type="text/javascript" src="/webiopi.js"></script>
+        <script type="text/javascript" src="/scripts/bacon.js"></script>
+        <link rel="stylesheet" type="text/css" href="/styles/bacon.css">
+        <link rel="shortcut icon" sizes="196x196" href="/img/LED-icon.png" />
+
+
+
+</head>
+<body>
+		</br>
+		</br>
+		<div id="content" align="center"></div>
+		<button type="button"><a href="configuration.html">Link link</a></button>
+
+		</br>
+		</br>
+		</br>
+		<p align="center">Push button; receive bacon</p>
+		</br>
+		</br>
+	<table align="Center">
+	
+		<td> <a href="index.html"> <img src="img/Btn_Home.png"  style="width:42px;height:42px;border:0"> </a></td>
+		<td> <a href="configuration.html"> <img src="img/Btn_Configuration.png"  style="width:42px;height:42px;border:0"> </a></td>
+		<td> <a href="statistics.html"> <img src="img/Btn_Statistics.png"  style="width:42px;height:42px;border:0"> </a></td>
+		<td> <img  src="img/BG_Configuration.png" style="width:42px;height:42px;border:0"> erase</td>  
+	 	<td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:42px;height:42px;border:0"> </a></td>
+		<td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:42px;height:42px;border:0"> </a></td>
+		<td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:38px;height:42px;border:0"> </a></td>
+		<td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:42px;height:42px;border:0"> </a></td>
+	</table>
+
+</body>
+</html>
+-->
+
+
