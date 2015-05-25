@@ -3,13 +3,18 @@ To Do list
 1. finish html  								 	DONE 
 2. Links to configuration and statistics webpages  	DONE
 3. Status bar  										DONE
-4. Button On/Off  (Use Macros) 					In process
+4. make index.html work properly				In Process
+-. test macro
+4. Button On/Off  (Use Macros) 					In Process
 5. Try writing to a txt
 6. Try sensor
 7. waved
 
 
 8. Go Live
+
+--------NICE TO HAVE-------------
+1. github subversion								DONE
 
 
 
