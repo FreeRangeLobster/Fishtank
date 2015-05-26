@@ -65,3 +65,10 @@ def setLightHours(on, off):
     HOUR_ON = int(on)
     HOUR_OFF = int(off)
     return getLightHours()
+
+@webiopi.macro
+def outputControlMacro(state):
+    if(state == "1"):
+        GPIO.digitalWrite(2, GPIO.HIGH)
+    elif(state == "0"):
+        GPIO.digitalWrite(2, GPIO.LOW)

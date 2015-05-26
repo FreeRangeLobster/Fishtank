@@ -3,9 +3,11 @@ To Do list
 1. finish html  								 	DONE 
 2. Links to configuration and statistics webpages  	DONE
 3. Status bar  										DONE
-4. make index.html work properly				In Process
+4. two buttons controlling same output				In Process
+4. auto/manual buttons
+4. make index.html work properly				
 -. test macro
-4. Button On/Off  (Use Macros) 					In Process
+4. Button On/Off  (Use Macros) 						In Process
 5. Try writing to a txt
 6. Try sensor
 7. waved
@@ -19,5 +21,9 @@ To Do list
 
 Llama te amo mucho tia lind
 
+
+Comments:
+
+first attempt with on/off button, still lots to do.
 
 

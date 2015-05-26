@@ -12,6 +12,7 @@
         webiopi().ready(function() {
                 
                 var buttton;
+                   content = $("#content");
 
                 button = webiopi().createGPIOButton(17, "LIGHT");
                     $("#LightOn").append(button);
@@ -28,12 +29,73 @@
                 // Refresh GPIO buttons
                 // pass true to refresh repeatedly or false to refresh once
                 webiopi().refreshGPIO(true);
+
+
+                //Two buttons, 1 button turns on, the other one turns off the same output
+                // create a button which calls outputControl with "1" as argument to turn gpio ON
+                button = webiopi().createMacroButton("id_outputControl", "On", "outputControlMacro", [1]);
+                content.append(button); // append button to content div
+
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Off", "outputControlMacro", [0]);
+                content.append(button); // append button to content div
+
+
         });
                        
         </script>
 
 
         <style type="text/css">
+
+        #id_outputControl {
+                                display: block;
+                    background-color: Red;
+                                    margin: 75px 5px 5px 5px;
+                                    width: 300px;
+                                    height: 150px;
+                    border-radius: 25px;
+                                font-size: 40pt;
+                                font-weight: bold;
+                    cursor:pointer;
+                                color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+                        }
+
+    #id_outputControl:active {
+                                display: block;
+                    background-color: Blue;
+                                    margin: 75px 5px 5px 5px;
+                                    width: 300px;
+                                    height: 150px;
+                    border-radius: 25px;
+                                font-size: 40pt;
+                                font-weight: bold;
+                    cursor:pointer;
+                                color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+                        }                
+
+
+
+
+        
 
          body {
             background-image: url("img/BG_Main.png")no-repeat center center fixed;
@@ -73,67 +135,70 @@
 
     /*Light*/
      #gpio17.LOW {
-            background-color: green;
-
-
+        background-color: green;
         margin: 1px 1px 1px 1px;
-                width: 140px;
-                height: 40px;
-                font-size: 8pt;
-                color: white;
-                border-radius:10px;
-                color: red;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
     }
         
     #gpio17.HIGH {
-                background-color: orange;
-                margin: 5px 5px 5px 5px;
-                width: 200px;
-                height: 85px;
-                font-size: 24pt;
-                font-weight: bold;
-                color: red;
+        background-color: orange;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
     } 
 
     /*Pump*/  
     #gpio18.LOW {
         background-color: green;
-        margin: 5px 5px 5px 5px;
-        width: 200px;
-        height: 85px;
-        font-size: 24pt;
-        font-weight: bold;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
         color: red;
     }
         
     #gpio18.HIGH {
         background-color: orange;
-        margin: 5px 5px 5px 5px;
-        width: 200px;
-        height: 85px;
-        font-size: 24pt;
-        font-weight: bold;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
         color: red;
     }     
 
     /*Air*/ 
     #gpio21.LOW {
         background-color: green;
-        margin: 5px 5px 5px 5px;
-        width: 200px;
-        height: 85px;
-        font-size: 24pt;
-        font-weight: bold;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
         color: red;
     }
                 
     #gpio21.HIGH {
         background-color: orange;
-        margin: 5px 5px 5px 5px;
-        width: 200px;
-        height: 85px;
-        font-size: 24pt;
-        font-weight: bold;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
         color: red;
     }
 
@@ -141,24 +206,37 @@
     /*Aux*/ 
     #gpio22.LOW {
         background-color: green;
-        margin: 5px 5px 5px 5px;
-        width: 200px;
-        height: 85px;
-        font-size: 24pt;
-        font-weight: bold;
+     margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
         color: red;
     }
                 
                 
     #gpio22.HIGH {
         background-color: orange;
-        margin: 5px 5px 5px 5px;
-        width: 200px;
-        height: 85px;
-        font-size: 24pt;
-        font-weight: bold;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
         color: red;
     }      
+
+            #gpio2.LOW {
+                        background-color: Red;
+                }
+                
+                #gpio2.HIGH {
+                        background-color: Blue;
+                }
+
+
+
         </style>        
 </head>
 
@@ -177,13 +255,9 @@
     <!--Status cell-->
 </table>
 
-<div id="content" align="left">
 
-        <div id="LightOn"></div>
-        <div id="WaterPumpOn"></div>
-        <div id="AirOn"></div>
-        <div id="AuxOn"></div>
-<br>
+            <div id="content" align="center"></div>
+
 
 
 <table align="center" border="0">
@@ -241,29 +315,28 @@
 
     <tr>
         <!--Controls-->
-         <td colspan="2"> <div id="LightOn"></div> </td> 
+         <td colspan="2"id="LightOn"></td> 
        <!-- <td colspan="2"> <button type="button" align="center">Light On</button></td> -->
         <td colspan="2"> <button type="button" align="center">Light off</button></td>
 
-          
-         
-
-
 
     </tr>
 
     <tr>
-        <td colspan="2"> <button type="button" align="center">Pump On</button></td>
-        <td colspan="2"> <button type="button" align="center">Pump Off</button></td>
+        <td colspan="2" id="WaterPumpOn"></td> 
+        <!--<td colspan="2"> <button type="button" align="center">Pump On</button></td>-->
+        <td colspan="2"> <button type="button" align="center">Pump Off</button></td> 
     </tr>
 
     <tr>
-        <td colspan="2"> <button type="button" align="center">Air On</button></td>
+        <td colspan="2" id="AirOn"></td>
+        <!--<td colspan="2"> <button type="button" align="center">Air On</button></td>-->
         <td colspan="2"> <button type="button" align="center">Air Off</button></td>
     </tr>
 
     <tr>
-        <td colspan="2"> <button type="button" align="center">Aux On</button></td>
+        <td colspan="2" id="AuxOn"></td>
+        <!--<td colspan="2"> <button type="button" align="center">Aux On</button></td>-->
         <td colspan="2"> <button type="button" align="center">Aux Off</button></td>
     </tr>
 
