@@ -5,7 +5,7 @@ To Do list
 3. Status bar  										DONE
 4. two buttons controlling same output				In Process
 4. auto/manual buttons
-4. make index.html work properly				
+4. make index.html work properlyand release			
 -. test macro
 4. Button On/Off  (Use Macros) 						In Process
 5. Try writing to a txt
