@@ -18,6 +18,7 @@ def setup():
     GPIO.setFunction(PUMP, GPIO.OUT)
     GPIO.setFunction(AIR, GPIO.OUT)
     GPIO.setFunction(AUX, GPIO.OUT)
+    GPIO.setFunction(2, GPIO.OUT)
 
 
     # retrieve current datetime

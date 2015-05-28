@@ -3,15 +3,15 @@ To Do list
 1. finish html  								 	DONE 
 2. Links to configuration and statistics webpages  	DONE
 3. Status bar  										DONE
-4. two buttons controlling same output				In Process
+4. two buttons controlling same output				DONE
+4. Button On/Off  (Use Macros) 						DONE
+5. implement two bottons routine in all outputs 	InProcess
+6. on/off indicators								In Process
 4. auto/manual buttons
-4. make index.html work properlyand release			
--. test macro
-4. Button On/Off  (Use Macros) 						In Process
 5. Try writing to a txt
 6. Try sensor
 7. waved
-
+8. ake index.html work properlyand release
 
 8. Go Live
 
@@ -24,6 +24,7 @@ Llama te amo mucho tia lind
 
 Comments:
 
-first attempt with on/off button, still lots to do.
+Two buttons on/off working properly, still to change the macro to make it work 
+as only one function instead of individual specific macros
 
 

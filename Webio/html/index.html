@@ -26,9 +26,7 @@
                 button = webiopi().createGPIOButton(22, "AUX");
                     $("#AuxOn").append(button);
 
-                // Refresh GPIO buttons
-                // pass true to refresh repeatedly or false to refresh once
-                webiopi().refreshGPIO(true);
+                
 
 
                 //Two buttons, 1 button turns on, the other one turns off the same output
@@ -36,10 +34,18 @@
                 button = webiopi().createMacroButton("id_outputControl", "On", "outputControlMacro", [1]);
                 content.append(button); // append button to content div
 
+                // create a "LED" for GPIO 2
+                button = webiopi().createGPIOButton(2, "");
+                content.append(button); // append button to content div
+
                 // create a button which calls outputControl with "0" as argument to turn gpio OFF
                 button = webiopi().createMacroButton("id_outputControl", "Off", "outputControlMacro", [0]);
                 content.append(button); // append button to content div
 
+
+                // Refresh GPIO buttons
+                // pass true to refresh repeatedly or false to refresh once
+                webiopi().refreshGPIO(true);
 
         });
                        
@@ -48,17 +54,17 @@
 
         <style type="text/css">
 
-        #id_outputControl {
-                                display: block;
-                    background-color: Red;
-                                    margin: 75px 5px 5px 5px;
-                                    width: 300px;
-                                    height: 150px;
+#id_outputControl1 {
+                    display: block;
+                    background-color: #009900;
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
                     border-radius: 25px;
-                                font-size: 40pt;
-                                font-weight: bold;
+                    font-size: 40pt;
+                    font-weight: bold;
                     cursor:pointer;
-                                color: white;
+                    color: white;
                     outline:none;   
                     text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
                     position: relative;
@@ -70,17 +76,17 @@
                     transition: color 350ms ease, text-shadow 350ms;
                         }
 
-    #id_outputControl:active {
-                                display: block;
-                    background-color: Blue;
-                                    margin: 75px 5px 5px 5px;
-                                    width: 300px;
-                                    height: 150px;
+    #id_outputControl1:active {
+                    display: block;
+                    background-color: #004900
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
                     border-radius: 25px;
-                                font-size: 40pt;
-                                font-weight: bold;
+                    font-size: 40pt;
+                    font-weight: bold;
                     cursor:pointer;
-                                color: white;
+                    color: white;
                     outline:none;   
                     text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
                     position: relative;
@@ -90,12 +96,56 @@
                     inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
                     inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
                     transition: color 350ms ease, text-shadow 350ms;
-                        }                
+                        }
+                        
+    #id_outputControl2 {
+                    display: block;
+                    background-color: Red;
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
+                    border-radius: 25px;
+                    font-size: 40pt;
+                    font-weight: bold;
+                    cursor:pointer;
+                    color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+                        }
+
+    #id_outputControl2:active {
+                    display: block;
+                    background-color: #660000;
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
+                    border-radius: 25px;
+                    font-size: 40pt;
+                    font-weight: bold;
+                    cursor:pointer;
+                    color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+                        }       
 
 
 
 
-        
+
 
          body {
             background-image: url("img/BG_Main.png")no-repeat center center fixed;
@@ -349,16 +399,16 @@
 <table align="Center">
 
        <tr> <td colspan="6"> <img align="Center" src="img/Line.png" alt="" border=0 height=2 width=320></img></td> </tr>
-	
-		<td> <a href="index.html"> <img src="img/Btn_Home.png"  style="width:42px;height:42px;border:0"> </a></td>
-		<td> <a href="configuration.html"> <img src="img/Btn_Configuration.png"  style="width:42px;height:42px;border:0"> </a></td>
-		<td> <a href="statistics.html"> <img src="img/Btn_Statistics.png"  style="width:42px;height:42px;border:0"> </a></td>
-		<!--<td> <img  src="img/BG_Configuration.png" style="width:42px;height:42px;border:0"> erase</td>  -->
-	 	<td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:35px;height:35px;border:0"> </a></td>
-		<td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:35px;height:35px;border:0"> </a></td>
-		<td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:35px;height:35px;border:0"> </a></td>
-		<td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:35px;height:35px;border:0"> </a></td>
-	</table>
+    
+        <td> <a href="index.html"> <img src="img/Btn_Home.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="configuration.html"> <img src="img/Btn_Configuration.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="statistics.html"> <img src="img/Btn_Statistics.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <!--<td> <img  src="img/BG_Configuration.png" style="width:42px;height:42px;border:0"> erase</td>  -->
+        <td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:35px;height:35px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:35px;height:35px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:35px;height:35px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:35px;height:35px;border:0"> </a></td>
+    </table>
 
 <div align="center">
 Turn On at :<input type="text" id="inputOn" /><br/>
@@ -390,28 +440,28 @@ Turn Off at: <input type="text" id="inputOff" /><br/>
 
 </head>
 <body>
-		</br>
-		</br>
-		<div id="content" align="center"></div>
-		<button type="button"><a href="configuration.html">Link link</a></button>
+        </br>
+        </br>
+        <div id="content" align="center"></div>
+        <button type="button"><a href="configuration.html">Link link</a></button>
 
-		</br>
-		</br>
-		</br>
-		<p align="center">Push button; receive bacon</p>
-		</br>
-		</br>
-	<table align="Center">
-	
-		<td> <a href="index.html"> <img src="img/Btn_Home.png"  style="width:42px;height:42px;border:0"> </a></td>
-		<td> <a href="configuration.html"> <img src="img/Btn_Configuration.png"  style="width:42px;height:42px;border:0"> </a></td>
-		<td> <a href="statistics.html"> <img src="img/Btn_Statistics.png"  style="width:42px;height:42px;border:0"> </a></td>
-		<td> <img  src="img/BG_Configuration.png" style="width:42px;height:42px;border:0"> erase</td>  
-	 	<td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:42px;height:42px;border:0"> </a></td>
-		<td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:42px;height:42px;border:0"> </a></td>
-		<td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:38px;height:42px;border:0"> </a></td>
-		<td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:42px;height:42px;border:0"> </a></td>
-	</table>
+        </br>
+        </br>
+        </br>
+        <p align="center">Push button; receive bacon</p>
+        </br>
+        </br>
+    <table align="Center">
+    
+        <td> <a href="index.html"> <img src="img/Btn_Home.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="configuration.html"> <img src="img/Btn_Configuration.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="statistics.html"> <img src="img/Btn_Statistics.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <img  src="img/BG_Configuration.png" style="width:42px;height:42px;border:0"> erase</td>  
+        <td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:38px;height:42px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:42px;height:42px;border:0"> </a></td>
+    </table>
 
 </body>
 </html>
