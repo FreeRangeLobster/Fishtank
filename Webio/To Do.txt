@@ -25,6 +25,6 @@ Llama te amo mucho tia lind
 Comments:
 
 Two buttons on/off working properly, still to change the macro to make it work 
-as only one function instead of individual specific macros
+as only one function instead of individual specific macros. 
 
 
