@@ -13,6 +13,7 @@
                 
                 var buttton;
                    content = $("#content");
+                   indicators1=$("#indicator1");
 
                 button = webiopi().createGPIOButton(17, "LIGHT");
                     $("#LightOn").append(button);
@@ -27,6 +28,8 @@
                     $("#AuxOn").append(button);
 
                 
+        //button=webiopi().createGPIOButton(2, "");
+        //button.append(button);
 
 
                 //Two buttons, 1 button turns on, the other one turns off the same output
@@ -35,8 +38,10 @@
                 content.append(button); // append button to content div
 
                 // create a "LED" for GPIO 2
-                button = webiopi().createGPIOButton(2, "");
-                content.append(button); // append button to content div
+                button = webiopi().createGPIOButton(17, "");
+                //content.append(button); // append button to content div
+                  $("#IndicatorLightOn").append(button);
+
 
                 // create a button which calls outputControl with "0" as argument to turn gpio OFF
                 button = webiopi().createMacroButton("id_outputControl", "Off", "outputControlMacro", [0]);
@@ -54,7 +59,8 @@
 
         <style type="text/css">
 
-#id_outputControl1 {
+   
+    #id_outputControl1 {
                     display: block;
                     background-color: #009900;
                     margin: 75px 5px 5px 5px;
@@ -74,7 +80,10 @@
                     inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
                     inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
                     transition: color 350ms ease, text-shadow 350ms;
-                        }
+    }
+
+
+    
 
     #id_outputControl1:active {
                     display: block;
@@ -96,29 +105,8 @@
                     inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
                     inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
                     transition: color 350ms ease, text-shadow 350ms;
-                        }
-                        
-    #id_outputControl2 {
-                    display: block;
-                    background-color: Red;
-                    margin: 75px 5px 5px 5px;
-                    width: 300px;
-                    height: 150px;
-                    border-radius: 25px;
-                    font-size: 40pt;
-                    font-weight: bold;
-                    cursor:pointer;
-                    color: white;
-                    outline:none;   
-                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
-                    position: relative;
-                    text-decoration: none;
-                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
-                    0px 7px 10px 0px rgb(17,17,17),
-                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
-                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
-                    transition: color 350ms ease, text-shadow 350ms;
-                        }
+    }
+
 
     #id_outputControl2:active {
                     display: block;
@@ -140,47 +128,67 @@
                     inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
                     inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
                     transition: color 350ms ease, text-shadow 350ms;
-                        }       
+    } 
+                        
+    #id_outputControl2 {
+                    display: block;
+                    background-color: Red;
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
+                    border-radius: 25px;
+                    font-size: 40pt;
+                    font-weight: bold;
+                    cursor:pointer;
+                    color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+    }
+
+      
 
 
 
 
 
 
-         body {
-            background-image: url("img/BG_Main.png")no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-
-
-
+    body {
+        background-image: url("img/BG_Main.png")no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
         }
                
 
-        button {             
-                margin: 1px 1px 1px 1px;
-                width: 140px;
-                height: 40px;
-                font-size: 8pt;
-                color: white;
-                border-radius:10px;
-                background-color: Green;
+    button {             
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        background-color: Green;
+    }
 
-                }
 
+    button:hover {
+        background: #3cb0fd;
+        text-decoration: none;
+    }
 
-        button:hover {
-                background: #3cb0fd;
-                text-decoration: none;
-            }
-
-        button:active {
-                position:relative;
-                top:2px;
-                background-color: Red;
-            }
+    button:active {
+        position:relative;
+        top:2px;
+        background-color: Red;
+    }
 
 
     /*Light*/
@@ -284,19 +292,12 @@
                 #gpio2.HIGH {
                         background-color: Blue;
                 }
-
-
-
         </style>        
 </head>
 
 
 
 <body background="img/BG_Main.png">
-
-
-
-
 <table align="center" border="0">
     <!--Title off the page-->
     <tr>
@@ -306,7 +307,7 @@
 </table>
 
 
-            <div id="content" align="center"></div>
+<div id="content" align="center"></div>
 
 
 
@@ -337,7 +338,7 @@
         <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
     </tr>
 
-        <td> on/off</th>
+        <td id="IndicatorLightOn"> on/off</th>
         <td> on/off</th>
         <td> on/off</th>
         <td> on/off</th>
