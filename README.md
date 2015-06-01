@@ -1,10 +1,19 @@
-#Fishtank controller
+#Fishtank controller :tropical_fish:
 
 ## Description
 
 ## Nice To Have
 
 ## References
+
+
+
+Description | Link
+------------ | -------------
+Github markdown cheat sheet | https://guides.github.com/features/mastering-markdown/
+-| -
+------------ | -------------
+
 ## To Do
 * Edit buttons and reformat						
 * auto/manual buttons
@@ -16,28 +25,20 @@
 
 
 ## In Process
--Implementation two bottons routine in all outputs 	InProcess
--Implementation on/off indicators
+*Implementation two bottons routine in all outputs 	InProcess
+*Implementation on/off indicators
+### Comments
+*id buttons in position, still to reformat the whole page and create smaller indicators. 
+*Two buttons on/off working properly, still to change the macro to make it work as only one function, instead of individual specific macros. 
 
 ## Done
--Finish html layout  								 
--Links to configuration and statistics webpages.
--To Do list.
--Status bar.
--Two buttons controlling same output.
--Button On/Off  (Use Macros) 						DONE
--on/off indicators								DONE
+*Finish html layout  								 
+*Links to configuration and statistics webpages.
+*Status bar.
+*Two buttons controlling same output.
+*Button On/Off  (Use Macros) 
+*on/off indicators
 
---------NICE TO HAVE-------------
-1. github subversion								DONE
+## Nice to have
+*github subversion								DONE
 
-
-Llama te amo mucho tia lind
-
-
-Comments:
-
-id buttons in position, still to reformat the whole page and create smaller indicators. 
-
-Two buttons on/off working properly, still to change the macro to make it work 
-as only one function instead of individual specific macros. 
