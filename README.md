@@ -15,6 +15,9 @@ Webio frame
 python
 with the aim of making lige easier the following software was installed
 Software | Description| Link
+|headless pi|
+|remote connection|
+||
 ------------ | ------------- | -------------
 
 
