@@ -73,3 +73,10 @@ def outputControlMacro(state):
         GPIO.digitalWrite(2, GPIO.HIGH)
     elif(state == "0"):
         GPIO.digitalWrite(2, GPIO.LOW)
+
+
+@webiopi.macro
+def get_LightStatus(arg0):
+    p0 = GPIO.digitalRead(LIGHT)
+    print (p0)
+    return "%d" % p0 # returns "0" or "1"
