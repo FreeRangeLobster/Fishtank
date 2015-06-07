@@ -12,8 +12,17 @@
         webiopi().ready(function() {
                 
                 var buttton;
-                   content = $("#content");
-                   indicators1=$("#indicator1");
+                //what is the name of this kind of aliasing???
+                contentLight = $("#contentLight");
+                contentPump = $("#contentPump");
+                contentAir = $("#contentAir");
+                contentAux = $("#contentAux");
+
+
+
+
+
+                indicators1=$("#indicator1");
 
                 button = webiopi().createGPIOButton(17, "LIGHT");
                     $("#LightOn").append(button);
@@ -27,25 +36,56 @@
                 button = webiopi().createGPIOButton(22, "AUX");
                     $("#AuxOn").append(button);
 
-                
-        //button=webiopi().createGPIOButton(2, "");
-        //button.append(button);
+
 
 
                 //Two buttons, 1 button turns on, the other one turns off the same output
                 // create a button which calls outputControl with "1" as argument to turn gpio ON
-                button = webiopi().createMacroButton("id_outputControl", "On", "outputControlMacro", [1]);
-                content.append(button); // append button to content div
+                button = webiopi().createMacroButton("id_outputControl", "Light On", "outputControlMacroLight", [1]);
+                contentLight.append(button); // append button to content div
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Light Off", "outputControlMacroLight", [0]);
+                contentLight.append(button); // append button to content div
+
+
+                //Two buttons controlling the same output, 1 button turns on the other off
+                // create a button which calls outputControl with "1" as argument to turn gpio ON
+                button = webiopi().createMacroButton("id_outputControl", "Pump On", "outputControlMacroPump", [1]);
+                contentPump.append(button); // append button to content div
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Pump Off", "outputControlMacroPump", [0]);
+                contentPump.append(button); // append button to content div
+
+                
+
+
+                //Two buttons controlling the same output, 1 button turns on the other off
+                // create a button which calls outputControl with "1" as argument to turn gpio ON
+                button = webiopi().createMacroButton("id_outputControl", "Air On", "outputControlMacroAir", [1]);
+                contentAir.append(button); // append button to content div
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Air Off", "outputControlMacroAir", [0]);
+                contentAir.append(button); // append button to content div
+
+
+
+                //Two buttons controlling the same output, 1 button turns on the other off
+                // create a button which calls outputControl with "1" as argument to turn gpio ON
+                button = webiopi().createMacroButton("id_outputControl", "Aux On", "outputControlMacroAux", [1]);
+                contentAux.append(button); // append button to content div
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Aux Off", "outputControlMacroAux", [0]);
+                contentAux.append(button); // append button to content div
+
+                
 
                 // create a "LED" for GPIO 2
                 button = webiopi().createGPIOButton(17, "");
                 //content.append(button); // append button to content div
-                  $("#IndicatorLightOn").append(button);
+                $("#IndicatorLightOn").append(button);
 
 
-                // create a button which calls outputControl with "0" as argument to turn gpio OFF
-                button = webiopi().createMacroButton("id_outputControl", "Off", "outputControlMacro", [0]);
-                content.append(button); // append button to content div
+                
 
 
                 // Refresh GPIO buttons
@@ -57,8 +97,8 @@
         </script>
 
 
-        <style type="text/css">
-
+    <style type="text/css">
+        /*the style of the couple of buttons used to tun on/off manually the output*/
    
     #id_outputControl1 {
                     display: block;
@@ -179,6 +219,8 @@
     }
 
 
+
+
     button:hover {
         background: #3cb0fd;
         text-decoration: none;
@@ -285,7 +327,7 @@
         color: red;
     }      
 
-            #gpio2.LOW {
+                #gpio2.LOW {
                         background-color: Red;
                 }
                 
@@ -307,7 +349,8 @@
 </table>
 
 
-<div id="content" align="center"></div>
+
+
 
 
 
@@ -366,29 +409,19 @@
 
     <tr>
         <!--Controls-->
-         <td colspan="2"id="LightOn"></td> 
-       <!-- <td colspan="2"> <button type="button" align="center">Light On</button></td> -->
-        <td colspan="2"> <button type="button" align="center">Light off</button></td>
-
-
+         <td colspan="4"> <div id="contentLight" align="center"></div></td> 
     </tr>
 
     <tr>
-        <td colspan="2" id="WaterPumpOn"></td> 
-        <!--<td colspan="2"> <button type="button" align="center">Pump On</button></td>-->
-        <td colspan="2"> <button type="button" align="center">Pump Off</button></td> 
+        <td colspan="4"> <div id="contentPump" align="center"></div></td> 
     </tr>
 
     <tr>
-        <td colspan="2" id="AirOn"></td>
-        <!--<td colspan="2"> <button type="button" align="center">Air On</button></td>-->
-        <td colspan="2"> <button type="button" align="center">Air Off</button></td>
+        <td colspan="4"> <div id="contentAir" align="center"></div></td> 
     </tr>
 
     <tr>
-        <td colspan="2" id="AuxOn"></td>
-        <!--<td colspan="2"> <button type="button" align="center">Aux On</button></td>-->
-        <td colspan="2"> <button type="button" align="center">Aux Off</button></td>
+        <td colspan="4"> <div id="contentAux" align="center"></div></td> 
     </tr>
 
 

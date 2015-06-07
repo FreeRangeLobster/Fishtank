@@ -9,33 +9,39 @@ This application is a remote fishtank controller. It was developed on a raspberr
 
 
 ## To Do
-* Save image back up out of the two systems(live one and development)
-* Edit buttons and reformat						
+* DONE Html layout 
+* DONE Edit buttons and reformat	  
+* DONE Implementation two bottons routine in all outputs 
+* Implement state indicators example in https://groups.google.com/forum/#!searchin/webiopi/macro$20LightStatus/webiopi/ho7N8AoOeWo/xULL5L0xZO0J
+* Save image back up out of the two systems(live one and development projects)
 * auto/manual buttons
 * Try writing to a txt
 * Try sensor
 * waved
-* ake index.html work properlyand release
+* Release project V0 Index.html work properlyand release
 * Go Live in Pi hooked to the fishtank
 
 
 ## In Process
-*Implementation two bottons routine in all outputs 	InProcess
+
 *Implementation on/off indicators
 ### Comments
-*Id buttons in position, still to reformat the whole page and create smaller indicators. 
+
+
+## NICE TO HAVE
+*github subversion								DONE
 *Two buttons on/off working properly, still to change the macro to make it work as only one function, instead of individual specific macros. 
 
 ## Done
-*Html layout  								 
+ 								 
 *Links to configuration and statistics webpages.
 *Status bar.
 *Two buttons controlling same output.
 *Button On/Off  (Use Macros) 
 *on/off indicators
 
-## Nice to have
-*github subversion								DONE
+
+
 
 
 #Hardware:

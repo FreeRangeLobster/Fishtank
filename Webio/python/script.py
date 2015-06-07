@@ -67,12 +67,40 @@ def setLightHours(on, off):
     HOUR_OFF = int(off)
     return getLightHours()
 
+#controls the GPIO output of the light using two buttons
 @webiopi.macro
-def outputControlMacro(state):
+def outputControlMacroLight(state):
     if(state == "1"):
-        GPIO.digitalWrite(2, GPIO.HIGH)
+        GPIO.digitalWrite(LIGHT, GPIO.HIGH)
     elif(state == "0"):
-        GPIO.digitalWrite(2, GPIO.LOW)
+        GPIO.digitalWrite(LIGHT, GPIO.LOW)
+
+
+
+#controls the GPIO output of the Pump using two buttons
+@webiopi.macro
+def outputControlMacroPump(state):
+    if(state == "1"):
+        GPIO.digitalWrite(PUMP, GPIO.HIGH)
+    elif(state == "0"):
+        GPIO.digitalWrite(PUMP, GPIO.LOW)
+
+#controls the GPIO output of the Air using two buttons
+@webiopi.macro
+def outputControlMacroAir(state):
+    if(state == "1"):
+        GPIO.digitalWrite(AIR, GPIO.HIGH)
+    elif(state == "0"):
+        GPIO.digitalWrite(AIR, GPIO.LOW)
+
+#controls the GPIO output of the Aux using two buttons
+@webiopi.macro
+def outputControlMacroAux(state):
+    if(state == "1"):
+        GPIO.digitalWrite(AUX, GPIO.HIGH)
+    elif(state == "0"):
+        GPIO.digitalWrite(AUX, GPIO.LOW)
+
 
 
 @webiopi.macro
