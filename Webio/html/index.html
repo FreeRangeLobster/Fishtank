@@ -93,6 +93,28 @@
                 webiopi().refreshGPIO(true);
 
         });
+
+
+setInterval ("callMacro_get_DoorStatus()", 5000);{
+}
+
+function callMacro_get_DoorStatus(){
+var args = [0]
+//Get data form script.py and return it with Callback
+webiopi().callMacro("get_DoorStatus", args, macro_get_DoorStatus_Callback);}
+
+function macro_get_DoorStatus_Callback(macro, args, data){
+
+p0 = data.split(" ")[0];
+if (p0==1){
+webiopi().setClass("macro1", "Open");
+webiopi().setLabel("macro1", "Door Open");
+document.getElementById("pic0").src = "img/Btn_Light.png"; }
+else{
+webiopi().setClass("macro1", "Closed");
+webiopi().setLabel("macro1", "Door Closed");
+document.getElementById("pic0").src = "img/Btn_Bubbles.png";    }
+}
                        
         </script>
 
@@ -341,6 +363,8 @@
 
 <body background="img/BG_Main.png">
 <table align="center" border="0">
+
+     <div><img name="pic0" id="pic0"> new stuff should be here</div>
     <!--Title off the page-->
     <tr>
         <th>Fishtank controller</th>
