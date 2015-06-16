@@ -110,6 +110,26 @@ def get_LightStatus(arg0):
     print ('something is on')
     return "%d" % p0 # returns "0" or "1"
 
+@webiopi.macro
+def get_LightStatus(arg0):
+    p0 = GPIO.digitalRead(AUX)
+    print (p0)
+    print ('something is on')
+    return "%d" % p0 # returns "0" or "1"
+
+@webiopi.macro
+def get_LightStatus(arg0):
+    p0 = GPIO.digitalRead(AIR)
+    print (p0)
+    print ('something is on')
+    return "%d" % p0 # returns "0" or "1"
+
+@webiopi.macro
+def get_LightStatus(arg0):
+    p0 = GPIO.digitalRead(LIGHT)
+    print (p0)
+    print ('something is on')
+    return "%d" % p0 # returns "0" or "1"
 
 
 
