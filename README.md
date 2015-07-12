@@ -141,10 +141,11 @@ Install Sublime text if using MAC
 ##3 Installing webIO
 http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 
-
 ##4 Hello world web
 http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 
 ##5 working around with the interface
-##6 Circuits and connections
-##7 Mounting
+![GitHub Logo] ( )
+##6 Circuit layout
+![GitHub Logo] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Fishtank%20controller%20electrical%20diagram.png)
+
