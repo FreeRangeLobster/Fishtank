@@ -28,6 +28,7 @@ def setup():
     if ((now.hour >= HOUR_ON) and (now.hour < HOUR_OFF)):
         GPIO.digitalWrite(LIGHT, GPIO.HIGH)
 
+
 # loop function is repeatedly called by WebIOPi 
 def loop():
     # retrieve current datetime
@@ -54,8 +55,6 @@ def destroy():
     GPIO.digitalWrite(AUX, GPIO.LOW)
 
 
-
-
 @webiopi.macro
 def getLightHours():
     return "%d;%d" % (HOUR_ON, HOUR_OFF)
@@ -74,8 +73,6 @@ def outputControlMacroLight(state):
         GPIO.digitalWrite(LIGHT, GPIO.HIGH)
     elif(state == "0"):
         GPIO.digitalWrite(LIGHT, GPIO.LOW)
-
-
 
 #controls the GPIO output of the Pump using two buttons
 @webiopi.macro
@@ -131,12 +128,18 @@ def get_LightStatus(arg0):
     print ('something is on')
     return "%d" % p0 # returns "0" or "1"
 
-
-
 @webiopi.macro
 def get_DoorStatus(arg0):
     p0 = GPIO.digitalRead(LIGHT)
+    
+    #change this 
+    pLight = GPIO.digitalRead(LIGHT)
+    pPump = GPIO.digitalRead(PUMP)
+    pAir = GPIO.digitalRead(AIR)
+    pAux = GPIO.digitalRead(AUX)
+    #changethis
     print (p0)
+    print (p1)
     print ('something is on2')
     return "%d" % p0 # returns "0" or "1"
 

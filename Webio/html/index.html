@@ -83,11 +83,6 @@
                 button = webiopi().createGPIOButton(17, "");
                 //content.append(button); // append button to content div
                 $("#IndicatorLightOn").append(button);
-
-
-                
-
-
                 // Refresh GPIO buttons
                 // pass true to refresh repeatedly or false to refresh once
                 webiopi().refreshGPIO(true);
@@ -95,28 +90,49 @@
         });
 
 
-setInterval ("callMacro_get_DoorStatus()", 5000);{
-}
+        setInterval ("callMacro_get_DoorStatus()", 5000);
+        {
+        }
 
 function callMacro_get_DoorStatus(){
-var args = [0]
-//Get data form script.py and return it with Callback
-webiopi().callMacro("get_DoorStatus", args, macro_get_DoorStatus_Callback);}
+    var args = [0]
+    //Get data form script.py and return it with Callback
+    webiopi().callMacro("get_DoorStatus", args, macro_get_DoorStatus_Callback);
+}
 
 function macro_get_DoorStatus_Callback(macro, args, data){
+    p0 = data.split(" ")[0];
+    if (p0==1){
+        //webiopi().setClass("macro1", "Open");
+        //webiopi().setLabel("macro1", "Door Open");
+        document.getElementById("pic0").src = "img/Btn_Light.png"; 
+    }
+    else{
+        //webiopi().setClass("macro1", "Closed");
+        //webiopi().setLabel("macro1", "Door Closed");
+        document.getElementById("pic0").src = "img/Btn_Bubbles.png";
+    }
 
-p0 = data.split(" ")[0];
-if (p0==1){
-webiopi().setClass("macro1", "Open");
-webiopi().setLabel("macro1", "Door Open");
-document.getElementById("pic0").src = "img/Btn_Light.png"; }
-else{
-webiopi().setClass("macro1", "Closed");
-webiopi().setLabel("macro1", "Door Closed");
-document.getElementById("pic0").src = "img/Btn_Bubbles.png";    }
+
+
+//--------Change this, it is not working-------------------
+    p1 = data.split(" ")[1];
+    if (p1==1){
+        //webiopi().setClass("macro1", "Open");
+        //webiopi().setLabel("macro1", "Door Open");
+        document.getElementById("pic1").src = "img/Btn_Light.png"; 
+    }
+    else{
+        //webiopi().setClass("macro1", "Closed");
+        //webiopi().setLabel("macro1", "Door Closed");
+        document.getElementById("pic1").src = "img/Btn_Bubbles.png";
+    }
+//------------Change this ----------------------------------
+
+
 }
-                       
-        </script>
+                           
+</script>
 
 
     <style type="text/css">
@@ -353,7 +369,7 @@ document.getElementById("pic0").src = "img/Btn_Bubbles.png";    }
                         background-color: Red;
                 }
                 
-                #gpio2.HIGH {
+                #gpio2.HIGH { 
                         background-color: Blue;
                 }
         </style>        
@@ -365,6 +381,10 @@ document.getElementById("pic0").src = "img/Btn_Bubbles.png";    }
 <table align="center" border="0">
 
      <div><img name="pic0" id="pic0"> new stuff should be here</div>
+
+     <!--Change this-->
+     <div><img name="pic1" id="pic1"> new stuff should be here</div>
+
     <!--Title off the page-->
     <tr>
         <th>Fishtank controller</th>

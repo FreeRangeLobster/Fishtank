@@ -2,12 +2,15 @@
 
 ## Description
 
+More description should come here
+
+
 This application is a remote fishtank controller. It was developed on a raspberry pi b+ using WEbio framework which is a great approach to the internet of things. 
 
 ## To Do
 
-* Auto/manual buttons.
-* Txt with configuration parameters
+* Auto/manual buttons .
+* Txt with configuration parameters.
 * Test sensor
 * Finish wiki
 * Release project V0 Index.html 
@@ -49,7 +52,7 @@ Command | Application | Description
 git add .| Github|Stages all the changes making them ready to commit
 git commit -m "Comment"|Github|insert comments
 git push origin master|Github| Push Baby Push commits 
-git pull origin master|Github|pull stuff from the git servers
+git pull origin master|Github|pull stuff from the git servers, used for updating the local folders
 Run server in dev mode|WebIO|sudo webiopi -d -c /etc/webiopi/config
 sudo su|Linux|super user shell
 exit|Linux|to go back to client
