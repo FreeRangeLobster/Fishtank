@@ -52,7 +52,7 @@ def destroy():
     GPIO.digitalWrite(LIGHT, GPIO.LOW)
     GPIO.digitalWrite(PUMP, GPIO.LOW)
     GPIO.digitalWrite(AIR, GPIO.LOW)
-    GPIO.digitalWrite(AUX, GPIO.LOW)
+    GPIO.digitalWrite(AUX, GPIO.LOW)   
 
 
 @webiopi.macro
@@ -98,48 +98,51 @@ def outputControlMacroAux(state):
     elif(state == "0"):
         GPIO.digitalWrite(AUX, GPIO.LOW)
 
-
-
-@webiopi.macro
-def get_LightStatus(arg0):
-    p0 = GPIO.digitalRead(LIGHT)
-    print (p0)
-    print ('something is on')
-    return "%d" % p0 # returns "0" or "1"
-
-@webiopi.macro
-def get_LightStatus(arg0):
-    p0 = GPIO.digitalRead(AUX)
-    print (p0)
-    print ('something is on')
-    return "%d" % p0 # returns "0" or "1"
-
-@webiopi.macro
-def get_LightStatus(arg0):
-    p0 = GPIO.digitalRead(AIR)
-    print (p0)
-    print ('something is on')
-    return "%d" % p0 # returns "0" or "1"
+#---------------------------------------change here-------------
 
 @webiopi.macro
 def get_LightStatus(arg0):
     p0 = GPIO.digitalRead(LIGHT)
     print (p0)
+    print ('Light on')
+    return "%d" % p0 # returns "0" or "1"
+
+@webiopi.macro
+def get_PumpStatus(arg0):
+    p1 = GPIO.digitalRead(PUMP)
+    print (p1)
+    print ('Pump')
+    return "%d" % p1 # returns "0" or "1"
+
+
+@webiopi.macro
+def get_AirStatus(arg0):
+    p2 = GPIO.digitalRead(AIR)
+    print (p2)
+    print ('something is on')
+    return "%d" % p1 # returns "0" or "1"
+
+@webiopi.macro
+def get_AuxStatus(arg0):
+    p3 = GPIO.digitalRead(AUX)
+    print (p3)
     print ('something is on')
     return "%d" % p0 # returns "0" or "1"
+
+#------------------------------------change here------------------
 
 @webiopi.macro
 def get_DoorStatus(arg0):
     p0 = GPIO.digitalRead(LIGHT)
     
     #change this 
-    pLight = GPIO.digitalRead(LIGHT)
-    pPump = GPIO.digitalRead(PUMP)
-    pAir = GPIO.digitalRead(AIR)
-    pAux = GPIO.digitalRead(AUX)
+    #pLight = GPIO.digitalRead(LIGHT)
+    #pPump = GPIO.digitalRead(PUMP)
+    #pAir = GPIO.digitalRead(AIR)
+    #pAux = GPIO.digitalRead(AUX)
     #changethis
     print (p0)
-    print (p1)
+    #print (p1)
     print ('something is on2')
     return "%d" % p0 # returns "0" or "1"
 

@@ -17,11 +17,6 @@
                 contentPump = $("#contentPump");
                 contentAir = $("#contentAir");
                 contentAux = $("#contentAux");
-
-
-
-
-
                 indicators1=$("#indicator1");
 
                 button = webiopi().createGPIOButton(17, "LIGHT");
@@ -36,9 +31,6 @@
                 button = webiopi().createGPIOButton(22, "AUX");
                     $("#AuxOn").append(button);
 
-
-
-
                 //Two buttons, 1 button turns on, the other one turns off the same output
                 // create a button which calls outputControl with "1" as argument to turn gpio ON
                 button = webiopi().createMacroButton("id_outputControl", "Light On", "outputControlMacroLight", [1]);
@@ -46,7 +38,6 @@
                 // create a button which calls outputControl with "0" as argument to turn gpio OFF
                 button = webiopi().createMacroButton("id_outputControl", "Light Off", "outputControlMacroLight", [0]);
                 contentLight.append(button); // append button to content div
-
 
                 //Two buttons controlling the same output, 1 button turns on the other off
                 // create a button which calls outputControl with "1" as argument to turn gpio ON
@@ -56,9 +47,6 @@
                 button = webiopi().createMacroButton("id_outputControl", "Pump Off", "outputControlMacroPump", [0]);
                 contentPump.append(button); // append button to content div
 
-                
-
-
                 //Two buttons controlling the same output, 1 button turns on the other off
                 // create a button which calls outputControl with "1" as argument to turn gpio ON
                 button = webiopi().createMacroButton("id_outputControl", "Air On", "outputControlMacroAir", [1]);
@@ -67,17 +55,13 @@
                 button = webiopi().createMacroButton("id_outputControl", "Air Off", "outputControlMacroAir", [0]);
                 contentAir.append(button); // append button to content div
 
-
-
                 //Two buttons controlling the same output, 1 button turns on the other off
                 // create a button which calls outputControl with "1" as argument to turn gpio ON
                 button = webiopi().createMacroButton("id_outputControl", "Aux On", "outputControlMacroAux", [1]);
                 contentAux.append(button); // append button to content div
                 // create a button which calls outputControl with "0" as argument to turn gpio OFF
                 button = webiopi().createMacroButton("id_outputControl", "Aux Off", "outputControlMacroAux", [0]);
-                contentAux.append(button); // append button to content div
-
-                
+                contentAux.append(button); // append button to content div             
 
                 // create a "LED" for GPIO 2
                 button = webiopi().createGPIOButton(17, "");
@@ -90,17 +74,23 @@
         });
 
 
-        setInterval ("callMacro_get_DoorStatus()", 5000);
+        setInterval ("callMacro_get_ControllerStatus()", 1000);
         {
         }
 
-function callMacro_get_DoorStatus(){
+
+// all the changes have to happen here. happy days
+
+
+function callMacro_get_ControllerStatus(){
     var args = [0]
-    //Get data form script.py and return it with Callback
-    webiopi().callMacro("get_DoorStatus", args, macro_get_DoorStatus_Callback);
+    //Get data form script.py and return it with Callback   ------------------------------------------------------------- 
+    webiopi().callMacro("get_LightStatus", args, macro_get_LightStatus_Callback);
+    webiopi().callMacro("get_PumpStatus", args, macro_get_PumpStatus_Callback);
+
 }
 
-function macro_get_DoorStatus_Callback(macro, args, data){
+function macro_get_LightStatus_Callback(macro, args, data){
     p0 = data.split(" ")[0];
     if (p0==1){
         //webiopi().setClass("macro1", "Open");
@@ -112,11 +102,10 @@ function macro_get_DoorStatus_Callback(macro, args, data){
         //webiopi().setLabel("macro1", "Door Closed");
         document.getElementById("pic0").src = "img/Btn_Bubbles.png";
     }
+}
 
-
-
-//--------Change this, it is not working-------------------
-    p1 = data.split(" ")[1];
+function macro_get_PumpStatus_Callback(macro, args, data){
+    p1 = data.split(" ")[0];
     if (p1==1){
         //webiopi().setClass("macro1", "Open");
         //webiopi().setLabel("macro1", "Door Open");
@@ -127,11 +116,10 @@ function macro_get_DoorStatus_Callback(macro, args, data){
         //webiopi().setLabel("macro1", "Door Closed");
         document.getElementById("pic1").src = "img/Btn_Bubbles.png";
     }
-//------------Change this ----------------------------------
-
-
 }
-                           
+
+  
+//until here----------------------------------------------------------------------------------------------------------                         
 </script>
 
 
@@ -380,10 +368,12 @@ function macro_get_DoorStatus_Callback(macro, args, data){
 <body background="img/BG_Main.png">
 <table align="center" border="0">
 
-     <div><img name="pic0" id="pic0"> new stuff should be here</div>
+     <!--<div><img name="pic0" id="pic0" width="42" height="42" > new stuff should be here</div>-->
+     <!--<div><img name="pic0" id="pic0" width="42" height="42" > new stuff should be here</div>-->
+     
 
      <!--Change this-->
-     <div><img name="pic1" id="pic1"> new stuff should be here</div>
+     <!--<div><img name="pic0" id="pic0"> new stuff should be here</div>-->
 
     <!--Title off the page-->
     <tr>
@@ -416,8 +406,10 @@ function macro_get_DoorStatus_Callback(macro, args, data){
     <tr>
         <!--Status cell-->
         
-        <td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:42px;height:42px;border:0"> </a></td>
-        <td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <!--<td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:42px;height:42px;border:0"> </a></td>-->
+       <td> <div><a><img name="pic0" id="pic0" style="width:42px;height:42px;border:0"> </a></div></td> 
+       <td> <div><a><img name="pic1" id="pic1" style="width:42px;height:42px;border:0"> </a></div></td>
+       <!-- <td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:42px;height:42px;border:0"> </a></td>-->
         <td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:38px;height:42px;border:0"> </a></td>
         <td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:42px;height:42px;border:0"> </a></td>
     </tr>        
@@ -425,7 +417,7 @@ function macro_get_DoorStatus_Callback(macro, args, data){
         <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
     </tr>
 
-        <td id="IndicatorLightOn"> on/off</th>
+        <!--<td id="IndicatorLightOn"> on/off</th>-->
         <td> on/off</th>
         <td> on/off</th>
         <td> on/off</th>
