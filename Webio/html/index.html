@@ -87,6 +87,9 @@ function callMacro_get_ControllerStatus(){
     //Get data form script.py and return it with Callback   ------------------------------------------------------------- 
     webiopi().callMacro("get_LightStatus", args, macro_get_LightStatus_Callback);
     webiopi().callMacro("get_PumpStatus", args, macro_get_PumpStatus_Callback);
+    webiopi().callMacro("get_AirStatus", args, macro_get_AirStatus_Callback);
+    webiopi().callMacro("get_AuxStatus", args, macro_get_AuxStatus_Callback);
+
 
 }
 
@@ -117,6 +120,37 @@ function macro_get_PumpStatus_Callback(macro, args, data){
         document.getElementById("pic1").src = "img/Btn_Bubbles.png";
     }
 }
+
+function macro_get_AirStatus_Callback(macro, args, data){
+    p2 = data.split(" ")[0];
+    if (p2==1){
+        //webiopi().setClass("macro1", "Open");
+        //webiopi().setLabel("macro1", "Door Open");
+        document.getElementById("pic2").src = "img/Btn_Light.png"; 
+    }
+    else{
+        //webiopi().setClass("macro1", "Closed");
+        //webiopi().setLabel("macro1", "Door Closed");
+        document.getElementById("pic2").src = "img/Btn_Bubbles.png";
+    }
+}
+
+
+function macro_get_AuxStatus_Callback(macro, args, data){
+    p3 = data.split(" ")[0];
+    if (p3==1){
+        //webiopi().setClass("macro1", "Open");
+        //webiopi().setLabel("macro1", "Door Open");
+        document.getElementById("pic3").src = "img/Btn_Light.png"; 
+    }
+    else{
+        //webiopi().setClass("macro1", "Closed");
+        //webiopi().setLabel("macro1", "Door Closed");
+        document.getElementById("pic3").src = "img/Btn_Bubbles.png";
+    }
+}
+
+
 
   
 //until here----------------------------------------------------------------------------------------------------------                         
@@ -409,9 +443,11 @@ function macro_get_PumpStatus_Callback(macro, args, data){
         <!--<td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:42px;height:42px;border:0"> </a></td>-->
        <td> <div><a><img name="pic0" id="pic0" style="width:42px;height:42px;border:0"> </a></div></td> 
        <td> <div><a><img name="pic1" id="pic1" style="width:42px;height:42px;border:0"> </a></div></td>
+       <td> <div><a><img name="pic2" id="pic2" style="width:42px;height:42px;border:0"> </a></div></td>
+       <td> <div><a><img name="pic3" id="pic3" style="width:42px;height:42px;border:0"> </a></div></td>
        <!-- <td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:42px;height:42px;border:0"> </a></td>-->
-        <td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:38px;height:42px;border:0"> </a></td>
-        <td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <!-- <td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:38px;height:42px;border:0"> </a></td>-->
+        <!--<td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:42px;height:42px;border:0"> </a></td>-->
     </tr>        
     <tr>
         <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
