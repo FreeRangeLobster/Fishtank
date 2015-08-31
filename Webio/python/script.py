@@ -3,6 +3,7 @@ import datetime
 
 GPIO = webiopi.GPIO
 
+
 LIGHT = 17 # GPIO pin using BCM numbering
 PUMP=18 #GPIO pin
 AIR=21 #GPIO pin
@@ -19,6 +20,10 @@ def setup():
     GPIO.setFunction(AIR, GPIO.OUT)
     GPIO.setFunction(AUX, GPIO.OUT)
     GPIO.setFunction(2, GPIO.OUT)
+
+    import os
+    os.system("sudo modprobe w1-gpio")
+    os.system("sudo modprobe w1-therm")
 
 
     # retrieve current datetime
@@ -127,3 +132,6 @@ def get_AuxStatus(arg0):
     print ('Aux')
     print (p3)
     return "%d" % p3 # returns "0" or "1"
+
+
+

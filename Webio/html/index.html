@@ -8,10 +8,14 @@
         <title>WebIOPi | Light Control</title>
         <script type="text/javascript" src="/webiopi.js"></script>
         <script type="text/javascript">
+         var tmp; //stores the temperature
 
         webiopi().ready(function() {
                 
                 var buttton;
+               
+               tmp = new Temperature("tmp");
+
                 //what is the name of this kind of aliasing???
                 contentLight = $("#contentLight");
                 contentPump = $("#contentPump");
@@ -149,6 +153,26 @@ function macro_get_AuxStatus_Callback(macro, args, data){
         document.getElementById("pic3").src = "img/Btn_Bubbles.png";
     }
 }
+
+
+//New code without testing to show temperature of the system
+
+
+        //Temp0 is my DS18B20 device name specified in config file
+
+    tmp = new Temperature("Temp0");{
+                setInterval(updateUI, 1000);
+    }
+    
+    function updateUI() {
+        tmp.getCelsius(temperatureCallback);
+    }
+            // callback function used to display the temperature
+    function temperatureCallback(tmp, data) {
+                // jQuery functions
+        $("#bt_heater").text(data + " Â°C");
+}
+
 
 
 
@@ -400,6 +424,9 @@ function macro_get_AuxStatus_Callback(macro, args, data){
 
 
 <body background="img/BG_Main.png">
+
+  <div id="bt_heater"><div/>
+
 <table align="center" border="0">
 
      <!--<div><img name="pic0" id="pic0" width="42" height="42" > new stuff should be here</div>-->
