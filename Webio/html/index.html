@@ -100,42 +100,30 @@ function callMacro_get_ControllerStatus(){
 function macro_get_LightStatus_Callback(macro, args, data){
     p0 = data.split(" ")[0];
     if (p0==1){
-        //webiopi().setClass("macro1", "Open");
-        //webiopi().setLabel("macro1", "Door Open");
-        document.getElementById("pic0").src = "img/Btn_Light.png"; 
+        document.getElementById("pic0").src = "img/Ind_Light_ON.png"; 
     }
     else{
-        //webiopi().setClass("macro1", "Closed");
-        //webiopi().setLabel("macro1", "Door Closed");
-        document.getElementById("pic0").src = "img/Btn_Bubbles.png";
+        document.getElementById("pic0").src = "img/Ind_Light_OFF.png";
     }
 }
 
 function macro_get_PumpStatus_Callback(macro, args, data){
     p1 = data.split(" ")[0];
     if (p1==1){
-        //webiopi().setClass("macro1", "Open");
-        //webiopi().setLabel("macro1", "Door Open");
-        document.getElementById("pic1").src = "img/Btn_Light.png"; 
+        document.getElementById("pic1").src = "img/Ind_Pump_ON.png"; 
     }
     else{
-        //webiopi().setClass("macro1", "Closed");
-        //webiopi().setLabel("macro1", "Door Closed");
-        document.getElementById("pic1").src = "img/Btn_Bubbles.png";
+        document.getElementById("pic1").src = "img/Ind_Pump_OFF.png";
     }
 }
 
 function macro_get_AirStatus_Callback(macro, args, data){
     p2 = data.split(" ")[0];
     if (p2==1){
-        //webiopi().setClass("macro1", "Open");
-        //webiopi().setLabel("macro1", "Door Open");
-        document.getElementById("pic2").src = "img/Btn_Light.png"; 
+        document.getElementById("pic2").src = "img/Ind_Bubbles_ON.png"; 
     }
     else{
-        //webiopi().setClass("macro1", "Closed");
-        //webiopi().setLabel("macro1", "Door Closed");
-        document.getElementById("pic2").src = "img/Btn_Bubbles.png";
+        document.getElementById("pic2").src = "img/Ind_Bubbles_OFF.png";
     }
 }
 
@@ -143,14 +131,10 @@ function macro_get_AirStatus_Callback(macro, args, data){
 function macro_get_AuxStatus_Callback(macro, args, data){
     p3 = data.split(" ")[0];
     if (p3==1){
-        //webiopi().setClass("macro1", "Open");
-        //webiopi().setLabel("macro1", "Door Open");
-        document.getElementById("pic3").src = "img/Btn_Light.png"; 
+        document.getElementById("pic3").src = "img/Ind_Aux_ON.png"; 
     }
     else{
-        //webiopi().setClass("macro1", "Closed");
-        //webiopi().setLabel("macro1", "Door Closed");
-        document.getElementById("pic3").src = "img/Btn_Bubbles.png";
+        document.getElementById("pic3").src = "img/Ind_Aux_OFF.png";
     }
 }
 
