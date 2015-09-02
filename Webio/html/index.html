@@ -78,7 +78,7 @@
         });
 
 
-        setInterval ("callMacro_get_ControllerStatus()", 1000);
+        setInterval ("callMacro_get_ControllerStatus()", 5000);
         {
         }
 
@@ -139,29 +139,11 @@ function macro_get_AuxStatus_Callback(macro, args, data){
 }
 
 
-//New code without testing to show temperature of the system
-
-
-        //Temp0 is my DS18B20 device name specified in config file
-
-    tmp = new Temperature("Temp0");{
-                setInterval(updateUI, 1000);
-    }
-    
-    function updateUI() {
-        tmp.getCelsius(temperatureCallback);
-    }
-            // callback function used to display the temperature
-    function temperatureCallback(tmp, data) {
-                // jQuery functions
-        $("#bt_heater").text(data + " Â°C");
-}
-
 
 
 
   
-//until here----------------------------------------------------------------------------------------------------------                         
+                    
 </script>
 
 

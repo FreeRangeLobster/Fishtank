@@ -39,6 +39,12 @@ def loop():
     # retrieve current datetime
     now = datetime.datetime.now()
 
+    tmp = webiopi.deviceInstance("temp0")
+    celsius = tmp.getCelsius() # retrieve current temperature
+    print("Temperature: %f" % celsius)
+
+
+
     # toggle light ON all days at the correct time
     if ((now.hour == HOUR_ON) and (now.minute == 0) and (now.second == 0)):
         if (GPIO.digitalRead(LIGHT) == GPIO.LOW):
