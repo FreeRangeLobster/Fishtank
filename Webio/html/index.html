@@ -83,7 +83,18 @@
         }
 
 
+
+
 // all the changes have to happen here. happy days
+function callMacro() {
+        var arg = [0];
+        webiopi().callMacro("getSensor", arg, sensorCallback);
+    }
+
+    function sensorCallback(macro, arg, data) {
+        myDiv1.innerHTML = data.split(" ")[0];
+    }
+
 
 
 function callMacro_get_ControllerStatus(){
@@ -93,6 +104,7 @@ function callMacro_get_ControllerStatus(){
     webiopi().callMacro("get_PumpStatus", args, macro_get_PumpStatus_Callback);
     webiopi().callMacro("get_AirStatus", args, macro_get_AirStatus_Callback);
     webiopi().callMacro("get_AuxStatus", args, macro_get_AuxStatus_Callback);
+    webiopi().callMacro("callMacro");
 
 
 }
@@ -404,6 +416,8 @@ function macro_get_AuxStatus_Callback(macro, args, data){
 
     <!--Title off the page-->
     <tr>
+        <td>value: </td>
+            <td><div id= "myDiv1"></div></td>
         <th>Fishtank controller</th>
     </tr>
     <!--Status cell-->

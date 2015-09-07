@@ -70,6 +70,25 @@ def destroy():
 def getLightHours():
     return "%d;%d" % (HOUR_ON, HOUR_OFF)
 
+
+def measure():
+    global value
+    print ("measure")
+    tmp = webiopi.deviceInstance("temp0")
+    value= tmp.getCelsius() # retrieve current temperature
+    print (value)
+    return (value)
+
+@webiopi.macro
+def getSensor(arg0):
+    global value
+    print("getSensor")
+    measure()
+    print (value)
+    return value
+
+
+
 @webiopi.macro
 def setLightHours(on, off):
     global HOUR_ON, HOUR_OFF
