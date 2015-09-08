@@ -10,12 +10,20 @@
         <script type="text/javascript">
          var tmp; //stores the temperature
 
+         function init() {
+        // setup helpers to remotely control devices
+        tmp = new Temperature("tmp0");
+        // automatically refresh UI each seconds
+        }
+
+
+
+
         webiopi().ready(function() {
                 
                 var buttton;
-               
-               tmp = new Temperature("tmp");
 
+                
                 //what is the name of this kind of aliasing???
                 contentLight = $("#contentLight");
                 contentPump = $("#contentPump");
@@ -91,9 +99,7 @@ function callMacro() {
         webiopi().callMacro("getSensor", arg, sensorCallback);
     }
 
-    function sensorCallback(macro, arg, data) {
-        myDiv1.innerHTML = data.split(" ")[0];
-    }
+   
 
 
 
@@ -105,7 +111,7 @@ function callMacro_get_ControllerStatus(){
     webiopi().callMacro("get_AirStatus", args, macro_get_AirStatus_Callback);
     webiopi().callMacro("get_AuxStatus", args, macro_get_AuxStatus_Callback);
     webiopi().callMacro("callMacro");
-
+    tmp0.getCelsius(temperatureCallback);
 
 }
 
@@ -150,6 +156,11 @@ function macro_get_AuxStatus_Callback(macro, args, data){
     }
 }
 
+// callback function used to display the temperature
+    function temperatureCallback(sensorName, data) {
+        // jQuery functions
+        myDiv1.innerHTML = data.text(data + "hola" );
+}
 
 
 

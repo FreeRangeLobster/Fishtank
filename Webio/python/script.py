@@ -37,11 +37,13 @@ def setup():
 # loop function is repeatedly called by WebIOPi 
 def loop():
     # retrieve current datetime
+    global temp0
     now = datetime.datetime.now()
 
-    tmp = webiopi.deviceInstance("temp0")
-    celsius = tmp.getCelsius() # retrieve current temperature
-    print("Temperature: %f" % celsius)
+    #Temperature indicators
+    tmp0 = webiopi.deviceInstance("temp0")
+    TempRead = tmp0.getCelsius() # retrieve current temperature
+    print("Temperature: %f" % TempRead)
 
 
 
@@ -66,28 +68,10 @@ def destroy():
     GPIO.digitalWrite(AUX, GPIO.LOW)   
 
 
+#Can be erased, used just for prototyping
 @webiopi.macro
 def getLightHours():
     return "%d;%d" % (HOUR_ON, HOUR_OFF)
-
-
-def measure():
-    global value
-    print ("measure")
-    tmp = webiopi.deviceInstance("temp0")
-    value= tmp.getCelsius() # retrieve current temperature
-    print (value)
-    return (value)
-
-@webiopi.macro
-def getSensor(arg0):
-    global value
-    print("getSensor")
-    measure()
-    print (value)
-    return value
-
-
 
 @webiopi.macro
 def setLightHours(on, off):
@@ -95,6 +79,8 @@ def setLightHours(on, off):
     HOUR_ON = int(on)
     HOUR_OFF = int(off)
     return getLightHours()
+
+
 
 #controls the GPIO output of the light using two buttons
 @webiopi.macro
