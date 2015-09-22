@@ -11,24 +11,27 @@ This application is a remote fishtank controller. It was developed on a raspberr
 
 * Auto/manual buttons .
 * Txt with configuration parameters.
-* Test sensor
 * Finish wiki
 * Release project V0 Index.html 
 * Go Live in Pi hooked to the fishtank and weaved
 
 ## In Process
-* formating colors and text 
-* Tide up code and document macros
+* Tidy Up application and go life
 * Test waved with the live system.
+* Pi-stop
 
 ### Comments-Hot
-Changes can be done offline.
+
 
 ### Past Comments-Cold
 read gpio status to html text  https://groups.google.com/forum/#!searchin/webiopi/macro$20LightStatus/webiopi/ho7N8AoOeWo/xULL5L0xZO0J
+Changes can be done offline.
 
 
 ##Done
+* formating colors and text 
+* Tide up code and document macros
+* Test sensor
 * Implement state indicators
 * Html layout 
 * Edit buttons and reformat	  
