@@ -2,10 +2,7 @@
 
 ## Description
 
-More description should come here
-
-
-This application is a remote fishtank controller. It was developed on a raspberry pi b+ using WEbio framework which is a great approach to the internet of things. 
+This project started out me being lazy to toggle the switch on and off. So why not do it from my mobile? and why not make it automatic? also I had a Pi XXXX is a remote fishtank controller. It was developed on a raspberry pi b+ using WEbio framework which is a great approach to the internet of things. 
 
 ## To Do
 
