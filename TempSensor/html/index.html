@@ -1,0 +1,68 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Robot</title>
+    <script type="text/javascript"
+    src="/webiopi.js"></script>
+    <script type="text/javascript">
+
+    webiopi().ready(function() {
+        var button;
+        webiopi().refreshGPIO(true);
+    });
+
+    setInterval("callMacro()", 1000); {}
+
+    //calls the maccro that retrieves the sensor reading
+    function callMacro() {        
+        var arg = [0];
+        webiopi().callMacro("getSensor", arg, sensorCallback);
+
+    }
+
+    //value of the sensor goes to a tag in the HTML
+    function sensorCallback(macro, arg, data) {
+        myDiv1.innerHTML = data.split(" ")[0];
+    }
+
+    </script>
+
+    <!--button css, not called from the html page, left here because -->
+    <style type="text/css">
+        button {
+            display: block;
+            margin: 5px 5px 5px 5px;
+            width: 160px;
+            height: 45px;
+            font-size: 24pt;
+            font-weight: bold;
+            color: black;
+        }
+        
+        input[type="range"] {
+            display: block;
+            width: 160px;
+            height: 45px;
+        }
+        
+        .LOW {
+            background-color: White;
+        }
+        
+        .HIGH {
+            background-color: Red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="content" align="center"></div> -->
+    <table align="center" >
+        <tr>
+            <td>value: </td>
+            <td><div id= "myDiv1"></div></td>
+        </tr>
+    </table>
+</body>
+
+</html>
