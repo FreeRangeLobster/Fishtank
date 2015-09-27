@@ -2,13 +2,15 @@
 
 ## Description
 
-This project started out me being lazy to flicker the switch on and off. So why not do it from my mobile phone? and why not make it automatic?.  Also I had a raspberry Pi doing nothing. So yeah, here I am writing the ReadMe of my fishtank controller. When I started I thought it was a weekend project, finding me writing this 6 months later probes otherwise. I was wrong!
+This project started out me being lazy to flicker the switch on and off. I asked myself: What if I control it from my mobile phone? and why not make it automatic?.  Also I have a Raspberry Pi !!!. When I started I thought it was a weekend project, but being here  writing the "ReadMe" of my fishtank controller probes me otherwise. 
 
-The following Read Me is the logbook of the development process, it is devided into the development house keeping notes to do lists, tasks done, nice to have, comand cheat sheet. At the end there is  draft version of the project Wiki, which describes how to do it again, just in case the system goes bang. 
+The following "ReadMe" is the logbook of the development process, This document is devided into the development notes, to do lists, tasks done, nice to have, comand cheat sheet. 
+At the end there is draft version of the project Wiki, which describes how to do it again, just in case the system goes bang.
+FYI my mail is juanpadillavivas@gmail.com if you want more information.
 
- So let's start over again properly: 
+ Let's start over again properly: 
 
-My name is Juan, I have a fishtank which I want to controll using my mobile phone. The main controller is a Raspberry Pi model B. That single computer board is connected to a driver board which handles the power side of the system.
+My name is Juan, I have a fishtank which I want to control using my mobile phone. The main controller is a Raspberry Pi model B. That single computer board is connected to a driver board which handles the power side of the system.
 
 The raspberry Pi is the bridge between the mobile friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
 
@@ -17,7 +19,7 @@ The raspberry Pi is the bridge between the mobile friendly web application and t
 * Auto/manual buttons .
 * Txt with configuration parameters 
 * Investigate if a database is posible to implement
-* Finish wiki
+* Add notes about hello world and the first application
 * Release project V0 Index.html 
 * Go Live in Pi hooked to the fishtank and weaved
 
@@ -130,7 +132,8 @@ The first thing to do is to find the IP address of the PI, to do so, connect to 
 	ssh pi@192.168.1.7
 then enter your password, which is usually raspberry 
 
-XXX add here the screenshoot XXX
+
+![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/SmallSize/Pi%20SSh%20Small.png "Logo Title Text 1")
 
 Voila!!!, you are now in the command prompt of the raspberry pi. from here everything should be easier, if you know what I mean It is recomendable to update the SW of the Pi the firstime is connected
 
@@ -147,23 +150,36 @@ This application allows to open the directories of the PI as they were “Living
 	sudo apt-get install netatalk
 Having installed the netatalk in the Pi, you need to access the rasperryPi, to do so press ⌘ + k 
 
-XXX Picture of connection XXXX
-XXX Picture of Password Validation XXX
-XXX Picture of the Pi folders XXX
+Connection
+
+![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Pi%20Nettalk%20Server%20connection.png "Logo Title Text 1")
+
+Password validation
+
+![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Pi%20Net%20talk%20server%20validation.png "Logo Title Text 1")
+
+Pi directory
+
+![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Pi%20Home%20directory.png "Logo Title Text 1")
+
 		
 Installing a script editor
 After having installed the nettalk, you can access files in the pi and edit them locally as if it was in your own computer. that is just brilliant!! and really handy. now you need a good text editor, my weapon of choice is: 
 "Sublime is a cross-platform text and source code editor with a Python application programming interface (API). It natively supports many programming languages and markup languages, Sublime Text is proprietary software; all license revenue accrues to the developer." wikipedia
 Please if you have the means, buy it, really good application. It can be used as a trial for a while.
 
-XXX Application Sublime XXXX
+Sublime
+
+![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/PI%20Sublime%20screenshot.png "Logo Title Text 1")
 
 
 ##3 Installing webIO
 
 WEbIO Pi is a really good aproach to the internet of things, This framework allows to control, debug and use the RaspberryPI gpio from any webpage. Moreover, it is equiped with a set of sensor libraries and plugins that facilitates to communicate with standard sensors 
 
-XXX picture of WEBIO framework XXX
+WEBIO framework
+
+![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/webiopi-framework.png "Logo Title Text 1")
 
 For more information how to install and examples go to the following links
 http://webiopi.trouch.com/INSTALL.html
