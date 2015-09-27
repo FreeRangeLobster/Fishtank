@@ -2,12 +2,21 @@
 
 ## Description
 
-This project started out me being lazy to toggle the switch on and off. So why not do it from my mobile? and why not make it automatic? also I had a Pi XXXX is a remote fishtank controller. It was developed on a raspberry pi b+ using WEbio framework which is a great approach to the internet of things. 
+This project started out me being lazy to flicker the switch on and off. So why not do it from my mobile phone? and why not make it automatic?.  Also I had a raspberry Pi doing nothing. So yeah, here I am writing the ReadMe of my fishtank controller. When I started I thought it was a weekend project, finding me writing this 6 months later probes otherwise. I was wrong!
+
+The following Read Me is the logbook of the development process, it is devided into the development house keeping notes to do lists, tasks done, nice to have, comand cheat sheet. At the end there is  draft version of the project Wiki, which describes how to do it again, just in case the system goes bang. 
+
+ So let's start over again properly: 
+
+My name is Juan, I have a fishtank which I want to controll using my mobile phone. The main controller is a Raspberry Pi model B. That single computer board is connected to a driver board which handles the power side of the system.
+
+The raspberry Pi is the bridge between the mobile friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
 
 ## To Do
 
 * Auto/manual buttons .
-* Txt with configuration parameters.
+* Txt with configuration parameters 
+* Investigate if a database is posible to implement
 * Finish wiki
 * Release project V0 Index.html 
 * Go Live in Pi hooked to the fishtank and weaved
@@ -15,7 +24,7 @@ This project started out me being lazy to toggle the switch on and off. So why n
 ## In Process
 * Tidy Up application and go life
 * Test waved with the live system.
-* Pi-stop
+* Pi-stop lights
 
 ### Comments-Hot
 
@@ -39,7 +48,8 @@ Changes can be done offline.
 * Button On/Off one macro for each output(Not a good practice though) 
 * Github subversion
 * Implementation on/off indicators
-* Save image back up out of the two systems(live one and development projects), can be found in GitHub as Fishtank_live and Fishtank
+* Save image back up out of the two systems(live one and development projects), can be found in GitHub as Fishtank_live and 
+Fishtank
 * Development board connected to waved. 
 * Documentation of the hardware and bring telling the story back to the md.
 
@@ -90,13 +100,13 @@ Raspberry pi reference |xxxxxx
 
 Software | Description| Link
 ------------ | ------------- | -------------
-|headless pi|
-|remote connection|
-||
+|headless pi| SSH  | Mac handles it from the terminal
+|remote connection|Netatalk | http://gettingstartedwithraspberrypi.tumblr.com/post/24398167109/file-sharing-with-afp-and-auto-discovery-with
+|WebIO Pi|0.7.1 (02/10/15)|http://webiopi.trouch.com/DOWNLOADS.html
 ------------ | ------------- | -------------
 
 #Version
-XXXXVX
+0.02
 
 ## References
 
@@ -114,38 +124,55 @@ The following steps summarise the process of setting up the raspberry pi for the
 
 ##1 Setting up Rasp pi from scratch
 
-I don’t really have spare screens keyboards and mice kicking around my place, so that I had to learn how to  communicate with the Raspberry Pi(Here after “Pi”) using ssh. this mode of use is called “Raspberry headless"
+I don’t really have spare screens keyboards and mice kicking around my place, so that I had to learn how to communicate with the Raspberry Pi(Here after “Pi”) using ssh. This mode of use is called “Raspberry headless"
 
-	https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=74176
+The first thing to do is to find the IP address of the PI, to do so, connect to the internet accespoint at home(Router), go to find who is connected to it. Then open a terminal in mac press ⌘+space, then type in the terminal 
+	ssh pi@192.168.1.7
+then enter your password, which is usually raspberry 
+
+XXX add here the screenshoot XXX
+
+Voila!!!, you are now in the command prompt of the raspberry pi. from here everything should be easier, if you know what I mean It is recomendable to update the SW of the Pi the firstime is connected
+
 	sudo apt-get update 
 	sudo apt-get upgrade 
 	sudo apt-get auto remove
 
-The first thing to do is to find the IP address of the PI, to do so, connect to the internet accespoint at home, go to find who is connected to the dh
-
-then open a terminal in mac press ⌘+space, 
-then type in the terminal 
-	ssh pi@192.168.1.3
-then enter your password, usually is raspberry 
-	
-
-Voila!!!, you are now in the command prompt of the raspberry pi. from here everything should be easier, if you know what I mean …
-For more information have a look here:
-
-
+For more information go to: https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=74176
 
 ##2 Making the Pi environment confortable to play with:
-File sharing AFP
-with this application you can open the directories of the PI as they were “Living” local in your mac. To do so it is needed to install the Netatalk first in the Raspberry pi. enter the following command in the shell
-sudo apt-get install netatalk
+
+File sharing AFP 
+This application allows to open the directories of the PI as they were “Living” local in your mac. To do so, it is needed to install the Netatalk first in the Raspberry pi. enter the following command in the shell
+	sudo apt-get install netatalk
+Having installed the netatalk in the Pi, you need to access the rasperryPi, to do so press ⌘ + k 
+
+XXX Picture of connection XXXX
+XXX Picture of Password Validation XXX
+XXX Picture of the Pi folders XXX
 		
-Installing a good  script editor
-Install Sublime text if using MAC
+Installing a script editor
+After having installed the nettalk, you can access files in the pi and edit them locally as if it was in your own computer. that is just brilliant!! and really handy. now you need a good text editor, my weapon of choice is: 
+"Sublime is a cross-platform text and source code editor with a Python application programming interface (API). It natively supports many programming languages and markup languages, Sublime Text is proprietary software; all license revenue accrues to the developer." wikipedia
+Please if you have the means, buy it, really good application. It can be used as a trial for a while.
+
+XXX Application Sublime XXXX
+
 
 ##3 Installing webIO
+
+WEbIO Pi is a really good aproach to the internet of things, This framework allows to control, debug and use the RaspberryPI gpio from any webpage. Moreover, it is equiped with a set of sensor libraries and plugins that facilitates to communicate with standard sensors 
+
+XXX picture of WEBIO framework XXX
+
+For more information how to install and examples go to the following links
+http://webiopi.trouch.com/INSTALL.html
+
 http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 
 ##4 Hello world web
+
+
 http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 
 ##5 working around with the interface
