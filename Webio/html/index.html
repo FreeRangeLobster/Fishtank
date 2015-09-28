@@ -482,11 +482,14 @@ function macro_get_AuxStatus_Callback(macro, args, data){
         <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
 
     </tr>
-        <td> Status</th>
-        <td colspan="3" align="Center"> Auto/Manual</td>
+        <td> Next refresh in: </th> 
+	 <td><div id="timer"></div></th> 
+        <td colspan="3" align="Center"> 
+<button type="button" onclick="alert('Hello world!')">Click Me!</button></td>
+
     </tr>
     <!-- Starts here the timer  -->
-    <div id="timer"></div>
+    <!--<div id="timer"></div> -->
     <input id="i0"> 
     <button onclick="timer.setSpeed(document.getElementById('i0').value);">Set new speed</button>
     <!-- Finishes here -->
