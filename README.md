@@ -19,12 +19,12 @@ The raspberry Pi is the bridge between the mobile friendly web application and t
 * Auto/manual buttons .
 * Txt with configuration parameters 
 * Investigate if a database is posible to implement
-* Add notes about hello world and the first application
+* Add notes about hello world and the first application in the wiki
 * Release project V0 Index.html 
 * Go Live in Pi hooked to the fishtank and weaved
 
 ## In Process
-* Tidy Up application and go life
+* Change the outputs and Go life Beta version
 * Test waved with the live system.
 * Pi-stop lights
 
@@ -37,6 +37,7 @@ Changes can be done offline.
 
 
 ##Done
+* Tidy Up application
 * formating colors and text 
 * Tide up code and document macros
 * Test sensor
