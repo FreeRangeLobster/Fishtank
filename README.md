@@ -178,7 +178,7 @@ Sublime
 
 ##3 Installing webIO
 
-WEbIO Pi is a really good aproach to the internet of things, This framework allows to control, debug and use the RaspberryPI gpio from any webpage. Moreover, it is equiped with a set of sensor libraries and plugins that facilitates to communicate with standard sensors 
+WEbIO Pi is a really good aproach to the internet of things, This framework allows to control, debug and use the RaspberryPI gpio from any webpage. Moreover, it is equiped with a set of sensor/actuator libraries and plugins that facilitates the communication with standard sensors. 
 
 WEBIO framework
 
@@ -190,7 +190,7 @@ http://webiopi.trouch.com/INSTALL.html
 http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 
 ##4 Hello world web
-
+The first and essential step into the internet of things is to control an output, to do so the following link provides an step by step lifesaver tutorial.
 
 http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 
