@@ -24,7 +24,8 @@ The raspberry Pi is the bridge between the mobile friendly web application and t
 * Go Live in Pi hooked to the fishtank and weaved
 
 ## In Process
-* Change the outputs and Go life Beta version
+* Change the outputs and Go life Beta version. pins 23,24,25  
+* Not sure about this gpio-export = 17,18,22,23,24
 * Test waved with the live system.
 * Pi-stop lights
 
@@ -67,7 +68,7 @@ git add .| Github|Stages all the changes making them ready to commit
 git commit -m "Comment"|Github|insert comments
 git push origin master|Github| Push Baby Push commits 
 git pull origin master|Github|pull stuff from the git servers, used for updating the local folders
-Run server in dev mode|WebIO|sudo webiopi -d -c /etc/webiopi/config
+sudo webiopi -d -c /etc/webiopi/config|WebIO|Run server in dev mode
 sudo su|Linux|super user shell
 exit|Linux|to go back to client
 ./|Linux|run a program
@@ -78,6 +79,7 @@ mv a.jpg b.png|Linux|to move or to rename a file
 top	|Linux|to find the number of the process
 sudo update-rc.d webiopi defaults |Linux| starts the server on system boot
 sudo update-rc.d webiopi remove |Linux| stops starting the server on system boot
+sudo nano /etc/webiopi/config |WebIO| configuration of the webio server
 
 
 
