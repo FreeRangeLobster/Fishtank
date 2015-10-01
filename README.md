@@ -76,6 +76,8 @@ rmdir|Linux|removes a directory
 mv <from> <to>|Linux|to move a file, requires the whole addr in the recipient
 mv a.jpg b.png|Linux|to move or to rename a file
 top	|Linux|to find the number of the process
+sudo update-rc.d webiopi defaults |Linux| starts the server on system boot
+sudo update-rc.d webiopi remove |Linux| stops starting the server on system boot
 
 
 
