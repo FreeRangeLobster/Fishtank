@@ -1,0 +1,563 @@
+<html>
+<head>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="viewport" content = "height = device-height, width = device-width, user-scalable = no" /> 
+        <title>Fishtank</title>
+        <title>WebIOPi | Light Control</title>
+        <script type="text/javascript" src="/webiopi.js"></script>
+        <script type="text/javascript">
+    
+        //starts here
+
+        var timer = (function() {
+        var basePeriod = 10000;
+        var currentSpeed = 1;
+        var timerElement;
+        var timeoutRef;
+        var count = 0;
+
+    return {
+      start : function(speed, id) {
+        if (speed >= 0) {      
+          currentSpeed = speed;
+        }
+        if (id) {
+          timerElement = document.getElementById(id);
+        }
+        timer.run();
+      },
+
+      run: function() {
+        if (timeoutRef) clearInterval(timeoutRef);
+        if (timerElement) {
+          timerElement.innerHTML = count;
+        }
+        if (currentSpeed) {
+          timeoutRef = setTimeout(timer.run, basePeriod/currentSpeed);
+        }
+        ++count;
+      },
+
+      setSpeed: function(speed) {
+        currentSpeed = +speed;
+        timer.run();
+      }
+    }
+
+    }());
+
+
+        window.onload = function(){timer.start(10, 'timer');};
+
+        //Finishes here
+
+
+
+        webiopi().ready(function() {
+                
+                var buttton;
+
+                
+                //what is the name of this kind of aliasing???
+                contentLight = $("#contentLight");
+                contentPump = $("#contentPump");
+                contentAir = $("#contentAir");
+                contentAux = $("#contentAux");
+                indicators1=$("#indicator1");
+
+
+
+                button = webiopi().createGPIOButton(17, "LIGHT");
+                    $("#LightOn").append(button);
+
+                button = webiopi().createGPIOButton(18, "PUMP");
+                    $("#WaterPumpOn").append(button);
+
+                button = webiopi().createGPIOButton(21, "AIR");
+                    $("#AirOn").append(button);
+
+                button = webiopi().createGPIOButton(22, "AUX");
+                    $("#AuxOn").append(button);
+
+
+
+
+
+                //Two buttons, 1 button turns on, the other one turns off the same output
+                // create a button which calls outputControl with "1" as argument to turn gpio ON
+                button = webiopi().createMacroButton("id_outputControl", "Light On", "outputControlMacroLight", [1]);
+                contentLight.append(button); // append button to content div
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Light Off", "outputControlMacroLight", [0]);
+                contentLight.append(button); // append button to content div
+
+                //Two buttons controlling the same output, 1 button turns on the other off
+                // create a button which calls outputControl with "1" as argument to turn gpio ON
+                button = webiopi().createMacroButton("id_outputControl", "Pump On", "outputControlMacroPump", [1]);
+                contentPump.append(button); // append button to content div
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Pump Off", "outputControlMacroPump", [0]);
+                contentPump.append(button); // append button to content div
+
+                //Two buttons controlling the same output, 1 button turns on the other off
+                // create a button which calls outputControl with "1" as argument to turn gpio ON
+                button = webiopi().createMacroButton("id_outputControl", "Air On", "outputControlMacroAir", [1]);
+                contentAir.append(button); // append button to content div
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Air Off", "outputControlMacroAir", [0]);
+                contentAir.append(button); // append button to content div
+
+                //Two buttons controlling the same output, 1 button turns on the other off
+                // create a button which calls outputControl with "1" as argument to turn gpio ON
+                button = webiopi().createMacroButton("id_outputControl", "Aux On", "outputControlMacroAux", [1]);
+                contentAux.append(button); // append button to content div
+                // create a button which calls outputControl with "0" as argument to turn gpio OFF
+                button = webiopi().createMacroButton("id_outputControl", "Aux Off", "outputControlMacroAux", [0]);
+                contentAux.append(button); // append button to content div             
+
+                // create a "LED" for GPIO 2
+                button = webiopi().createGPIOButton(17, "");
+                //content.append(button); // append button to content div
+                $("#IndicatorLightOn").append(button);
+                // Refresh GPIO buttons
+                // pass true to refresh repeatedly or false to refresh once
+                webiopi().refreshGPIO(true);
+
+
+
+
+        });
+
+
+        setInterval ("callMacro_get_ControllerStatus()", 5000);
+        {
+        }
+
+
+
+
+   
+
+
+
+function callMacro_get_ControllerStatus(){
+    var args = [0]
+    //Get data form script.py and return it with Callback   ------------------------------------------------------------- 
+    webiopi().callMacro("get_LightStatus", args, macro_get_LightStatus_Callback);
+    webiopi().callMacro("get_PumpStatus", args, macro_get_PumpStatus_Callback);
+    webiopi().callMacro("get_AirStatus", args, macro_get_AirStatus_Callback);
+    webiopi().callMacro("get_AuxStatus", args, macro_get_AuxStatus_Callback);
+    webiopi().callMacro("callMacro");
+}
+
+function macro_get_LightStatus_Callback(macro, args, data){
+    p0 = data.split(" ")[0];
+    if (p0==1){
+        document.getElementById("pic0").src = "img/Ind_Light_ON.png"; 
+    }
+    else{
+        document.getElementById("pic0").src = "img/Ind_Light_OFF.png";
+    }
+}
+
+function macro_get_PumpStatus_Callback(macro, args, data){
+    p1 = data.split(" ")[0];
+    if (p1==1){
+        document.getElementById("pic1").src = "img/Ind_Pump_ON.png"; 
+    }
+    else{
+        document.getElementById("pic1").src = "img/Ind_Pump_OFF.png";
+    }
+}
+
+function macro_get_AirStatus_Callback(macro, args, data){
+    p2 = data.split(" ")[0];
+    if (p2==1){
+        document.getElementById("pic2").src = "img/Ind_Bubbles_ON.png"; 
+    }
+    else{
+        document.getElementById("pic2").src = "img/Ind_Bubbles_OFF.png";
+    }
+}
+
+
+function macro_get_AuxStatus_Callback(macro, args, data){
+    p3 = data.split(" ")[0];
+    if (p3==1){
+        document.getElementById("pic3").src = "img/Ind_Aux_ON.png"; 
+    }
+    else{
+        document.getElementById("pic3").src = "img/Ind_Aux_OFF.png";
+    }
+}
+
+ setInterval("callMacro()", 1000); {}
+                //calls the maccro that retrieves the sensor reading
+                function callMacro() {        
+                    var arg = [0];
+                    webiopi().callMacro("getSensor", arg, sensorCallback);
+
+                }
+
+                //value of the sensor goes to a tag in the HTML
+                function sensorCallback(macro, arg, data) {
+                    myDiv1.innerHTML = data.split(" ")[0];
+                }
+                      
+</script>
+
+
+    <style type="text/css">
+        /*the style of the couple of buttons used to tun on/off manually the output*/
+   
+    #id_outputControl1 {
+                    display: block;
+                    background-color: #009900;
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
+                    border-radius: 25px;
+                    font-size: 40pt;
+                    font-weight: bold;
+                    cursor:pointer;
+                    color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+    }
+
+
+    
+
+    #id_outputControl1:active {
+                    display: block;
+                    background-color: #004900
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
+                    border-radius: 25px;
+                    font-size: 40pt;
+                    font-weight: bold;
+                    cursor:pointer;
+                    color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+    }
+
+
+    #id_outputControl2:active {
+                    display: block;
+                    background-color: #660000;
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
+                    border-radius: 25px;
+                    font-size: 40pt;
+                    font-weight: bold;
+                    cursor:pointer;
+                    color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+    } 
+                        
+    #id_outputControl2 {
+                    display: block;
+                    background-color: Red;
+                    margin: 75px 5px 5px 5px;
+                    width: 300px;
+                    height: 150px;
+                    border-radius: 25px;
+                    font-size: 40pt;
+                    font-weight: bold;
+                    cursor:pointer;
+                    color: white;
+                    outline:none;   
+                    text-shadow: 1px 1px 1px rgba(250,250,250,0.1);
+                    position: relative;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 0px 0px rgb(34,34,34),
+                    0px 7px 10px 0px rgb(17,17,17),
+                    inset 0px 1px 10px 0px rgba(250, 250, 250, .2), 
+                    inset 0px -12px 35px 10px rgba(0, 0, 0, .5);
+                    transition: color 350ms ease, text-shadow 350ms;
+    }
+     
+    body {
+        background-image: url("img/BG_Main.png")no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        }
+               
+
+    button {             
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        background-color: Green;
+    }
+
+
+
+
+    button:hover {
+        background: #3cb0fd;
+        text-decoration: none;
+    }
+
+    button:active {
+        position:relative;
+        top:2px;
+        background-color: Red;
+    }
+
+
+    /*Light*/
+     #gpio17.LOW {
+        background-color: green;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
+    }
+        
+    #gpio17.HIGH {
+        background-color: orange;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
+    } 
+
+    /*Pump*/  
+    #gpio18.LOW {
+        background-color: green;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
+    }
+        
+    #gpio18.HIGH {
+        background-color: orange;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
+    }     
+
+    /*Air*/ 
+    #gpio21.LOW {
+        background-color: green;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
+    }
+                
+    #gpio21.HIGH {
+        background-color: orange;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
+    }
+
+
+    /*Aux*/ 
+    #gpio22.LOW {
+        background-color: green;
+     margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
+    }
+                
+                
+    #gpio22.HIGH {
+        background-color: orange;
+        margin: 1px 1px 1px 1px;
+        width: 140px;
+        height: 40px;
+        font-size: 8pt;
+        color: white;
+        border-radius:10px;
+        color: red;
+    }      
+
+                #gpio2.LOW {
+                        background-color: Red;
+                }
+                
+                #gpio2.HIGH { 
+                        background-color: Blue;
+                }
+        </style>        
+</head>
+
+
+
+<body background="img/BG_Main.png">
+
+  <div id="bt_heater"><div/>
+
+<table align="center" border="0">
+
+    <!--Title off the page-->
+    <tr>    
+        <th>Fishtank controller</th>
+    </tr>
+    <!--Status cell-->
+</table>
+
+<table align="center" border="0">
+
+    <tr>
+        <!--Status cell-->
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+
+    </tr>
+    
+    <tr>
+        <td colspan="3" align="left"> Next refresh in: </th> 
+	   <td><div id="timer"></div></th> 
+    </tr>
+
+    <tr>
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+    </tr>
+
+    <tr>
+        <!--Status cell-->
+        
+        <!--<td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:42px;height:42px;border:0"> </a></td>-->
+       <td> <div><a><img name="pic0" id="pic0" style="width:42px;height:42px;border:0"> </a></div></td> 
+       <td> <div><a><img name="pic1" id="pic1" style="width:42px;height:42px;border:0"> </a></div></td>
+       <td> <div><a><img name="pic2" id="pic2" style="width:42px;height:42px;border:0"> </a></div></td>
+       <td> <div><a><img name="pic3" id="pic3" style="width:42px;height:42px;border:0"> </a></div></td>
+       <!-- <td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:42px;height:42px;border:0"> </a></td>-->
+        <!-- <td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:38px;height:42px;border:0"> </a></td>-->
+        <!--<td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:42px;height:42px;border:0"> </a></td>-->
+    </tr>        
+
+    <tr>
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+    </tr>
+
+    <tr>
+        <td colspan="2" align="center"> <img src="img/Img_Temp.png" alt="" border=0 height=60 width=60></img></th>
+        <td Colspan="1"> <div id= "myDiv1"></div></td>
+        <td Colspan="1"> °C </td>
+     </tr>  
+
+<tr>
+        <!--Status cell-->
+    <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320><br><br></img></th>
+    </tr>
+
+
+    <tr>
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+    </tr>
+
+    <tr>
+        <td colspan="4" alighn="Left"> Controls</img></th>
+    </tr>
+
+    <tr>
+        <td colspan="4"> <img src="img/Line.png" alt="" border=0 height=2 width=320></img></th>
+    </tr>
+
+
+
+    <tr>
+        <!--Controls-->
+         <td colspan="4"> <div id="contentLight" align="center"></div></td> 
+    </tr>
+
+    <tr>
+        <td colspan="4"> <div id="contentPump" align="center"></div></td> 
+    </tr>
+
+    <tr>
+        <td colspan="4"> <div id="contentAir" align="center"></div></td> 
+    </tr>
+
+    <tr>
+        <td colspan="4"> <div id="contentAux" align="center"></div></td> 
+    </tr>
+
+
+</table>
+    
+    <br>
+    <br>
+
+<table align="Center">
+
+       <tr> <td colspan="6"> <img align="Center" src="img/Line.png" alt="" border=0 height=2 width=320></img></td> </tr>
+    
+        <td> <a href="index.html"> <img src="img/Btn_Home.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="configuration.html"> <img src="img/Btn_Configuration.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <td> <a href="statistics.html"> <img src="img/Btn_Statistics.png"  style="width:42px;height:42px;border:0"> </a></td>
+        <!--<td> <img  src="img/BG_Configuration.png" style="width:42px;height:42px;border:0"> erase</td>  -->
+        <td> <a href="index.html"> <img src="img/Btn_Light.png"  style="width:35px;height:35px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Bubbles.png"  style="width:35px;height:35px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Pump.png"  style="width:35px;height:35px;border:0"> </a></td>
+        <td> <a href="index.html"> <img src="img/Btn_Squid.png"  style="width:35px;height:35px;border:0"> </a></td>
+    </table>
+
+<div align="center">
+Turn On at :<input type="text" id="inputOn" /><br/>
+Turn Off at: <input type="text" id="inputOff" /><br/>
+<div id="controls"></div>
+</div>
+</body>
+</html>
