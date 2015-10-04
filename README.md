@@ -81,6 +81,7 @@ top	|Linux|to find the number of the process
 sudo update-rc.d webiopi defaults |Linux| starts the server on system boot
 sudo update-rc.d webiopi remove |Linux| stops starting the server on system boot
 sudo nano /etc/webiopi/config |WebIO| configuration of the webio server
+cat /proc/cpuinfo|WebIO|See version of the PI
 
 
 
