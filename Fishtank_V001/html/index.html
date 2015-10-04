@@ -32,6 +32,18 @@
                 
 
        
+    setInterval("callMacro()", 1500); {}
+    //calls the macro that retrieves the sensor reading
+    function callMacro() {        
+        var arg = [0];
+        webiopi().callMacro("getSensor", arg, sensorCallback);
+
+    }
+
+    //value of the sensor goes to a tag in the HTML
+    function sensorCallback(macro, arg, data) {
+        myDiv1.innerHTML = data.split(" ")[0];
+    }
 
 
         </script>
@@ -63,7 +75,8 @@
                 border-radius:10px;
                 font-size: 10pt; 
                 font-weight: 600;
-                color: Black;
+                border-color: Green;
+                color: Green;
 
                 }
                 
@@ -78,6 +91,7 @@
                 border-radius:10px;
                 font-size: 10pt; 
                 font-weight: 600;
+
                 color: #484848;
         }
 
@@ -90,7 +104,8 @@
                 border-radius:10px;
                 font-size: 10pt; 
                 font-weight: 600;
-                color: Black;
+                border-color: Green;
+                color: Green;
                 background-image: url(Icon_Lights.jpg);
 
                 
@@ -119,7 +134,8 @@
                 border-radius:10px;
                 font-size: 10pt; 
                 font-weight: 600;
-                color: Black;
+                border-color: Green;
+                color: Green;
 
         }
         
@@ -145,7 +161,8 @@
                 border-radius:10px;
                 font-size: 10pt; 
                 font-weight: 600;
-                color: Black;
+                border-color: Green;
+                color: Green;
         }
         
         #gpio23.LOW {
@@ -169,7 +186,8 @@
                 border-radius:10px;
                 font-size: 10pt; 
                 font-weight: 600;
-                color: Black;
+                border-color: Green;
+                color: Green;
         }
         
         #gpio24.LOW {
@@ -192,37 +210,39 @@
 
     
 
-<table align="center" border="8">
+<table align="center" border="0">
     <tr>
         <th colspan="5" bgcolor="Yellow">Alpacalypse</th>
     
     </tr>
 
     <tr align="center">
-        <td><div> Temp</div></td>
+        <td style="width: 100px;"><div> Temperature</div></td>
+        <td style="width: 50px;"><div id= "myDiv1"></div></td>
+        <td style="width: 20x;"><div> °C </div></td>
+
     </tr>
 
     <tr align="center">
-        <td><div id="controls"  SRC="Icon_Lights.jpg" >
-
-                <IMG align="Center" BORDER="0" WIDTH="50" HEIGHT="40" SRC="Icon_Lights.jpg" width="10" height="8" >
+        <td align="center" colspan="3"><div id="controls"  SRC="Icon_Lights.jpg" >
+               <!-- <IMG align="Center" BORDER="0" WIDTH="50" HEIGHT="40" SRC="Icon_Lights.jpg" width="10" height="8" > -->
         </td> </div>       
     </tr>
 
     <tr align="center">
-        <td><div id="controls2"></div></td>
+        <td align="center" colspan="3"><div id="controls2"></div></td>
+    </tr>
+
+    <tr align="center" >
+        <td align="center" colspan="3"><div id="controls3"></div></td>
     </tr>
 
     <tr align="center">
-        <td><div id="controls3"></div></td>
+        <td align="center" colspan="3"><div id="controls4"></div></td>
     </tr>
 
     <tr align="center">
-        <td><div id="controls4"></div></td>
-    </tr>
-
-    <tr align="center">
-        <td><div id="controls5"></div></td>
+        <td align="center" colspan="3"><div id="controls5"></div></td>
     </tr>
 
 

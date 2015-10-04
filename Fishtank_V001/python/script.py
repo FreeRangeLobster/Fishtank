@@ -14,16 +14,11 @@ LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
 
 
-
-
-
-
 HOUR_ON  = 8  # Turn Light ON at 08:00
 HOUR_OFF = 18 # Turn Light OFF at 18:00
 
 LIGHT_ON = 17 #Turns ligh on at 5 in the afternoon 
 LIGHT_OFF = 19 #Turns ligh on at 9  in the night
-
   
 PUMP_OFF = 18  #Turns pump off 
 PUMP_ON  = 19  #Turns pump ON
@@ -34,8 +29,15 @@ BUBBLES_OFF = 20  #Turns pump ON
 
 
 
+
 # setup function is automatically called at WebIOPi startup
 def setup():
+
+    # set the GPIO used by the light to output
+    import os
+    os.system("sudo modprobe w1-gpio")
+    os.system("sudo modprobe w1-therm")
+
     # set the GPIO used by the light to output
     GPIO.setFunction(LIGHT, GPIO.OUT)
     GPIO.setFunction(LIGHT2, GPIO.OUT)
@@ -49,6 +51,22 @@ def setup():
     # test if we are between ON time and tun the light ON
     if ((now.hour >= HOUR_ON) and (now.hour < HOUR_OFF)):
         GPIO.digitalWrite(LIGHT, GPIO.HIGH)
+
+
+def measure():
+    global TempRead
+    tmp0 = webiopi.deviceInstance("tmp0")
+    # retrieves current temperature 
+    TempRead = tmp0.getCelsius() 
+    print("Temperature: %.2f" % TempRead)
+    return (TempRead)
+
+@webiopi.macro
+def getSensor(arg0):
+    global TempRead
+    measure()
+    return TempRead
+
 
 # loop function is repeatedly called by WebIOPi 
 def loop():
@@ -117,9 +135,15 @@ def loop():
         if (GPIO.digitalRead(LIGHT5) == GPIO.LOW):
             GPIO.digitalWrite(LIGHT5, GPIO.HIGH)
 
+    #Test the sensor reading
+    #measure()
 
     # gives CPU some time before looping again
     webiopi.sleep(1)
+
+
+
+
 
 
 
