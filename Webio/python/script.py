@@ -20,6 +20,15 @@ def setup():
     GPIO.setFunction(AIR, GPIO.OUT)
     GPIO.setFunction(AUX, GPIO.OUT)
     GPIO.setFunction(2, GPIO.OUT)
+    GPIO.setFunction(22, GPIO.OUT)
+    GPIO.setFunction(24, GPIO.OUT)
+    GPIO.setFunction(26, GPIO.OUT)
+    GPIO.setFunction(11, GPIO.OUT)
+    GPIO.setFunction(9, GPIO.OUT)
+    GPIO.setFunction(10, GPIO.OUT)
+    GPIO.setFunction(15, GPIO.OUT)
+
+
     import os
     os.system("sudo modprobe w1-gpio")
     os.system("sudo modprobe w1-therm")
@@ -46,7 +55,7 @@ def measure():
 def loop():
     # retrieve current datetime
     now = datetime.datetime.now()
-
+    '''
     # toggle light ON all days at the correct time
     if ((now.hour == HOUR_ON) and (now.minute == 0) and (now.second == 0)):
         if (GPIO.digitalRead(LIGHT) == GPIO.LOW):
@@ -58,7 +67,70 @@ def loop():
             GPIO.digitalWrite(LIGHT, GPIO.LOW)
 
     # gives CPU some time before looping again
+    '''
+
+
+    
+    if (GPIO.digitalRead(22) == GPIO.LOW):
+        GPIO.digitalWrite(22, GPIO.HIGH)
+    elif (GPIO.digitalRead(22) == GPIO.HIGH):
+        GPIO.digitalWrite(22, GPIO.LOW)
+
+
+
+    if (GPIO.digitalRead(24) == GPIO.LOW):
+        GPIO.digitalWrite(24, GPIO.HIGH)
+    elif(GPIO.digitalRead(24) == GPIO.HIGH):
+        GPIO.digitalWrite(24, GPIO.LOW)
+    
+
+    if (GPIO.digitalRead(19) == GPIO.LOW):
+        GPIO.digitalWrite(19, GPIO.HIGH)
+    elif (GPIO.digitalRead(19) == GPIO.HIGH):
+        GPIO.digitalWrite(19, GPIO.LOW)
+
+    
+    
+    if (GPIO.digitalRead(21) == GPIO.LOW):
+        GPIO.digitalWrite(21, GPIO.HIGH)
+    elif(GPIO.digitalRead(21) == GPIO.HIGH):
+        GPIO.digitalWrite(21, GPIO.LOW)
+
+
+    if (GPIO.digitalRead(25) == GPIO.LOW):
+        GPIO.digitalWrite(25, GPIO.HIGH)
+    elif(GPIO.digitalRead(25) == GPIO.HIGH):
+        GPIO.digitalWrite(25, GPIO.LOW)
+
+    '''
+
+    if (GPIO.digitalRead(8) == GPIO.LOW):
+        GPIO.digitalWrite(8, GPIO.HIGH)
+    elif(GPIO.digitalRead(8) == GPIO.HIGH):
+        GPIO.digitalWrite(8, GPIO.LOW)
+
+
+    if (GPIO.digitalRead(7) == GPIO.LOW):
+        GPIO.digitalWrite(7, GPIO.HIGH)
+    elif(GPIO.digitalRead(7) == GPIO.HIGH):
+        GPIO.digitalWrite(7, GPIO.LOW)
+
+
+    if (GPIO.digitalRead(10) == GPIO.LOW):
+        GPIO.digitalWrite(10, GPIO.HIGH)
+    elif(GPIO.digitalRead(10) == GPIO.HIGH):
+        GPIO.digitalWrite(10, GPIO.LOW)
+    
+    '''
+    print("Hola")
+
     webiopi.sleep(1)
+
+
+
+
+
+
 
 # destroy function is called at WebIOPi shutdown
 
@@ -76,7 +148,8 @@ def destroy():
     GPIO.digitalWrite(LIGHT, GPIO.LOW)
     GPIO.digitalWrite(PUMP, GPIO.LOW)
     GPIO.digitalWrite(AIR, GPIO.LOW)
-    GPIO.digitalWrite(AUX, GPIO.LOW)   
+    GPIO.digitalWrite(AUX, GPIO.LOW) 
+
 
 
 #Can be erased, used just for prototyping

@@ -67,6 +67,8 @@
                 contentAux = $("#contentAux");
                 indicators1=$("#indicator1");
 
+
+
                 button = webiopi().createGPIOButton(17, "LIGHT");
                     $("#LightOn").append(button);
 
@@ -78,6 +80,10 @@
 
                 button = webiopi().createGPIOButton(22, "AUX");
                     $("#AuxOn").append(button);
+
+
+
+
 
                 //Two buttons, 1 button turns on, the other one turns off the same output
                 // create a button which calls outputControl with "1" as argument to turn gpio ON
