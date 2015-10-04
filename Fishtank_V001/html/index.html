@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="viewport" content = "height = device-height, width = device-width, user-scalable = no" /> 
+        <title>Alpacalypse</title>
+        <title>WebIOPi | Light Control</title>
+        <script type="text/javascript" src="/webiopi.js"></script>
+        <script type="text/javascript">
+    
+
+
+        webiopi().ready(function() {
+                // Create a "Light" labeled button for GPIO 17
+                var button = webiopi().createGPIOButton(22, "Light");
+                var button2 = webiopi().createGPIOButton(23, "Water Pump");
+                var button3 = webiopi().createGPIOButton(18, "Air Pump");
+                var button4 = webiopi().createGPIOButton(17, "Aux1");
+                var button5 = webiopi().createGPIOButton(24, "Aux2");
+
+                // Append button to HTML element with ID="controls" using jQuery
+                $("#controls").append(button);
+                $("#controls2").append(button2); 
+                $("#controls3").append(button3);
+                $("#controls4").append(button4);
+                $("#controls5").append(button5);
+
+                webiopi().refreshGPIO(true);
+        });
+                
+
+       
+
+
+        </script>
+        <style type="text/css">
+                
+        button {                
+                top: 191px;
+                left: 420px;
+                right: -420px;
+                bottom: -191px; 
+                margin: 5px 5px 5px 5px;
+                width: 160px;
+                height: 45px;
+                font-size: 24pt;
+                font-weight: bold;
+                color: Black;
+                }
+
+
+
+
+                
+        #gpio17.HIGH {
+                background-color: White;
+                display: block;
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: Black;
+
+                }
+                
+        #gpio17.LOW {
+                background-color: Gray;
+                display: block; 
+                content:'goodbye'; 
+                visibility: visible;
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: #484848;
+        }
+
+        #gpio18.HIGH {
+                background-color: White;
+                display: block;
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: Black;
+                background-image: url(Icon_Lights.jpg);
+
+                
+        }
+        
+        #gpio18.LOW {
+                 background-color: Gray;
+                display: block; 
+                visibility: visible;
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: #484848;
+        }
+
+
+        #gpio22.HIGH {
+              background-color: White;
+                display: block;
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: Black;
+
+        }
+        
+        #gpio22.LOW {
+                 background-color: Gray;
+                display: block;  
+                visibility: visible;
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: #484848;
+        }
+
+        #gpio23.HIGH {
+                background-color: White;
+                display: block;
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: Black;
+        }
+        
+        #gpio23.LOW {
+            background-color: Gray;
+                display: block; 
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: #484848;
+        }
+
+        #gpio24.HIGH {
+                background-color: White;
+                display: block;
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: Black;
+        }
+        
+        #gpio24.LOW {
+                background-color: Gray;
+                display: block; 
+                margin: 0px 0px 0px 4px; 
+                width: 129px; 
+                height: 40px;
+                border-radius:10px;
+                font-size: 10pt; 
+                font-weight: 600;
+                color: #484848;
+        }
+        </style>
+</head>
+
+
+
+<body background="Background_Main.jpg" no-repeat>
+
+    
+
+<table align="center" border="8">
+    <tr>
+        <th colspan="5" bgcolor="Yellow">Alpacalypse</th>
+    
+    </tr>
+
+    <tr align="center">
+        <td><div> Temp</div></td>
+    </tr>
+
+    <tr align="center">
+        <td><div id="controls"  SRC="Icon_Lights.jpg" >
+
+                <IMG align="Center" BORDER="0" WIDTH="50" HEIGHT="40" SRC="Icon_Lights.jpg" width="10" height="8" >
+        </td> </div>       
+    </tr>
+
+    <tr align="center">
+        <td><div id="controls2"></div></td>
+    </tr>
+
+    <tr align="center">
+        <td><div id="controls3"></div></td>
+    </tr>
+
+    <tr align="center">
+        <td><div id="controls4"></div></td>
+    </tr>
+
+    <tr align="center">
+        <td><div id="controls5"></div></td>
+    </tr>
+
+
+    <tr align="center">
+        <th colspan="5" bgcolor="Yellow">Version 0.001 </th>
+    </tr>
+</table>
+<IMG align="Center" BORDER="0" WIDTH="nn" HEIGHT="nn" SRC="Icon_Lights.jpg" width="10" height="8" ></TD>
+
+
+</body>
+</html>
