@@ -28,6 +28,7 @@ The raspberry Pi is the bridge between the mobile friendly web application and t
 * Not sure about this gpio-export = 17,18,22,23,24
 * Test waved with the live system.
 * Pi-stop lights
+* Pi deverlopment version 0003 Q3 2012 B (ECN0001) 1.0 256MB fuses mod and D14 removed
 
 ### Comments-Hot
 
