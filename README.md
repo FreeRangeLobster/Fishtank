@@ -84,6 +84,7 @@ sudo nano /etc/webiopi/config |WebIO| configuration of the webio server
 cat /proc/cpuinfo|WebIO|See version of the PI
 sudo /etc/init.d/webiopi start|Linux| starts the server without console debuger
 sudo /etc/init.d/webiopi stop|Linux| stops webio server 
+ssh-keygen -R <host>|Linux| When ssh remote identification has changed
 
 
 ##Links
