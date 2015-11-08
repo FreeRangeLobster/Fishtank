@@ -239,21 +239,32 @@ Other side:
 #Temperature one wire support
 get into the configuration folder to add the sensor in the boot 
 	
-'''sudo nano /boot/config.txt'''
+	
+```
+sudo nano /boot/config.txt
+```
  in the last line  add 
-'''dtoverlay=w1-gpio'''
+```
+dtoverlay=w1-gpio
+```
 reboot the pi
 
-'''sudo reboot'''
+```
+sudo reboot
+```
 find the serial of the sensor by typing in the terminal
-'''sudo modprobe w1-gpio
+```
+sudo modprobe w1-gpio
 sudo modprobe w1-therm
 cd /sys/bus/w1/devices
-ls'''
+ls
+```
 
 Copy the serial that starts with
  
-'''	28-xxxx  '''
+```
+28-xxxx  
+```
 
 enter to the configuration of the web server and go to the sensor replace the serial of the sensor, then save and reestart the servergo to the webpage and it should show the temperature.
 
@@ -262,11 +273,14 @@ reference [Link](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds1
 
 
 #setup wifi
-'''sudo nano /etc/wpa_supplicant/wpa_supplicant.conf'''
+```
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
 
 Compare the contents of the file, if it exists, to the following code. If the file is empty, you can use this code to populate it. Take note of the commented lines (indicated by the # marks) to reference which variable you should use based on your current Wi-Fi node configuration.
 
-'''ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 network={
 ssid="YOURSSID"
@@ -283,63 +297,53 @@ pairwise=TKIP
 
 #Authorization option should be OPEN for both WPA1/WPA2 (in less commonly used are SHARED and LEAP)
 auth_alg=OPEN
-}'''
+}
+```
 
 When you’re done editing the file, press CTRL+X to save and exit the document. Now is the time to unplug the Ethernet cable and plug in the Wi-Fi dongle.
 
 At the command prompt, enter the following command:
 
+```
 sudo reboot
+```
 
 
 
 
-set up static ip 
+#Set static ip 
 
-backup
+Backup just in case:
 
-
-
+```
 auto lo
 
 iface lo inet loopback
-
-
-
 auto eth0
 
 allow-hotplug eth0
-
 iface eth0 inet manual
 
-
-
 auto wlan0
-
 allow-hotplug wlan0
-
 iface wlan0 inet manual
 
 wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
-
-
 auto wlan1
-
 allow-hotplug wlan1
-
 iface wlan1 inet manual
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf 
+```
 
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
 
-
-http://weworkweplay.com/play/automatically-connect-a-raspberry-pi-to-a-wifi-network/
+Reference [Link](http://weworkweplay.com/play/automatically-connect-a-raspberry-pi-to-a-wifi-network/)
 
 
 
 new configuration
-
+```
 auto lo
 iface lo inet loopback
 iface eth0 inet dhcp
@@ -352,11 +356,11 @@ netmask 255.255.255.0
 gateway 192.168.1.1
 wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 iface default inet dhcp
+```
 
 
 
 
 
 Database tutorial
-]
-http://raspberrywebserver.com/sql-databases/using-mysql-on-a-raspberry-pi.html
+[Link](http://raspberrywebserver.com/sql-databases/using-mysql-on-a-raspberry-pi.html)
