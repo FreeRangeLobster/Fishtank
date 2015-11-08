@@ -2,7 +2,7 @@
 
 ## Description
 
-This project started out me being lazy to flicker the switch on and off. I asked myself: What if I control it from my mobile phone? and why not make it automatic?.  Also I have a Raspberry Pi !!!. When I started I thought it was a weekend project, but being here  writing the "ReadMe" of my fishtank controller probes me otherwise. 
+This project started out me being lazy to toggle the switch on and off.Then I asked myself: What if I control it from my mobile phone? and why not make it automatic?.  Also I have a Raspberry Pi !!!. When I started I thought it was a weekend project, but being here  writing the "ReadMe" of my fishtank controller probes me I understimate the project. 
 
 The following "ReadMe" is the logbook of the development process, This document is devided into the development notes, to do lists, tasks done, nice to have, comand cheat sheet. 
 At the end there is draft version of the project Wiki, which describes how to do it again, just in case the system goes bang.
@@ -14,18 +14,26 @@ My name is Juan, I have a fishtank which I want to control using my mobile phone
 
 The raspberry Pi is the bridge between the mobile friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
 
+## Bill of Materials
+Item | Description| Reference | Link 
+------------ | -------------| -------------| -------------
+Raspberry Pi| Single Board Computer that control the system|development version 0003 Q3 2012 B (ECN0001) 1.0 256MB| RS components obsolete now
+Temperature sensor| measures the fishtank temperature| DS18B20| http://socomponents.co.uk/shop/ds18b20-waterproof-digital-probe-temperature-sensor-thermometer-thermal-module/
+Relay board 8 channel| Actuator of the system, switches 240 V| Relay board compatible with Raspberry Pi  |http://socomponents.co.uk/shop/5v-dc-eight-8-channel-relay-module-for-arduino-raspberry-pi-pic-avr/
+
+
+
+
 ## To Do
 
 * Auto/manual buttons .
-* Txt with configuration parameters 
-* Investigate if a database is posible to implement
+* Txt with configuration parameters/ Might change to read mysql database 
+* Investigate if a database is posible to implement, test it
 * Add notes about hello world and the first application in the wiki
-* Release project V0 Index.html 
 * Go Live in Pi hooked to the fishtank and weaved
 
 ## In Process
-* Change the outputs and Go life Beta version. pins 23,24,25  
-* Not sure about this gpio-export = 17,18,22,23,24
+ 
 * Test waved with the live system.
 * Pi-stop lights
 * Pi deverlopment version 0003 Q3 2012 B (ECN0001) 1.0 256MB fuses mod and D14 removed
@@ -39,6 +47,7 @@ Changes can be done offline.
 
 
 ##Done
+* Change the outputs and Go life Beta version. pins 23,24,25 , temperature sensor addes
 * Tidy Up application
 * formating colors and text 
 * Tide up code and document macros
@@ -206,3 +215,156 @@ http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-in
 ##6 Circuit layout
 ![GitHub Logo] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Fishtank%20controller%20electrical%20diagram.png)
 
+
+To Add in the readme, needs a bit of tidy up:
+
+
+Windows format:
+	https://www.raspberrypi.org/forums/viewtopic.php?f=26&t=13138
+
+Flash image:
+	https://www.raspberrypi.org/documentation/installation/installing-images/windows.md
+
+nettalk
+	http://gettingstartedwithraspberrypi.tumblr.com/post/24398167109/file-sharing-with-afp-and-auto-discovery-with
+go to forum and follow the instructions
+
+light in the pi semaphore
+
+side close to the border:
+	 GPIO7   Red
+	GPIO8    Amber
+	GPIO25  Green
+Other side:
+	GPIO10   Red
+	GPIO9    Amber
+	GPIO11 Green
+
+Temperature one wire support
+	  get into the configuration folder to add the sensor in the boot 
+	sudo nano /boot/config.txt
+ 	in the last line  add 
+	dtoverlay=w1-gpio
+	reboot the pi
+
+	sudo reboot
+	find the serial of the sensor by typing
+ 		sudo modprobe w1-gpio
+	sudo modprobe w1-therm
+	cd /sys/bus/w1/devices
+ 	ls
+
+	Copy the serial that starts with
+ 
+	28-xxxx
+
+	enter to the configuration of the web server and go to the sensor replace the serial of the sensor
+	then save and reestart the server
+	go to the webpage and it should show the temperature.
+
+	reference
+
+	https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/ds18b20
+
+
+
+setup wifi
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+Compare the contents of the file, if it exists, to the following code. If the file is empty, you can use this code to populate it. Take note of the commented lines (indicated by the # marks) to reference which variable you should use based on your current Wi-Fi node configuration.
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+ssid="YOURSSID"
+psk="YOURPASSWORD"
+
+# Protocol type can be: RSN (for WP2) and WPA (for WPA1)
+proto=WPA
+
+# Key management type can be: WPA-PSK or WPA-EAP (Pre-Shared or Enterprise)
+key_mgmt=WPA-PSK
+
+# Pairwise can be CCMP or TKIP (for WPA2 or WPA1)
+pairwise=TKIP
+
+#Authorization option should be OPEN for both WPA1/WPA2 (in less commonly used are SHARED and LEAP)
+auth_alg=OPEN
+}
+
+When you’re done editing the file, press CTRL+X to save and exit the document. Now is the time to unplug the Ethernet cable and plug in the Wi-Fi dongle.
+
+At the command prompt, enter the following command:
+
+sudo reboot
+
+
+
+
+set up static ip 
+
+backup
+
+
+
+auto lo
+
+iface lo inet loopback
+
+
+
+auto eth0
+
+allow-hotplug eth0
+
+iface eth0 inet manual
+
+
+
+auto wlan0
+
+allow-hotplug wlan0
+
+iface wlan0 inet manual
+
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+
+
+auto wlan1
+
+allow-hotplug wlan1
+
+iface wlan1 inet manual
+
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+
+
+http://weworkweplay.com/play/automatically-connect-a-raspberry-pi-to-a-wifi-network/
+
+
+
+new configuration
+
+auto lo
+iface lo inet loopback
+iface eth0 inet dhcp
+
+
+allow-hotplug wlan0
+iface wlan0 inet static
+address 192.168.1.19
+netmask 255.255.255.0
+gateway 192.168.1.1
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
+
+
+
+
+
+Database tutorial
+]
+http://raspberrywebserver.com/sql-databases/using-mysql-on-a-raspberry-pi.html
