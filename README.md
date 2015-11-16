@@ -148,7 +148,7 @@ The first thing to do is to find the IP address of the PI, to do so, connect to 
 then enter your password, which is usually raspberry 
 
 
-![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/SmallSize/Pi%20SSh%20Small.png "Logo Title Text 1")
+![Pi SSh console](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/SmallSize/Pi%20SSh%20Small.png "Logo Title Text 1")
 
 Voila!!!, you are now in the command prompt of the raspberry pi. from here everything should be easier, if you know what I mean It is recomendable to update the SW of the Pi the firstime is connected
 
@@ -168,15 +168,15 @@ For more information click on the [link] (http://gettingstartedwithraspberrypi.t
 
 Connection
 
-![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Pi%20Nettalk%20Server%20connection.png "Logo Title Text 1")
+![Net talk server connection](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/Pi%20Nettalk%20Server%20connection.png "Logo Title Text 1")
 
 Password validation
 
-![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Pi%20Net%20talk%20server%20validation.png "Logo Title Text 1")
+![Password validation](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/Pi%20Net%20talk%20server%20validation.png "Logo Title Text 1")
 
 Pi directory
 
-![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Pi%20Home%20directory.png "Logo Title Text 1")
+![Pi home directory](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/Pi%20Home%20directory.png "Logo Title Text 1")
 
 		
 Installing a script editor
@@ -186,7 +186,7 @@ Please if you have the means, buy it, really good application. It can be used as
 
 Sublime
 
-![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/PI%20Sublime%20screenshot.png "Logo Title Text 1")
+![Sublime 2 editor](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/PI%20Sublime%20screenshot.png "Logo Title Text 1")
 
 
 ##3 Installing webIO
@@ -195,7 +195,7 @@ WEbIO Pi is a really good aproach to the internet of things, This framework allo
 
 WEBIO framework
 
-![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/webiopi-framework.png "Logo Title Text 1")
+![Web io framework](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/webiopi-framework.png "Logo Title Text 1")
 
 For more information how to install and examples go to the following links
 http://webiopi.trouch.com/INSTALL.html
@@ -208,11 +208,11 @@ The first and essential step into the internet of things is to control an output
 http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 
 ##5 working around with the interface
-![alt Logo](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/SmallSize/rsz_1first_application_version.png "Logo Title Text 1")
+![Hello cruel wordl of IOT](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/First_Application_Version.png "Logo Title Text 1")
 
 
 ##6 Circuit layout
-![GitHub Logo] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/Webio/Screenshoots%20and%20pics/Fishtank%20controller%20electrical%20diagram.png)
+![GitHub Logo] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/Fishtank%20controller%20electrical%20diagram.png)
 
 
 To Add in the readme, needs a bit of tidy up:
@@ -225,9 +225,8 @@ Flash image:  [link](https://www.raspberrypi.org/documentation/installation/inst
 
 #pi semaphore GPIO positions
 
-Item | Description| Reference | Link 
-Position|Pin|Colour
----------|----------|------------
+Item | Description| Reference | Link |Position|Pin|Colour
+---------|----------|------------|------------|------------|------------|
 Close to the border|GPIO7|Red
 	|GPIO8|Amber
 	|GPIO25|Green
