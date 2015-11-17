@@ -2,28 +2,26 @@
 
 ## Description
 
-This project started out me being lazy to toggle the switch on and off.Then I asked myself: What if I control it from my mobile phone? and why not make it automatic?.  Also I have a Raspberry Pi !!!. When I started I thought it was a weekend project, but being here  writing the "ReadMe" of my fishtank controller probes me I understimate the project. 
+This project started out me being lazy to toggle the light switch on and off. Then I asked myself: What if I control it from my mobile phone? and why not make it automatic?.  Fortunatelly I had a Raspberry Pi gatehring dust on my desk. When I started I thought it was a weekend project, but being here  writing the "ReadMe" of my fishtank controller probes I did understimate the project, it has been a loot of fun. Now getting ready to go live with version 2, which will have an arduino to deal with a  apressure sensor to monitor the CO2 reactor(a rather messy experiment), Temperature sensor and maybe a couple LED strips to dimm the light in at night. 
 
-The following "ReadMe" is the logbook of the development process, This document is devided into the development notes, to do lists, tasks done, nice to have, comand cheat sheet. 
-At the end there is draft version of the project Wiki, which describes how to do it again, just in case the system goes bang.
-FYI my mail is juanpadillavivas@gmail.com if you want more information.
+The following "ReadMe" is the logbook of the development process, This guide is devided into the development notes, to do lists, tasks done, nice to have, command cheat sheet. Towards the the end there is draft version of the install Wiki, which describes how to build the project again, just in case the system goes bang or refuses to work.
 
- Let's start over again properly: 
+FYI my mail is juanpadillavivas@gmail.com if you want more information I am more than happy to share the info and experiences.
+
+Now then Let's start over again properly!!!! 
 
 My name is Juan, I have a fishtank which I want to control using my mobile phone. The main controller is a Raspberry Pi model B. That single computer board is connected to a driver board which handles the power side of the system.
 
-The raspberry Pi is the bridge between the mobile friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
+The raspberry Pi is the bridge between the mobile-friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
 
 
 ## To Do
-
 * Auto/manual buttons .
 * Txt with configuration parameters/ Might change to read mysql DB
-* Verify database connectivity.
 * Tidy up ReadMe, grammar and typos. 
 * Go Live in Pi hooked to the fishtank and weaved
 * Implement gauges
-* Connectivity with arduino
+* Connectivity with arduino serial using USB Port
 
 ## In Process
  
@@ -41,6 +39,7 @@ Changes can be done offline.
 
 
 ##Done
+* Verify database connectivity.
 * Change the outputs and Go life Beta version. pins 23,24,25 , temperature sensor addes
 * Tidy Up application
 * formating colors and text 
@@ -99,6 +98,7 @@ WEbio JavaScript Library|https://code.google.com/p/webiopi/wiki/JAVASCRIPT
 SW Engineering course |https://www.udacity.com/course/software-development-process--ud805
 Webio tutorial with bacon |http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 Getting started with GITHub|http://www.instructables.com/id/Introduction-to-GitHub/?ALLSTEPS
+Database tutorial |http://raspberrywebserver.com/sql-databases/using-mysql-on-a-raspberry-pi.html
 
 Welcome to the Fishtank wiki!
 
@@ -311,55 +311,50 @@ sudo reboot
 
 
 #Set static ip 
+The system will be operated using a mobile, it will be way too difficult to scan the whole network searching for the address that has the application. Therefore, It is an "Deadly important to have" a stati address. In this case the application I use 192.168.1.19. The following command allows to enter to the register:
 
-Backup just in case:
 
 ```
-auto lo
-
-iface lo inet loopback
-auto eth0
-
-allow-hotplug eth0
-iface eth0 inet manual
-
-auto wlan0
-allow-hotplug wlan0
-iface wlan0 inet manual
-
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-
-auto wlan1
-allow-hotplug wlan1
-iface wlan1 inet manual
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf 
+sudo nano /etc/network/interfaces
 ```
 
+As always, when it comes to modify a register, it is a good practice to take a back up of the configuration. just in case
 
+BackUp
+	```
+	auto lo
+	iface lo inet loopback
+	auto eth0
+	
+	allow-hotplug eth0
+	iface eth0 inet manual
+	
+	auto wlan0
+	allow-hotplug wlan0
+	iface wlan0 inet manual
+	
+	wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+	
+	auto wlan1
+	allow-hotplug wlan1
+	iface wlan1 inet manual
+	wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf 
+	```
 
+New configuration including the static IP address
+	```
+	auto lo
+	iface lo inet loopback
+	iface eth0 inet dhcp
+	
+	allow-hotplug wlan0
+	iface wlan0 inet static
+	address 192.168.1.19
+	netmask 255.255.255.0
+	gateway 192.168.1.1
+	wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+	iface default inet dhcp
+	```
 Reference [Link](http://weworkweplay.com/play/automatically-connect-a-raspberry-pi-to-a-wifi-network/)
 
 
-
-new configuration
-```
-auto lo
-iface lo inet loopback
-iface eth0 inet dhcp
-
-
-allow-hotplug wlan0
-iface wlan0 inet static
-address 192.168.1.19
-netmask 255.255.255.0
-gateway 192.168.1.1
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-iface default inet dhcp
-```
-
-
-
-
-
-Database tutorial
-[Link](http://raspberrywebserver.com/sql-databases/using-mysql-on-a-raspberry-pi.html)
