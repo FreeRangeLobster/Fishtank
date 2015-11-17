@@ -259,13 +259,40 @@ cd /sys/bus/w1/devices
 ls
 ```
 
-Copy the serial that starts with
+Copy the serial of the sensor that starts with
  
 ```
 28-xxxx  
 ```
 
-enter to the configuration of the web server and go to the sensor replace the serial of the sensor, then save and reestart the servergo to the webpage and it should show the temperature.
+Enter to the configuration of the web server using the following command
+```
+sudo nano /etc/webiopi/config
+```
+
+As always before making any changes save a backup and comment changes in the code. In the device section add the following line of code 
+
+```
+
+...
+
+#temp0 = TMP102
+#temp1 = TMP102 slave:0x49
+#temp2 = DS18B20
+#temp3 = DS18B20 slave:28-0000049bc218
+
+#=============Add this sensor ID ======================
+tmp0 = DS18B20 slave:28-04146de39cff
+#======================================================
+
+#bmp = BMP085
+28-xxxx  
+```
+
+
+
+then save and reestart the servergo to the webpage and it should show the temperature.
+
 
 reference [Link](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/ds18b20)
 
@@ -320,7 +347,7 @@ sudo nano /etc/network/interfaces
 
 As always, when it comes to modify a register, it is a good practice to take a back up of the configuration. just in case
 
-BackUp
+BackUp wireless configuration
 	```
 	auto lo
 	iface lo inet loopback
@@ -356,5 +383,36 @@ New configuration including the static IP address
 	iface default inet dhcp
 	```
 Reference [Link](http://weworkweplay.com/play/automatically-connect-a-raspberry-pi-to-a-wifi-network/)
+
+After rebooting the system, and attempting to ssh the pi 
+```
+ssh pi@192.168.1.19
+```
+
+If the same address has been used to connect other Pies, the terminal might prompt something like this:
+
+```
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+d4:ae:02:2c:bb:97:b0:38:3f:c1:cd:a8:58:68:d7:55.
+Please contact your system administrator.
+Add correct host key in /Users/Juan/.ssh/known_hosts to get rid of this message.
+Offending RSA key in /Users/Juan/.ssh/known_hosts:8
+RSA host key for 192.168.1.19 has changed and you have requested strict checking.
+```
+
+To solve this issue type:
+```
+ssh-keygen -R <host>
+```
+For my case
+```
+ssh-keygen -R 192.168.1.19
+```
 
 
