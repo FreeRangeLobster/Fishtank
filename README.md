@@ -151,11 +151,11 @@ then enter your password, which is usually raspberry
 ![Pi SSh console](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/SmallSize/Pi%20SSh%20Small.png "Logo Title Text 1")
 
 Voila!!!, you are now in the command prompt of the raspberry pi. from here everything should be easier, if you know what I mean It is recomendable to update the SW of the Pi the firstime is connected
-
+```
 	sudo apt-get update 
 	sudo apt-get upgrade 
-	sudo apt-get auto remove
-
+	sudo apt-get autoremove
+```
 For more information go to: https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=74176
 
 ##2 Making the Pi environment confortable to play with:
