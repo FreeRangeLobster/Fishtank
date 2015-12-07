@@ -417,3 +417,5 @@ ssh-keygen -R 192.168.1.19
 ```
 
 
+sudo date -s "Thu Aug  9 21:31:26 UTC 2012"
+
