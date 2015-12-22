@@ -416,6 +416,12 @@ For my case
 ssh-keygen -R 192.168.1.19
 ```
 
-
+To set the time
+```
 sudo date -s "Thu Aug  9 21:31:26 UTC 2012"
+```
+To see the current time
 
+```
+date '+%A %W %Y %X'
+```
