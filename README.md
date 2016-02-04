@@ -12,22 +12,42 @@ My name is Juan, I have a fishtank which I control using my mobile phone. The ma
 The raspberry Pi is the bridge between the mobile-friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
 FYI my mail is juanpadillavivas@gmail.com if you want more information I am more than happy to share the experiences.
 
+## Version 1 capabilities
+* 4 Channels controlling mains socket
+* Lights, water pump and air pump control
+* Web interface
+
+
+## Anouncement Version 2 in process
+# Highlights 
+New Hardware
+* 5 PWM Channels [12V @500 mA] to control lighting
+* Temperature sensor [I2C protocol 12bits resolution -55 to 125
+* Pressure sensor [max 5bar, Analog output 0 to 5V]
+* Uninterruped power supply[battery pack Raspberry pi]
+* Electrovalve to control CO2 reactor
+
+Software
+* Datalogging Temperature and pressure[Mysql]
+* Fishtank scheduled control[Mysql database and webserver]
+* External webpage access using IoT
+* Active control of CO2 reactor 
+
+
+
 
 ## ToDo 
 * Auto/Manual buttons .
-* Txt with configuration parameters/ Might change to read mysql DB
-* Tidy up ReadMe, grammar and typos. 
-* Go Live in Pi hooked to the fishtank and weaved
-* Implement gauges
+* Table in mysql for configurations
+* Implement gauges to show sensors
 * Connectivity with arduino serial using USB Port(will save Arduino power connection, also will ask current from pi, migh not be a good apporach)
 
 ## In Process
 * Test waved with the live system.
-* Pi-stop lights
 
 
 ### Comments-Hot
-Images under buttons [link](https://groups.google.com/forum/#!topic/webiopi/URkwd1O42YI)
+Images under buttons [link](https://groups.google.com/forum/#!topic/webiopi/URkwd1O42YI), waiting for new realise of webiopi server.
 
 
 ### Past Comments-Cold
@@ -36,6 +56,8 @@ Changes can be done offline.
 
 
 ##Done
+* Pi-stop lights
+* Tidy up ReadMe, grammar and typos.
 * Verify database connectivity.
 * Change the outputs and Go life Beta version. pins 23,24,25 , temperature sensor addes
 * Tidy Up application
