@@ -18,8 +18,8 @@ FYI my mail is juanpadillavivas@gmail.com if you want more information I am more
 * Web interface
 
 
-## Anouncement Version 2 in process
-# Highlights 
+## Anouncement: Version 2 in development
+### Highlights 
 New Hardware
 * 5 PWM Channels [12V @500 mA] to control lighting
 * Temperature sensor [I2C protocol 12bits resolution -55 to 125
