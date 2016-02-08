@@ -18,7 +18,7 @@ FYI my mail is juanpadillavivas@gmail.com if you want more information I am more
 * Web interface
 
 
-## Anouncement: Version 2 in development
+## 			Anouncement: Version 2 in development
 ### Highlights 
 New Hardware
 * 5 PWM Channels [12V @500 mA] to control lighting
@@ -33,6 +33,11 @@ Software
 * External webpage access using IoT
 * Active control of CO2 reactor 
 
+Block Diagram
+![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/Fishtank%20block%20diagram.png "Logo Title Text 1")
+
+3D Model 
+![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 
 
