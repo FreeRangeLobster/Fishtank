@@ -188,7 +188,14 @@ For more information go to: https://www.raspberrypi.org/forums/viewtopic.php?f=9
 The following applications will make the linux enviroment easier to edit, test and run applications.
 ###File sharing AFP 
 This application allows to open the directories of the PI as they were “Living” local in your mac. To do so, it is needed to install the Netatalk first in the Raspberry pi. enter the following command in the shell
+<<<<<<< HEAD
 	sudo apt-get install netatalk
+=======
+	```
+	sudo apt-get install netatalk
+	```
+
+>>>>>>> 84273ea43e8319a94ea1723a8e7c202e5dd7bbd7
 Having installed the netatalk in the Pi, you need to access the RasperryPi, to do so press ⌘ + k 
 For more information click on the [link] (http://gettingstartedwithraspberrypi.tumblr.com/post/24398167109/file-sharing-with-afp-and-auto-discovery-with)
 
@@ -452,3 +459,11 @@ To see the current time
 ```
 date '+%A %W %Y %X'
 ```
+<<<<<<< HEAD
+=======
+
+Run program in Python
+```
+	python <filename>.py
+```
+>>>>>>> 84273ea43e8319a94ea1723a8e7c202e5dd7bbd7
