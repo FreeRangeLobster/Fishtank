@@ -7,7 +7,7 @@ import serial
 ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
 ser.open()
 
-ser.write("testing")
+ser.write("Hello cruel world")
 
 try:
     while 1:
