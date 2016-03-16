@@ -42,10 +42,10 @@ Block Diagram
 * Test relay board
 * Wire temperature sensor
 * Finish wiring back plate
+* Update the wiring diagram and add to ReadMe file
 
 
 ## ToDo
-* Buy connectors JST connectors 2 poles/3 poles
 * Soak test light board
 * Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
 * Save back up of the pi, make sure not to expand the SD memory befor the back up
@@ -66,6 +66,7 @@ Changes can be done offline.
 
 
 ##Done
+* Buy connectors JST connectors 2 poles/3 poles
 * Test waved with the live system.
 * Pi-stop lights
 * Tidy up ReadMe, grammar and typos.
