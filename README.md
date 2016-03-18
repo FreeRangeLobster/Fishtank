@@ -39,13 +39,12 @@ Block Diagram
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 ## In Process
-* Test relay board
-* Wire temperature sensor
-* Finish wiring back plate
 * Update the wiring diagram and add to ReadMe file
-
+* Buy connectors JST connectors 2 poles/3 poles//Should arrive by the 2 Apr
 
 ## ToDo
+* Finish wiring back plate
+* Wire temperature sensor
 * Soak test light board
 * Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
 * Save back up of the pi, make sure not to expand the SD memory befor the back up
@@ -66,6 +65,7 @@ Changes can be done offline.
 
 
 ##Done
+* Test relay board
 * Buy connectors JST connectors 2 poles/3 poles
 * Test waved with the live system.
 * Pi-stop lights
