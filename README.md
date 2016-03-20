@@ -39,20 +39,18 @@ Block Diagram
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 ## In Process
+* Test temperature sensor
 * Update the wiring diagram and add to ReadMe file
 * Buy connectors JST connectors 2 poles/3 poles//Should arrive by the 2 Apr
 
 ## ToDo
 * Finish wiring back plate
-* Wire temperature sensor
 * Soak test light board
 * Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
-* Save back up of the pi, make sure not to expand the SD memory befor the back up
+* Save back up of the pi, 
 * Auto/Manual buttons
-* Test temperature sensor
 * Table in mysql for configurations
 * Implement gauges to show sensors
-* Connectivity with arduino serial using USB Port(will save Arduino power connection, also will ask current from pi, migh not be a good apporach)
 
 
 ### Comments-Hot
@@ -65,6 +63,9 @@ Changes can be done offline.
 
 
 ##Done
+* Connect power to arduino and communicate from Pi
+* There is no need to expand the SD memory to use the Pi.
+* Wire temperature sensor
 * Test relay board
 * Buy connectors JST connectors 2 poles/3 poles
 * Test waved with the live system.
