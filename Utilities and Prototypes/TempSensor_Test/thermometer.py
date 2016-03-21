@@ -32,3 +32,4 @@ while True:
     time.sleep(1)
 
 #28-031561a9d9ff temperature sensor serial number
+# Ready to do a soak test 
