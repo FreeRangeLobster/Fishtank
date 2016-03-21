@@ -2,14 +2,13 @@
 
 ## Description
 
-This project started out me being lazy to toggle the light switch on and off. Then I asked myself: What if I control it from my mobile phone? and why not make it automatic?. Fortunately I had a Raspberry Pi gathering dust on my desk. When I started I thought it was a weekend project, but being here writing the "ReadMe" of my fishtank controller probes I did underestimate the project, it has been a lot of fun. Now getting ready to go live with version 2, which will have an Arduino to deal with a pressure sensor to monitor the CO2 reactor(a rather messy experiment), Temperature sensor and maybe a couple LED strips to dim the light in at night.
+This project started out me being lazy to toggle the light switch on and off. Then I asked myself: What if I control it from my mobile phone? and why not make it automatic?. Fortunately I had a Raspberry Pi gathering dust on my desk. When I started I thought it was a weekend project, but being here writing the "ReadMe" of my fishtank controller probes I did underestimate the project, it has been a lot of fun. Now getting ready to go live with version 2, which will have an Arduino board that will read a pressure sensor and control 5 PWM channels.
 
-The following "ReadMe" is basically development process the logbook of the development process. This guide is divided into the development notes, todo lists, tasks done, nice to have and command cheat sheet stuff that is helpful to have handy in the development process. Towards the end, there is draft version of the installation\rebuilding Wiki, which describes how to build the project again, just in case the system goes bang or refuses to work.
+The following "ReadMe" is the logbook of the development process. This guide is divided into the development notes, todo lists, tasks done, nice to have and command cheat sheet stuff,  and helpful note to have handy in the development process. Towards the end, there is draft version of the installation\rebuilding Wiki, which describes how to rebuild the project again, just in case the system goes bang or refuses to work.
 
 Now then Let's start over again properly!!!!
 
-My name is Juan, I have a fishtank which I control using my mobile phone. The main controller is a Raspberry Pi model B. That single computer board is connected to a driver board which handles the power side of the system.
-The raspberry Pi is the bridge between the mobile-friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
+My name is Juan, I have a fishtank which I control using my mobile phone. The main controller is a Raspberry Pi model B. The raspberry Pi is the bridge between the mobile-friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
 FYI my mail is juanpadillavivas@gmail.com if you want more information I am more than happy to share the experiences.
 
 ## Version 1 capabilities
@@ -18,7 +17,7 @@ FYI my mail is juanpadillavivas@gmail.com if you want more information I am more
 * Web interface
 
 
-## 			Anouncement: Version 2 in development
+## Version 2 capabilities(in development)
 ### Highlights 
 New Hardware
 * 5 PWM Channels [12V @500 mA] to control lighting
@@ -39,16 +38,19 @@ Block Diagram
 3D Model 
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
+## In Process
+* Test temperature sensor
+* Update the wiring diagram and add to ReadMe file
+* Buy connectors JST connectors 2 poles/3 poles//Should arrive by the 2 Apr
 
-
-## ToDo 
-* Auto/Manual buttons .
+## ToDo
+* Finish wiring back plate
+* Soak test light board
+* Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
+* Save back up of the pi, 
+* Auto/Manual buttons
 * Table in mysql for configurations
 * Implement gauges to show sensors
-* Connectivity with arduino serial using USB Port(will save Arduino power connection, also will ask current from pi, migh not be a good apporach)
-
-## In Process
-* Test waved with the live system.
 
 
 ### Comments-Hot
@@ -61,6 +63,12 @@ Changes can be done offline.
 
 
 ##Done
+* Connect power to arduino and communicate from Pi
+* There is no need to expand the SD memory to use the Pi.
+* Wire temperature sensor
+* Test relay board
+* Buy connectors JST connectors 2 poles/3 poles
+* Test waved with the live system.
 * Pi-stop lights
 * Tidy up ReadMe, grammar and typos.
 * Verify database connectivity.
@@ -147,7 +155,7 @@ Software | Description| Link
 ------------ | ------------- | -------------
 
 #Version
-0.001
+2A
 
 ## References
 
