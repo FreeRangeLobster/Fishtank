@@ -2,14 +2,13 @@
 
 ## Description
 
-This project started out me being lazy to toggle the light switch on and off. Then I asked myself: What if I control it from my mobile phone? and why not make it automatic?. Fortunately I had a Raspberry Pi gathering dust on my desk. When I started I thought it was a weekend project, but being here writing the "ReadMe" of my fishtank controller probes I did underestimate the project, it has been a lot of fun. Now getting ready to go live with version 2, which will have an Arduino board that will read a pressure sensor and control 5 PWM channels.
+My name is Juan and I am a proud fish tank owner. I am, however, also an engineer, and especially quite a lazy one. Fish tanks require quite a lot of work, which includes air pumps, lights, heating and water filtering. As an engineer, I have asked myself: how could I make the fish tank control easier? This is how I got to the idea of an automated fish tank control, which can be operated remotely via a mobile phone app. 
 
-The following "ReadMe" is the logbook of the development process. This guide is divided into the development notes, todo lists, tasks done, nice to have and command cheat sheet stuff,  and helpful note to have handy in the development process. Towards the end, there is draft version of the installation\rebuilding Wiki, which describes how to rebuild the project again, just in case the system goes bang or refuses to work.
+This project uses a Raspberry Pi model B as a main controller. The raspberry Pi is the bridge between the mobile-friendly web application and the fish tank. The development at the moment allows to activate lights, water filter and the air pump. Version 2 of the project allows to control more elements, such as temperature sensor, a Co2 dispenser, LED lights and a pH sensor. 
 
-Now then Let's start over again properly!!!!
+The following "ReadMe" is the logbook of the development process. This guide is divided into the development notes, todo lists, tasks done, nice to have and command cheat sheet stuff, and helpful notes to have handy in the development process. Towards the end, there is draft version of the installation\rebuilding Wiki, which describes how to rebuild the project again, just in case the system crashes or refuses to work.
 
-My name is Juan, I have a fishtank which I control using my mobile phone. The main controller is a Raspberry Pi model B. The raspberry Pi is the bridge between the mobile-friendly web application and the fishtank. The development at the moment allows to activate lights, water filter and the air pump. In the future it is intended to go for more elements such as, temperature sensor, Co2 dispenser, LEd lights and PH sensor.
-FYI my mail is juanpadillavivas@gmail.com if you want more information I am more than happy to share the experiences.
+If you would like more information regarding my project, feel free to contact me on juanpadillavivas@gmail.com. I would be more than happy to share my experiences with you!
 
 ## Version 1 capabilities
 * 4 Channels controlling mains socket
@@ -175,9 +174,9 @@ The following steps summarise the process of setting up the raspberry pi for the
 
 ##1 Setting up Rasp pi from scratch
 
-I don’t really have spare screens keyboards and mice kicking around my place, so that I had to learn how to communicate with the Raspberry Pi(Here after “Pi”) using SSH. This mode of use is called “Raspberry headless"
+I don’t really have spare screens keyboards and mice kicking around my place, therefore I had to learn how to communicate with the Raspberry Pi(Here after “Pi”) using SSH. This is called “Raspberry headless"
+The first thing to do is to find the IP address of the PI. To do so, connect to the internet access point at home(Router) and find who is connected to it. Then open a terminal: in Mac this is done by pressing ⌘+space and then type “terminal” and press Enter.  When in the terminal, type ssh pi@192.168.1.7 (use your own ip address, this is an example that worked in my case). Finally, enter your password, which is usually raspberry
 
-The first thing to do is to find the IP address of the PI, to do so, connect to the internet access point at home(Router), go to find who is connected to it. Then open a terminal in mac press ⌘+space, then type in the terminal
 	```
 	ssh pi@192.168.1.7
 	```
@@ -186,26 +185,24 @@ Then enter your password, usually is raspberry
 
 ![Pi SSh console](https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/SmallSize/Pi%20SSh%20Small.png "Logo Title Text 1")
 
-Voila!!!, You are now in the command prompt of the raspberry pi. From here everything should be easier, if you know what I mean.. It is recommendable to update the SW of the Pi the first time is connected. I am assuming an internet connection is available.
+Voila!!!, You are now in the command prompt of the Pi. From here everything should be easier, if you know what I mean.. It is recommendable to update the  Pi software the first time it is connected (I am assuming an internet connection is available).  
+	
 	```
 	sudo apt-get update 
 	sudo apt-get upgrade 
 	sudo apt-get autoremove
 	```
+	
 For more information go to: https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=74176
 
 ##2 Making the Pi environment confortable to play with:
 The following applications will make the linux enviroment easier to edit, test and run applications.
 ###File sharing AFP 
-This application allows to open the directories of the PI as they were “Living” local in your mac. To do so, it is needed to install the Netatalk first in the Raspberry pi. enter the following command in the shell
-<<<<<<< HEAD
-	sudo apt-get install netatalk
-=======
+This application allows to open the directories of the PI as they were “Living” local in your mac. To do so, it is necessary first to install the Netatalk in the Pi.. To do so, enter the following command in the shell 
 	```
 	sudo apt-get install netatalk
 	```
 
->>>>>>> 84273ea43e8319a94ea1723a8e7c202e5dd7bbd7
 Having installed the netatalk in the Pi, you need to access the RasperryPi, to do so press ⌘ + k 
 For more information click on the [link] (http://gettingstartedwithraspberrypi.tumblr.com/post/24398167109/file-sharing-with-afp-and-auto-discovery-with)
 
@@ -224,9 +221,7 @@ Pi directory
 		
 ###Installing a script editor
 
-After having installed the Nettalk, you can access files in the pi and edit them locally as if it was in your own computer. That is just brilliant!! and really handy. Now you need a good text editor, my weapon of choice is: 
-"Sublime is a cross-platform text and source code editor with a Python application programming interface (API). It natively supports many programming languages and markup languages, Sublime Text is proprietary software; all license revenue accrues to the developer." wikipedia
-If you have the means, Please buy it and support the team. It is a really good application. It can be used as a trial for a while.
+Once Netatalk has been installed, you can access files that are in the Pi and edit them locally as if they were on your own computer. That is just brilliant (and also really handy)! Now you need a good text editor. My weapon of choice is Sublime. According to Wikipedia, "Sublime is a cross-platform text and source code editor with a Python application programming interface (API). It natively supports many programming languages and markup languages, Sublime Text is proprietary software; all license revenue accrues to the developer." If you have the means, please buy it and support the team. It is a really good application. It can be used as a trial for a while.
 
 
 Sublime
@@ -236,7 +231,7 @@ Sublime
 
 ##3 Installing webIO
 
-WEbIO Pi is a really good approach to the internet of things, This framework allows to control, debug and use the RaspberryPI GPIO from any webpage. Moreover, it is equipped with a set of sensor/actuator libraries and plugins that facilitates the communication with standard sensors.
+WEbIO Pi is a really good approach to the internet of things. This framework allows to control, debug and use the RaspberryPI GPIO from any webpage. Moreover, it is equipped with a set of sensor/actuator libraries and plugins that facilitates the communication with standard sensors.
 
 WEBIO framework
 
@@ -249,6 +244,7 @@ http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-in
 
 ##4 Hello world web
 The first and essential step into the internet of things is to control a single output, to do so, the following link provides a step by step lifesaver tutorial.
+
 
 http://forums.connectedly.com/raspberry-pi-f179/how-controlling-gpio-pins-via-internet-2884/
 
@@ -469,8 +465,6 @@ To see the current time
 ```
 date '+%A %W %Y %X'
 ```
-<<<<<<< HEAD
-=======
 
 Run program in Python
 ```
