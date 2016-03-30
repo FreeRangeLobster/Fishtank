@@ -31,8 +31,13 @@ Software
 * External webpage access using IoT
 * Active control of CO2 reactor 
 
-Block Diagram
+System General Arrangement
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/Fishtank%20block%20diagram.png "Logo Title Text 1")
+
+
+
+Block Diagram
+![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/FT_Controller%20Ver%202.png "Logo Title Text 1")
 
 3D Model 
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
