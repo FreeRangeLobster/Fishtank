@@ -2,7 +2,7 @@
 
 ## Description
 
-My name is Juan and I am a proud fish tank owner. I am, however, also an engineer, and especially quite a lazy one. Fish tanks require quite a lot of work, which includes air pumps, lights, heating and water filtering. As an engineer, I have asked myself: how could I make the fish tank control easier? This is how I got to the idea of an automated fish tank control, which can be operated remotely via a mobile phone app. 
+My name is Juan and I have a 120liter fish tank. I am, however, also an engineer, the lazy type. Fish tanks require quite a lot of work, which includes air pumps, lights, heating and water filtering. As an engineer, I have asked myself: how could I make the fish tank control easier? This is how I got to the idea of an automated fish tank control, which can be operated remotely via a mobile phone app. 
 
 This project uses a Raspberry Pi model B as a main controller. The raspberry Pi is the bridge between the mobile-friendly web application and the fish tank. The development at the moment allows to activate lights, water filter and the air pump. Version 2 of the project allows to control more elements, such as temperature sensor, a Co2 dispenser, LED lights and a pH sensor. 
 
@@ -43,20 +43,27 @@ Block Diagram
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 ## In Process
-* Update the wiring diagram and add to ReadMe file
-* Buy connectors JST connectors 2 poles/3 poles//Should arrive by the 2 Apr
+* Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
+* Drill holes and wire db9s
 
 ## ToDo
 * Finish wiring back plate
 * Soak test light board sensor and relay
-* Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
 * Save back up of the pi, 
 * Auto/Manual buttons
-* Table in mysql for configurations
+* DB:
+	* Table for configurations (times when outputs need to be activated)
+	* Table to log actions
+	* Table to log temperature, pressure and output states.
+* Develop script in python to test DB and do Soak test, not required to use the FT2 system
+* Implement PWM outputs in Arduino
+* Connect uninterrumped power bank
 * Implement gauges to show sensors
 
 
 ##Done
+* Update the wiring diagram and add to ReadMe file
+* Buy connectors JST connectors 2 poles/3 poles//Should arrive by the 2 Apr
 * Test temperature sensor
 * Connect power to arduino and communicate from Pi
 * There is no need to expand the SD memory to use the Pi.
