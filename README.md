@@ -43,7 +43,8 @@ Block Diagram
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 ## In Process
-* Wire relay mains out of the control box
+* Test uninterrumped power bank
+* Finilise communication arduino RPi
 
 ## ToDo
 * Soak test light board sensor and relay
@@ -54,11 +55,12 @@ Block Diagram
 	* Table to log temperature, pressure and output states.
 * Develop script in python to test DB and do Soak test, not required to use the FT2 system, to be done in PI Zero
 * Implement PWM outputs in Arduino
-* Test uninterrumped power bank
+
 * Implement gauges to show sensors
 
 
 ##Done
+* Wire relay mains out of the control box
 * Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
 * Drill holes and wire db9s
 * Finish wiring back plate
