@@ -43,10 +43,10 @@ Block Diagram
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 ## In Process
-* Test uninterrumped power bank
-* Finilise communication arduino RPi
+* Finalise communication arduino RPi
 
 ## ToDo
+* Wire connectors
 * Soak test light board sensor and relay
 * Auto/Manual buttons
 * DB:
@@ -60,6 +60,7 @@ Block Diagram
 
 
 ##Done
+* Test uninterrumped power bank= Succesful, works for less than 45min
 * Wire relay mains out of the control box
 * Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
 * Drill holes and wire db9s
