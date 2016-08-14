@@ -43,7 +43,7 @@ Block Diagram
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 ## In Process
-* Finalise communication arduino RPi
+
 
 ## ToDo
 * Wire connectors
@@ -60,6 +60,7 @@ Block Diagram
 
 
 ##Done
+* Finalise communication arduino RPi
 * Test uninterrumped power bank= Succesful, works for less than 45min
 * Wire relay mains out of the control box
 * Verify Box CAD diagram is still applicable and the holes coincide with the ports of the pi and arduino
@@ -485,4 +486,25 @@ Run program in Python
 ```
 	python <filename>.py
 ```
+
+#Arduino Fishtank controller commands
+Description| Command| Reply 
+------------ | -------------| -------------
+Arduino Status | S |XXXXX-Pressure*
+Channel 1 On|Ch1ON|_Ch1ON
+Channel 2 On|Ch2ON|_Ch2ON
+Channel 3 On|Ch3ON|_Ch3ON
+Channel 4 On|Ch4ON|_Ch4ON
+Channel 5 On|Ch5ON|_Ch5ON
+Channel 1 Off|Ch1OFF|_Ch1OFF
+Channel 2 Off|Ch2OFF|_Ch2OFF
+Channel 3 Off|Ch3OFF|_Ch3OFF
+Channel 4 Off|Ch4OFF|_Ch4OFF
+Channel 5 Off|Ch5OFF|_Ch5OFF
+
+* X: is the state of the output, where 1 is activated and 0 is off
+* Pressure: is a 3 digit raw measurement of the pressure
+
+
+
 >>>>>>> 84273ea43e8319a94ea1723a8e7c202e5dd7bbd7
