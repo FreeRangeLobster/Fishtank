@@ -43,23 +43,31 @@ Block Diagram
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 ## In Process
+* Full soak test:
+* 	Test Temperature
+* 	Test Relay Board
+* 	Test Pressure and Light board - Arduino
+* 	Test webIO
 
 
 ## ToDo
-* Wire connectors
-* Soak test light board sensor and relay
-* Auto/Manual buttons
+* Develop script in python to test DB and do Soak test, not required to use the FT2 system, to be done in PI Zero
+* integrate arduino to the webio
 * DB:
 	* Table for configurations (times when outputs need to be activated)
 	* Table to log actions
 	* Table to log temperature, pressure and output states.
-* Develop script in python to test DB and do Soak test, not required to use the FT2 system, to be done in PI Zero
 * Implement PWM outputs in Arduino
-
 * Implement gauges to show sensors
 
+## NICE TO HAVE
+*One macro that reads two independent buttons and controls one output. The output number should be pass a a part of the macro parameters. This will allow to use only one macro for the four outputs.
+* Arduino PWM fade slowly lights
+* Auto/Manual buttons in the webpage
 
 ##Done
+* Wire connectors
+* Soak test light board sensor and relay
 * Finalise communication arduino RPi
 * Test uninterrumped power bank= Succesful, works for less than 45min
 * Wire relay mains out of the control box
@@ -110,8 +118,7 @@ Changes can be done offline.
 
 
 
-## NICE TO HAVE
-*One macro that reads two independent buttons and controls one output. The output number should be pass a a part of the macro parameters. This will allow to use only one macro for the four outputs.
+
 
 ##Commands Cheatsheet
 Command | Application | Description
