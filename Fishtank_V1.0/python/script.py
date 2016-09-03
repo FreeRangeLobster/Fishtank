@@ -2,6 +2,9 @@ import webiopi
 import datetime
 
 GPIO = webiopi.GPIO
+from webiopi.devices.serial import Serial
+serial = Serial("ttyAMA0", 9600)
+
 
 #***********************#
 #   GPIO Declarations   #
@@ -71,6 +74,7 @@ def getSensor(arg0):
 # loop function is repeatedly called by WebIOPi 
 def loop():
     # retrieve current datetime
+    serial.writeString("Ch1OFF")       # write a string
     now = datetime.datetime.now()
 
     #----------------------------------------------------------------Light------------------------------------------------------
@@ -141,7 +145,7 @@ def loop():
     # gives CPU some time before looping again
     webiopi.sleep(1)
 
-
+    serial.writeString("Ch1ON")
 
 
 
