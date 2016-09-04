@@ -43,21 +43,16 @@ Block Diagram
 ![Pi SSh console] (https://github.com/FreeRangeLobster/Fishtank_Development/blob/master/ScreenGrabs%20and%20Pics/VirtualBox_WIN7%20Clone_01_02_2016_23_01_31.png "Logo Title Text 1")
 
 ## In Process
-* Full soak test:
-* 	Test Temperature
-* 	Test Relay Board
-* 	Test Pressure and Light board - Arduino
-* 	Test webIO
+* tidy up code
+* Decide to use xml files or a DB to log
 
 
 ## ToDo
 * Develop script in python to test DB and do Soak test, not required to use the FT2 system, to be done in PI Zero
-* integrate arduino to the webio
 * DB:
 	* Table for configurations (times when outputs need to be activated)
 	* Table to log actions
 	* Table to log temperature, pressure and output states.
-* Implement PWM outputs in Arduino
 * Implement gauges to show sensors
 
 ## NICE TO HAVE
@@ -66,6 +61,13 @@ Block Diagram
 * Auto/Manual buttons in the webpage
 
 ##Done
+* Implement PWM outputs in Arduino
+* integrate arduino to the webio
+* Full soak test from webio:
+* 	Test Temperature
+* 	Test Relay Board
+* 	Test Pressure and Light board - Arduino
+* 	Test webIO
 * Wire connectors
 * Soak test light board sensor and relay
 * Finalise communication arduino RPi
