@@ -29,6 +29,7 @@ PUMP_ON  = 19  #Turns pump ON
 BUBBLES_ON  = 18  #Turns pump off 
 BUBBLES_OFF = 20  #Turns pump ON 
 
+Pressure=0
 
 
 
@@ -41,12 +42,17 @@ def setup():
     os.system("sudo modprobe w1-gpio")
     os.system("sudo modprobe w1-therm")
 
+
     # set the GPIO used by the light to output
     GPIO.setFunction(LIGHT, GPIO.OUT)
     GPIO.setFunction(LIGHT2, GPIO.OUT)
     GPIO.setFunction(LIGHT3, GPIO.OUT)
     GPIO.setFunction(LIGHT4, GPIO.OUT)
     GPIO.setFunction(LIGHT5, GPIO.OUT)
+
+    # empty input buffer before starting processing
+    while (serial.available() > 0):
+        serial.readString()
 
     # retrieve current datetime
     now = datetime.datetime.now()
@@ -64,18 +70,63 @@ def measure():
     print("Temperature: %.2f" % TempRead)
     return (TempRead)
 
+def measurePressure():
+    global Pressure
+    serial.writeString("S\r")       # write a string
+    now = datetime.datetime.now()
+    webiopi.sleep(0.5)
+
+    if (serial.available() > 0):
+        data = serial.readString()     # read available data
+        lines = data.split("\r\n")     # split lines
+        count = len(lines)             # count lines
+        lines = lines[0:count-1]       # remove last item from split which is empty
+        #data = serial.readString()        # read available data as string
+        #print(data)
+        #print(count)
+
+        for pair in lines:
+            cv = pair.split("-")       # split channel/value
+            channel = int(cv[0])
+            Pressure = int(cv[1])
+            print(Pressure)
+    return (Pressure)
+
 @webiopi.macro
 def getSensor(arg0):
     global TempRead
     measure()
     return TempRead
 
+# this macro scales sensor value and returns it as percent string
+@webiopi.macro
+def getSensor2(channel):
+    global Pressure
+    measurePressure()
+    return Pressure
+
 
 # loop function is repeatedly called by WebIOPi 
 def loop():
     # retrieve current datetime
-    serial.writeString("Ch1OFF")       # write a string
+#    serial.writeString("S\r")       # write a string
     now = datetime.datetime.now()
+#    webiopi.sleep(1)
+
+#    if (serial.available() > 0):
+#        data = serial.readString()     # read available data
+#        lines = data.split("\r\n")     # split lines
+#        count = len(lines)             # count lines
+#        lines = lines[0:count-1]       # remove last item from split which is empty
+        #data = serial.readString()        # read available data as string
+        #print(data)
+        #print(count)
+
+#        for pair in lines:
+#            cv = pair.split("-")       # split channel/value
+#            channel = int(cv[0])
+#            Pressure = int(cv[1])
+            #print(Pressure)
 
     #----------------------------------------------------------------Light------------------------------------------------------
     #for light 4
@@ -143,9 +194,9 @@ def loop():
     #measure()
 
     # gives CPU some time before looping again
-    webiopi.sleep(1)
+    webiopi.sleep(1.5)
 
-    serial.writeString("Ch1ON")
+    #serial.writeString("Ch1ON")
 
 
 

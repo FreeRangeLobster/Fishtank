@@ -37,6 +37,7 @@
     function callMacro() {        
         var arg = [0];
         webiopi().callMacro("getSensor", arg, sensorCallback);
+        webiopi().callMacro("getSensor2", arg, sensor2Callback);
 
     }
 
@@ -45,6 +46,16 @@
         myDiv1.innerHTML = data.split(" ")[0];
     }
 
+    function sensor2Callback(getSensor2, arg, data) {
+         //Methodd 1
+         //value = parseInt(data);
+         //$("value").text(value+"Press");
+
+        //$("#sensor"+channel).text(value);
+        // $("#digital").text("ON");
+        //myDiv2.innerHTML = data.split(" ")[0];
+        myDiv2.innerHTML = data;
+    }
 
         </script>
         <style type="text/css">
@@ -224,6 +235,13 @@
     </tr>
 
     <tr align="center">
+
+       <td style="width: 100px;"><div> Pressure</div></td>
+       <td style="width: 50px;"><div id= "myDiv2"></div></td> 
+       <td style="width: 20x;"><div> °C </div></td>
+    </tr>
+
+    <tr align="center">
         <td align="center" colspan="3"><div id="controls"  SRC="Icon_Lights.jpg" >
                <!-- <IMG align="Center" BORDER="0" WIDTH="50" HEIGHT="40" SRC="Icon_Lights.jpg" width="10" height="8" > -->
         </td> </div>       
@@ -248,6 +266,7 @@
 
     <tr align="center">
         <th colspan="5" bgcolor="Yellow">Version 0.001 </th>
+        
     </tr>
 </table>
 <IMG align="Center" BORDER="0" WIDTH="nn" HEIGHT="nn" SRC="Icon_Lights.jpg" width="10" height="8" ></TD>
