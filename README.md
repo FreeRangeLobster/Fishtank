@@ -49,6 +49,7 @@ Block Diagram
 
 ## ToDo
 * Develop script in python to test DB and do Soak test, not required to use the FT2 system, to be done in PI Zero
+* BackUp configuration file of the pi
 * DB:
 	* Table for configurations (times when outputs need to be activated)
 	* Table to log actions
