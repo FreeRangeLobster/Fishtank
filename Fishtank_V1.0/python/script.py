@@ -15,7 +15,7 @@ LIGHT3 = 18 # GPIO pin using BCM numbering      AIR PUMP
 LIGHT4 = 22 # GPIO pin using BCM numbering      LIGHT
 LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
-
+#Variable definitions
 
 HOUR_ON  = 8  # Turn Light ON at 08:00
 HOUR_OFF = 18 # Turn Light OFF at 18:00
@@ -50,7 +50,8 @@ def setup():
     GPIO.setFunction(LIGHT4, GPIO.OUT)
     GPIO.setFunction(LIGHT5, GPIO.OUT)
 
-    # empty input buffer before starting processing
+    # empty input buffer before starting processing used for 
+    # used for pressure sensor
     while (serial.available() > 0):
         serial.readString()
 
@@ -81,9 +82,7 @@ def measurePressure():
         lines = data.split("\r\n")     # split lines
         count = len(lines)             # count lines
         lines = lines[0:count-1]       # remove last item from split which is empty
-        #data = serial.readString()        # read available data as string
-        #print(data)
-        #print(count)
+   
 
         for pair in lines:
             cv = pair.split("-")       # split channel/value
@@ -111,22 +110,18 @@ def loop():
     # retrieve current datetime
 #    serial.writeString("S\r")       # write a string
     now = datetime.datetime.now()
-#    webiopi.sleep(1)
-
-#    if (serial.available() > 0):
-#        data = serial.readString()     # read available data
-#        lines = data.split("\r\n")     # split lines
-#        count = len(lines)             # count lines
-#        lines = lines[0:count-1]       # remove last item from split which is empty
-        #data = serial.readString()        # read available data as string
-        #print(data)
-        #print(count)
-
-#        for pair in lines:
-#            cv = pair.split("-")       # split channel/value
-#            channel = int(cv[0])
-#            Pressure = int(cv[1])
             #print(Pressure)
+
+    #Counter up to 30sec
+    #- Request Database
+    # if there is anything to commit in the database, commit logs, temperature and pressure
+    # Update states of the fishtank
+
+
+    # every second 
+    # read arduino
+
+
 
     #----------------------------------------------------------------Light------------------------------------------------------
     #for light 4
@@ -211,3 +206,25 @@ def destroy():
     GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
     GPIO.digitalWrite(LIGHT5, GPIO.HIGH)
 
+#Turn arduino lights on/off
+#serial.writeString("Ch1ON")
+
+
+
+
+
+#    webiopi.sleep(1)
+
+#    if (serial.available() > 0):
+#        data = serial.readString()     # read available data
+#        lines = data.split("\r\n")     # split lines
+#        count = len(lines)             # count lines
+#        lines = lines[0:count-1]       # remove last item from split which is empty
+        #data = serial.readString()        # read available data as string
+        #print(data)
+        #print(count)
+
+#        for pair in lines:
+#            cv = pair.split("-")       # split channel/value
+#            channel = int(cv[0])
+#            Pressure = int(cv[1])
