@@ -36,11 +36,17 @@ BUBBLES_OFF = 20  #Turns pump ON
 
 Pressure=0
 
+#Counter to query database
 
 
 
 # setup function is automatically called at WebIOPi startup
 def setup():
+    global x 
+    global y
+    x = 0
+    y = 0
+
 
     # set the GPIO used by the light to output
     import os
@@ -54,6 +60,7 @@ def setup():
     GPIO.setFunction(LIGHT3, GPIO.OUT)
     GPIO.setFunction(LIGHT4, GPIO.OUT)
     GPIO.setFunction(LIGHT5, GPIO.OUT)
+
 
     # empty input buffer before starting processing used for 
     # used for pressure sensor
@@ -128,8 +135,16 @@ except:
    print "Error: the database is being rolled back"
    db.rollback()
 
+
+
 # loop function is repeatedly called by WebIOPi 
 def loop():
+    global x
+    global y
+    global PressureC
+    global TempRead
+
+    
     # retrieve current datetime
 #    serial.writeString("S\r")       # write a string
     now = datetime.datetime.now()
@@ -144,6 +159,16 @@ def loop():
     # every second 
     # read arduino
 
+
+    x = x + 1
+    if (x == 2):
+        x = 0
+        #PressureC = "a"
+        print "Counter =10 seconds time to read configuration Pressure: %s  Temperature: %.2f" % (Pressure, TempRead)
+
+    if (y == 3):
+        y = 0
+        print "Counter =10 seconds time to save readings"
 
 
     #----------------------------------------------------------------Light------------------------------------------------------
