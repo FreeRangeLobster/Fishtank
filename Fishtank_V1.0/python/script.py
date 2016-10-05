@@ -36,7 +36,7 @@ BUBBLES_OFF = 20  #Turns pump ON
 
 Pressure=0
 
-#Counter to query database
+global TempRead
 
 
 
@@ -103,6 +103,8 @@ def measurePressure():
             print(Pressure)
     return (Pressure)
 
+
+
 @webiopi.macro
 def getSensor(arg0):
     global TempRead
@@ -136,11 +138,19 @@ except:
    db.rollback()
 
 
+def LogTemperature( Temperature, Zone ):
+    sql = "INSERT INTO tempdat(tdate, tTime,zone,Temperature) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (Zone ,Temperature)
+    curs.execute(sql)
+    db.commit()
+    return True 
+
+
 
 # loop function is repeatedly called by WebIOPi 
 def loop():
     global x
     global y
+    global temperaturevar
     global PressureC
     global TempRead
 
@@ -161,12 +171,22 @@ def loop():
 
 
     x = x + 1
-    if (x == 2):
+    if (x == 10):
         x = 0
         #PressureC = "a"
+        
+        temperaturevar=measure()
+        Zone="Fishtank"
+        print(temperaturevar, Zone)
+        LogTemperature( temperaturevar, Zone )
+
+
+
+        #print(temperaturevar)
         print "Counter =10 seconds time to read configuration Pressure: %s  Temperature: %.2f" % (Pressure, TempRead)
 
-    if (y == 3):
+    y = y + 1
+    if (y == 5):
         y = 0
         print "Counter =10 seconds time to save readings"
 
