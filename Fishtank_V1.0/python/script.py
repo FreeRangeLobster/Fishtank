@@ -1,10 +1,10 @@
 import webiopi
 import datetime
-import MySQLdb
+#import MySQLdb
  
 
-db = MySQLdb.connect("localhost", "monitor", "password", "temps")
-curs=db.cursor() 
+#db = MySQLdb.connect("localhost", "monitor", "password", "temps")
+#curs=db.cursor() 
 
 GPIO = webiopi.GPIO
 from webiopi.devices.serial import Serial
@@ -119,30 +119,36 @@ def getSensor2(channel):
     return Pressure
 
 
-try:
-    curs.execute ("""INSERT INTO tempdat 
-            values(CURRENT_DATE(), NOW() - INTERVAL 12 HOUR, 'kitchen', 20.6)""")
-    db.commit()
+#JV 07/02/2017 Commented out from here
+#↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
-    print "After Commit"
-    curs.execute ("SELECT * FROM tempdat")
-    print "\nDate       Time        Zone        Temperature"
-    print "==========================================================="
+#try:
+#    curs.execute ("""INSERT INTO tempdat 
+#            values(CURRENT_DATE(), NOW() - INTERVAL 12 HOUR, 'kitchen', 20.6)""")
+#    db.commit()
 
-    for reading in curs.fetchall():
-        print str(reading[0])+" "+str(reading[1])+"     "+reading[2]+"      "+str(reading[3])
+#    print "After Commit"
+#    curs.execute ("SELECT * FROM tempdat")
+#    print "\nDate       Time        Zone        Temperature"
+#    print "==========================================================="
 
-
-except:
-   print "Error: the database is being rolled back"
-   db.rollback()
+#    for reading in curs.fetchall():
+#        print str(reading[0])+" "+str(reading[1])+"     "+reading[2]+"      "+str(reading[3])
 
 
-def LogTemperature( Temperature, Zone ):
-    sql = "INSERT INTO tempdat(tdate, tTime,zone,Temperature) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (Zone ,Temperature)
-    curs.execute(sql)
-    db.commit()
-    return True 
+#except:
+#   print "Error: the database is being rolled back"
+#   db.rollback()
+
+
+#JV 07/02/2017 Commented out to here
+#↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+#def LogTemperature( Temperature, Zone ):
+#    sql = "INSERT INTO tempdat(tdate, tTime,zone,Temperature) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (Zone ,Temperature)
+#    curs.execute(sql)
+#    db.commit()
+#    return True 
 
 
 
@@ -178,17 +184,17 @@ def loop():
         temperaturevar=measure()
         Zone="Fishtank"
         print(temperaturevar, Zone)
-        LogTemperature( temperaturevar, Zone )
+ #       LogTemperature( temperaturevar, Zone )
 
 
 
         #print(temperaturevar)
-        print "Counter =10 seconds time to read configuration Pressure: %s  Temperature: %.2f" % (Pressure, TempRead)
+        #print "Counter =10 seconds time to read configuration Pressure: %s  Temperature: %.2f" % (Pressure, TempRead)
 
     y = y + 1
     if (y == 5):
         y = 0
-        print "Counter =10 seconds time to save readings"
+  #      print "Counter =10 seconds time to save readings"
 
 
     #----------------------------------------------------------------Light------------------------------------------------------
