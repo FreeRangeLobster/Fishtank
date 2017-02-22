@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+
 import webiopi
 import datetime
-#import MySQLdb
+import MySQLdb
  
 
-#db = MySQLdb.connect("localhost", "monitor", "password", "temps")
-#curs=db.cursor() 
+db = MySQLdb.connect("localhost", "monitor", "password", "temps")
+curs=db.cursor() 
 
 GPIO = webiopi.GPIO
 from webiopi.devices.serial import Serial
@@ -44,6 +46,8 @@ global TempRead
 def setup():
     global x 
     global y
+    global TimeNextQuery
+    global SamplingTimeQuery_Sec
     x = 0
     y = 0
 
@@ -73,6 +77,77 @@ def setup():
     # test if we are between ON time and tun the light ON
     if ((now.hour >= HOUR_ON) and (now.hour < HOUR_OFF)):
         GPIO.digitalWrite(LIGHT, GPIO.HIGH)
+
+    InitialTimeSample = datetime.datetime.now()
+    SamplingTimeQuery_Sec=5
+    SamplingTimeLog_Sec=20
+
+
+    TimeNextQuery = InitialTimeSample + datetime.timedelta(seconds=SamplingTimeQuery_Sec)
+    TimeNextLog =InitialTimeSample + datetime.timedelta(seconds=SamplingTimeLog_Sec)
+    print "Time query: ", TimeNextQuery, "Time next Log: ",TimeNextLog
+
+
+
+    #global ActualTime = datetime.datetime.now()
+    InitialTimeSample = datetime.datetime.now()
+    print "Initial time sample :"
+    print InitialTimeSample
+
+    
+
+    #global PumpQueryTime = ActualTime + 1min
+    print "Time in the future"
+    TimeToSample= InitialTimeSample + datetime.timedelta(seconds=10)
+
+    #JV disabled it
+    #Log events
+    #LogEvent(1,1)
+
+    #TimeToSample= InitialTimeSample + datetime.timedelta(minutes=5)
+    print TimeToSample
+
+def QueryDatabase(actuator):
+ try:
+  TmPastTime = datetime.datetime.now() - datetime.timedelta(hours=1)
+  PastTime=TmPastTime.strftime("%H:%M")
+  print PastTime 
+
+  TmFutureTime = datetime.datetime.now() + datetime.timedelta(hours=1)
+  FutueTime=TmFutureTime.strftime("%H:%M") 
+  print FutueTime 
+
+
+ #query DB table schedule and looks for a period of time and a specific output
+  #curs.execute ("SELECT * FROM schedule WHERE output = 'pump'  and time BETWEEN '10:00' AND '14:37'")
+
+  query = ("SELECT * FROM schedule WHERE output = %s and time BETWEEN %s AND %s")
+  #query = ("SELECT * FROM schedule WHERE output = 'air' and time BETWEEN %s AND %s")
+  print "query: ", query, (actuator,PastTime, FutueTime) 
+  curs.execute(query, (actuator,PastTime, FutueTime))
+ 
+  
+  print "\nOutput    Status      Enable  Time"
+  print "==========================================================="
+  for reading in curs.fetchall():
+   #Shows the whole table retrieved by the query 
+   print str(reading[0])+"   "+str(reading[1])+" "+reading[2]+"  "+str(reading[3])
+   if str(reading[1])=='ON' and str(reading[2])=='EN':
+    return 1   
+   elif str(reading[1])=='OFF' and str(reading[2])=='EN': 
+    return 0  
+   else:
+    return 2
+  #In case the query was void, the functions returns 2 
+  return 2 
+ 
+ except Exception, e:
+  db.close()
+  print "Error: the database is being rolled back"
+  db.rollback()
+  raise e
+
+
 
 
 def measure():
@@ -118,38 +193,41 @@ def getSensor2(channel):
     measurePressure()
     return Pressure
 
-
-#JV 07/02/2017 Commented out from here
+#JV 17/02/2017 Included it back to test connection with the database
 #↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+try:
+    curs.execute ("""INSERT INTO tempdat 
+            values(CURRENT_DATE(), NOW() - INTERVAL 12 HOUR, 'Sys Restart', 00.6)""")
+    db.commit()
 
-#try:
-#    curs.execute ("""INSERT INTO tempdat 
-#            values(CURRENT_DATE(), NOW() - INTERVAL 12 HOUR, 'kitchen', 20.6)""")
-#    db.commit()
+    print "After Commit"
+    curs.execute ("SELECT * FROM tempdat")
+    print "\nDate       Time        Zone        Temperature"
+    print "==========================================================="
 
-#    print "After Commit"
-#    curs.execute ("SELECT * FROM tempdat")
-#    print "\nDate       Time        Zone        Temperature"
-#    print "==========================================================="
-
-#    for reading in curs.fetchall():
-#        print str(reading[0])+" "+str(reading[1])+"     "+reading[2]+"      "+str(reading[3])
-
-
-#except:
-#   print "Error: the database is being rolled back"
-#   db.rollback()
+    for reading in curs.fetchall():
+        print str(reading[0])+" "+str(reading[1])+"     "+reading[2]+"      "+str(reading[3])
 
 
-#JV 07/02/2017 Commented out to here
+except:
+   print "Error: the database is being rolled back"
+   db.rollback()
+
+
+
+
+
+
+
+
+#JV 17/02/2017 Included it back
 #↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
-#def LogTemperature( Temperature, Zone ):
-#    sql = "INSERT INTO tempdat(tdate, tTime,zone,Temperature) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (Zone ,Temperature)
-#    curs.execute(sql)
-#    db.commit()
-#    return True 
-
+def LogTemperature( Temperature, Zone ):
+    sql = "INSERT INTO tempdat(tdate, tTime,zone,Temperature) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (Zone ,Temperature)
+    curs.execute(sql)
+    db.commit()
+    return True 
 
 
 # loop function is repeatedly called by WebIOPi 
@@ -159,7 +237,20 @@ def loop():
     global temperaturevar
     global PressureC
     global TempRead
+    global TimeNextQuery
 
+
+    TimeNow = datetime.datetime.now()
+    if TimeNow > TimeNextQuery:
+        #GPIO.output(RedLed_LHS, GPIO.LOW)
+        TimeNextQuery= TimeNow + datetime.timedelta(seconds=SamplingTimeQuery_Sec)
+            
+        #JV disabled due to there is no functions to handle it yet            
+        #print "Baton no: ", QueryBatonNo
+            
+        temperaturevar=measure()
+        Zone="Fishtank"
+        print(temperaturevar, Zone)
     
     # retrieve current datetime
 #    serial.writeString("S\r")       # write a string
@@ -181,10 +272,10 @@ def loop():
         x = 0
         #PressureC = "a"
         
-        temperaturevar=measure()
-        Zone="Fishtank"
-        print(temperaturevar, Zone)
- #       LogTemperature( temperaturevar, Zone )
+        #temperaturevar=measure()
+        #Zone="Fishtank"
+        #print(temperaturevar, Zone)
+        #LogTemperature( temperaturevar, Zone )
 
 
 
