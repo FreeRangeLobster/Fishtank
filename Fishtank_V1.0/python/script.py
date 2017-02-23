@@ -5,9 +5,11 @@ import datetime
 import MySQLdb
  
 
+#Initialising Database comms
 db = MySQLdb.connect("localhost", "monitor", "password", "temps")
 curs=db.cursor() 
 
+#Initialising serial port to com with arduino
 GPIO = webiopi.GPIO
 from webiopi.devices.serial import Serial
 serial = Serial("ttyAMA0", 9600)
@@ -23,22 +25,7 @@ LIGHT4 = 22 # GPIO pin using BCM numbering      LIGHT
 LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
 #Variable definitions
-
-HOUR_ON  = 8  # Turn Light ON at 08:00
-HOUR_OFF = 18 # Turn Light OFF at 18:00
-
-LIGHT_ON = 17 #Turns ligh on at 5 in the afternoon 
-LIGHT_OFF = 19 #Turns ligh on at 9  in the night
-  
-PUMP_OFF = 18  #Turns pump off 
-PUMP_ON  = 19  #Turns pump ON
-
-BUBBLES_ON  = 18  #Turns pump off 
-BUBBLES_OFF = 20  #Turns pump ON 
-
-Pressure=0
-
-global TempRead
+#global TempRead
 
 
 
@@ -74,10 +61,7 @@ def setup():
     # retrieve current datetime
     now = datetime.datetime.now()
 
-    # test if we are between ON time and tun the light ON
-    if ((now.hour >= HOUR_ON) and (now.hour < HOUR_OFF)):
-        GPIO.digitalWrite(LIGHT, GPIO.HIGH)
-
+    #initialising sampling time
     InitialTimeSample = datetime.datetime.now()
     SamplingTimeQuery_Sec=5
     SamplingTimeLog_Sec=20
@@ -86,13 +70,8 @@ def setup():
     TimeNextQuery = InitialTimeSample + datetime.timedelta(seconds=SamplingTimeQuery_Sec)
     TimeNextLog =InitialTimeSample + datetime.timedelta(seconds=SamplingTimeLog_Sec)
     print "Time query: ", TimeNextQuery, "Time next Log: ",TimeNextLog
-
-
-
-    #global ActualTime = datetime.datetime.now()
-    InitialTimeSample = datetime.datetime.now()
-    print "Initial time sample :"
-    print InitialTimeSample
+    print "Initial time sample : ", InitialTimeSample
+    
 
     
 
@@ -235,6 +214,7 @@ def loop():
     global x
     global y
     global temperaturevar
+
     global PressureC
     global TempRead
     global TimeNextQuery
@@ -251,6 +231,14 @@ def loop():
         temperaturevar=measure()
         Zone="Fishtank"
         print(temperaturevar, Zone)
+        
+        LogTemperature( temperaturevar, Zone )
+        
+        pressurevar=measurePressure()
+        Zone="Fishtank"
+        print(pressurevar, Zone)
+
+
     
     # retrieve current datetime
 #    serial.writeString("S\r")       # write a string
@@ -288,67 +276,7 @@ def loop():
   #      print "Counter =10 seconds time to save readings"
 
 
-    #----------------------------------------------------------------Light------------------------------------------------------
-    #for light 4
-    # toggle light ON all days at the correct time
-    if ((now.hour == LIGHT_ON) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT4) == GPIO.HIGH):
-            GPIO.digitalWrite(LIGHT4, GPIO.LOW)
-
-    # toggle light OFF
-    if ((now.hour == LIGHT_OFF) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT4) == GPIO.LOW):
-            GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
-
-    #----------------------------------------------------------------Water Pump-----------------------------------------------
-    #for light 2
-    # toggle light ON all days at the correct time
-    if ((now.hour == PUMP_ON) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT2) == GPIO.HIGH):
-            GPIO.digitalWrite(LIGHT2, GPIO.LOW)
-
-    # toggle light OFF
-    if ((now.hour == PUMP_OFF) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT2) == GPIO.LOW):
-            GPIO.digitalWrite(LIGHT2, GPIO.HIGH)
-
-    
-    #------------------------------------------------------------Bubbles Machin3------------------------------------------------
-    #for light 3
-    # toggle light ON all days at the correct time
-    if ((now.hour == BUBBLES_ON) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT3) == GPIO.HIGH):
-            GPIO.digitalWrite(LIGHT3, GPIO.LOW)
-
-    # toggle light OFF
-    if ((now.hour == BUBBLES_OFF) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT3) == GPIO.LOW):
-            GPIO.digitalWrite(LIGHT3, GPIO.HIGH)
-
-    
-
-    #----------------------------------------------------------------Aux----------------------------------------------------
-    # toggle light ON all days at the correct time
-    if ((now.hour == HOUR_ON) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT) == GPIO.HIGH):
-            GPIO.digitalWrite(LIGHT, GPIO.LOW)
-
-    # toggle light OFF
-    if ((now.hour == HOUR_OFF) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT) == GPIO.LOW):
-            GPIO.digitalWrite(LIGHT, GPIO.HIGH)
-
-    
-    #for light 5
-    # toggle light ON all days at the correct time
-    if ((now.hour == HOUR_ON) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT5) == GPIO.HIGH):
-            GPIO.digitalWrite(LIGHT5, GPIO.LOW)
-
-    # toggle light OFF
-    if ((now.hour == HOUR_OFF) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT5) == GPIO.LOW):
-            GPIO.digitalWrite(LIGHT5, GPIO.HIGH)
+  
 
     #Test the sensor reading
     #measure()
