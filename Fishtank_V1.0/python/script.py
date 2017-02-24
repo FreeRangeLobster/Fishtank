@@ -14,6 +14,11 @@ GPIO = webiopi.GPIO
 from webiopi.devices.serial import Serial
 serial = Serial("ttyAMA0", 9600)
 
+#baton
+QueryBaton= "Air"
+global QueryBatonNo
+QueryBatonNo = 0
+
 
 #***********************#
 #   GPIO Declarations   #
@@ -34,9 +39,18 @@ def setup():
     global x 
     global y
     global TimeNextQuery
+    global TimeNextLog
     global SamplingTimeQuery_Sec
+    global SamplingTimeLog_Sec
+    #baton
+    global QueryBaton
+    QueryBaton= "Air"
+    global QueryBatonNo
+    QueryBatonNo = 0
+
     x = 0
     y = 0
+
 
 
     # set the GPIO used by the light to output
@@ -64,7 +78,7 @@ def setup():
     #initialising sampling time
     InitialTimeSample = datetime.datetime.now()
     SamplingTimeQuery_Sec=5
-    SamplingTimeLog_Sec=20
+    SamplingTimeLog_Sec=6
 
 
     TimeNextQuery = InitialTimeSample + datetime.timedelta(seconds=SamplingTimeQuery_Sec)
@@ -191,16 +205,69 @@ try:
 except:
    print "Error: the database is being rolled back"
    db.rollback()
-
-
-
-
-
-
-
-
 #JV 17/02/2017 Included it back
 #↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+
+#JV 24/02/2017 Included to queri DB
+#↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+##---------- Executes queries of different outputs acording to baton--------##
+
+#---------- Drives outputs and logs states on the DB
+def UpdatesActuators(output,state):
+	if state == 0:
+		print "Turn OFF"
+	elif state == 1:
+		print "Turn ON"
+	else :
+		print "Remains the same"
+	
+	if state == 1 or state == 0:
+ 		print "Save states to DB"
+
+
+
+
+
+def Light():
+    print "Query DB For Light.\n"
+    a=QueryDatabase('light')
+    print a
+    UpdatesActuators('lignt',a)
+
+
+def Pump():
+    print "Query DB For Pump\n"
+    a=QueryDatabase('Pump')
+    print a
+    UpdatesActuators('Pump',a)
+
+def Air():
+    print "Query DB For Air\n"
+    a=QueryDatabase('Air')
+    print a
+    UpdatesActuators('Pump',a)
+
+def CO2():
+    print "Query DB For CO2\n"
+    a=QueryDatabase('CO2')
+    UpdatesActuators('CO2',a)
+    print a
+
+#Options to allow the program to go through the outputs
+options = {0 : Light,
+           1 : Pump,
+           2 : Air,
+           3 : CO2,
+}
+#JV 24/02/2017 Included it back
+#↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+
+
+
+
+
 
 def LogTemperature( Temperature, Zone ):
     sql = "INSERT INTO tempdat(tdate, tTime,zone,Temperature) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (Zone ,Temperature)
@@ -218,7 +285,9 @@ def loop():
     global PressureC
     global TempRead
     global TimeNextQuery
-
+    global QueryBatonNo
+    global TimeNextLog
+  
 
     TimeNow = datetime.datetime.now()
     if TimeNow > TimeNextQuery:
@@ -237,23 +306,29 @@ def loop():
         pressurevar=measurePressure()
         Zone="Fishtank"
         print(pressurevar, Zone)
-
+        #print ("Baton no: ", QueryBatonNo)
+        
+        options[QueryBatonNo]()
+        if QueryBatonNo >= 3:
+        	QueryBatonNo=0
+        else:
+        	QueryBatonNo = QueryBatonNo + 1
 
     
-    # retrieve current datetime
+# Asks for status of the ARDUINO
 #    serial.writeString("S\r")       # write a string
+	    # retrieve current datetime
     now = datetime.datetime.now()
             #print(Pressure)
 
-    #Counter up to 30sec
-    #- Request Database
-    # if there is anything to commit in the database, commit logs, temperature and pressure
-    # Update states of the fishtank
+    #Logging of temp
+    if TimeNow > TimeNextLog:	
+		TimeNextLog= TimeNow + datetime.timedelta(seconds=SamplingTimeLog_Sec)
+		print " Log time NOW"
+			
+  
 
-
-    # every second 
-    # read arduino
-
+  
 
     x = x + 1
     if (x == 10):
@@ -284,6 +359,7 @@ def loop():
     # gives CPU some time before looping again
     webiopi.sleep(1.5)
 
+  
     #serial.writeString("Ch1ON")
 
 
