@@ -224,6 +224,7 @@ def UpdatesActuators(output,state):
 	
 	if state == 1 or state == 0:
  		print "Save states to DB"
+ 		LogLogger(output,state)
 
 
 
@@ -275,6 +276,12 @@ def LogTemperature( Temperature, Zone ):
     db.commit()
     return True 
 
+def LogLogger( Output, State ):
+    sql = "INSERT INTO log(tdate, ttime,output,state) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (Output ,State)
+    curs.execute(sql)
+    db.commit()
+    return True 
+
 
 # loop function is repeatedly called by WebIOPi 
 def loop():
@@ -289,82 +296,41 @@ def loop():
     global TimeNextLog
   
 
+    #Query time
     TimeNow = datetime.datetime.now()
     if TimeNow > TimeNextQuery:
         #GPIO.output(RedLed_LHS, GPIO.LOW)
         TimeNextQuery= TimeNow + datetime.timedelta(seconds=SamplingTimeQuery_Sec)
-            
-        #JV disabled due to there is no functions to handle it yet            
-        #print "Baton no: ", QueryBatonNo
-            
-        temperaturevar=measure()
-        Zone="Fishtank"
-        print(temperaturevar, Zone)
-        
-        LogTemperature( temperaturevar, Zone )
-        
-        pressurevar=measurePressure()
-        Zone="Fishtank"
-        print(pressurevar, Zone)
         #print ("Baton no: ", QueryBatonNo)
-        
         options[QueryBatonNo]()
         if QueryBatonNo >= 3:
         	QueryBatonNo=0
         else:
         	QueryBatonNo = QueryBatonNo + 1
+        #LogLogger("Input1","ON")
 
-    
-# Asks for status of the ARDUINO
-#    serial.writeString("S\r")       # write a string
-	    # retrieve current datetime
-    now = datetime.datetime.now()
-            #print(Pressure)
 
-    #Logging of temp
+
+	#Logging time
+	TimeNow = datetime.datetime.now()
     if TimeNow > TimeNextLog:	
 		TimeNextLog= TimeNow + datetime.timedelta(seconds=SamplingTimeLog_Sec)
 		print " Log time NOW"
-			
+		temperaturevar=measure()
+		Zone="Fishtank"
+		print(temperaturevar, Zone)
+		LogTemperature( temperaturevar, Zone )
+
+		pressurevar=measurePressure()
+		Zone="Fishtank"
+		print(pressurevar, Zone)
+        #Implement Log pressure
   
-
-  
-
-    x = x + 1
-    if (x == 10):
-        x = 0
-        #PressureC = "a"
-        
-        #temperaturevar=measure()
-        #Zone="Fishtank"
-        #print(temperaturevar, Zone)
-        #LogTemperature( temperaturevar, Zone )
-
-
-
-        #print(temperaturevar)
-        #print "Counter =10 seconds time to read configuration Pressure: %s  Temperature: %.2f" % (Pressure, TempRead)
-
-    y = y + 1
-    if (y == 5):
-        y = 0
-  #      print "Counter =10 seconds time to save readings"
-
-
-  
-
-    #Test the sensor reading
-    #measure()
-
     # gives CPU some time before looping again
     webiopi.sleep(1.5)
 
   
-    #serial.writeString("Ch1ON")
-
-
-
-
+   
 
 # destroy function is called at WebIOPi shutdown
 def destroy():
@@ -375,11 +341,18 @@ def destroy():
     GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
     GPIO.digitalWrite(LIGHT5, GPIO.HIGH)
 
+
+
+
 #Turn arduino lights on/off
 #serial.writeString("Ch1ON")
 
 
 
+#Templates
+ #serial.writeString("Ch1ON")
+# Asks for status of the ARDUINO
+#    serial.writeString("S\r")       # write a string
 
 
 #    webiopi.sleep(1)
