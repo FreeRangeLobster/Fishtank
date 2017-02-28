@@ -70,8 +70,7 @@ def setup():
     # empty input buffer before starting processing used for 
     # used for pressure sensor
     while (serial.available() > 0):
-        serial.readString()
-
+    	serial.readString()
     # retrieve current datetime
     now = datetime.datetime.now()
 
@@ -215,6 +214,8 @@ except:
 
 #---------- Drives outputs and logs states on the DB
 def UpdatesActuators(output,state):
+	
+
 	if state == 0:
 		print "Turn OFF"
 	elif state == 1:
@@ -224,7 +225,10 @@ def UpdatesActuators(output,state):
 	
 	if state == 1 or state == 0:
  		print "Save states to DB"
- 		LogLogger(output,state)
+ 		if state==1:
+ 			LogLogger(output,"ON")
+ 		else :
+ 			LogLogger(output,"OFF")
 
 
 
@@ -232,10 +236,21 @@ def UpdatesActuators(output,state):
 
 def Light():
     print "Query DB For Light.\n"
-    a=QueryDatabase('light')
+    sCurrentStatus=GPIO.digitalRead(LIGHT3)
+    print "Current Status of light: ", sCurrentStatus
+    a=QueryDatabase('Light')
     print a
-    UpdatesActuators('lignt',a)
+    if a==0:
+    	#turn off the output
+    	GPIO.digitalWrite(LIGHT4, GPIO.LOW)
+    	UpdatesActuators('Lignt',a)
 
+    elif a==1:
+    	#turn on output
+    	GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
+    	UpdatesActuators('Lignt',a)
+    else:
+    	UpdatesActuators('Lignt',a)
 
 def Pump():
     print "Query DB For Pump\n"
@@ -263,11 +278,6 @@ options = {0 : Light,
 }
 #JV 24/02/2017 Included it back
 #↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-
-
-
-
-
 
 
 def LogTemperature( Temperature, Zone ):
@@ -370,3 +380,64 @@ def destroy():
 #            cv = pair.split("-")       # split channel/value
 #            channel = int(cv[0])
 #            Pressure = int(cv[1])
+#----------------------------------------------------------------Light------------------------------------------------------
+#    #for light 4
+#    # toggle light ON all days at the correct time
+#    if ((now.hour == LIGHT_ON) and (now.minute == 0) and (now.second == 0)):
+#        if (GPIO.digitalRead(LIGHT4) == GPIO.HIGH):
+#            GPIO.digitalWrite(LIGHT4, GPIO.LOW)
+
+    # toggle light OFF
+#    if ((now.hour == LIGHT_OFF) and (now.minute == 0) and (now.second == 0)):
+#        if (GPIO.digitalRead(LIGHT4) == GPIO.LOW):
+#            GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
+
+    #----------------------------------------------------------------Water Pump-----------------------------------------------
+    #for light 2
+    # toggle light ON all days at the correct time
+#    if ((now.hour == PUMP_ON) and (now.minute == 0) and (now.second == 0)):
+#        if (GPIO.digitalRead(LIGHT2) == GPIO.HIGH):
+#            GPIO.digitalWrite(LIGHT2, GPIO.LOW)
+
+    # toggle light OFF
+#    if ((now.hour == PUMP_OFF) and (now.minute == 0) and (now.second == 0)):
+#        if (GPIO.digitalRead(LIGHT2) == GPIO.LOW):
+#            GPIO.digitalWrite(LIGHT2, GPIO.HIGH)
+
+    
+    #------------------------------------------------------------Bubbles Machin3------------------------------------------------
+    #for light 3
+    # toggle light ON all days at the correct time
+ #   if ((now.hour == BUBBLES_ON) and (now.minute == 0) and (now.second == 0)):
+ #       if (GPIO.digitalRead(LIGHT3) == GPIO.HIGH):
+ #           GPIO.digitalWrite(LIGHT3, GPIO.LOW)
+
+    # toggle light OFF
+ #   if ((now.hour == BUBBLES_OFF) and (now.minute == 0) and (now.second == 0)):
+ #       if (GPIO.digitalRead(LIGHT3) == GPIO.LOW):
+ #           GPIO.digitalWrite(LIGHT3, GPIO.HIGH)
+
+    
+
+    #----------------------------------------------------------------Aux----------------------------------------------------
+    # toggle light ON all days at the correct time
+ #   if ((now.hour == HOUR_ON) and (now.minute == 0) and (now.second == 0)):
+ #       if (GPIO.digitalRead(LIGHT) == GPIO.HIGH):
+ #           GPIO.digitalWrite(LIGHT, GPIO.LOW)
+
+    # toggle light OFF
+ #   if ((now.hour == HOUR_OFF) and (now.minute == 0) and (now.second == 0)):
+ #       if (GPIO.digitalRead(LIGHT) == GPIO.LOW):
+ #           GPIO.digitalWrite(LIGHT, GPIO.HIGH)
+
+    
+    #for light 5
+    # toggle light ON all days at the correct time
+ #   if ((now.hour == HOUR_ON) and (now.minute == 0) and (now.second == 0)):
+ #       if (GPIO.digitalRead(LIGHT5) == GPIO.HIGH):
+ #           GPIO.digitalWrite(LIGHT5, GPIO.LOW)
+
+    # toggle light OFF
+ #   if ((now.hour == HOUR_OFF) and (now.minute == 0) and (now.second == 0)):
+ #       if (GPIO.digitalRead(LIGHT5) == GPIO.LOW):
+ #           GPIO.digitalWrite(LIGHT5, GPIO.HIGH)
