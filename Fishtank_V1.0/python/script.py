@@ -101,11 +101,11 @@ def setup():
 
 def QueryDatabase(actuator):
  try:
-  TmPastTime = datetime.datetime.now() - datetime.timedelta(hours=1)
+  TmPastTime = datetime.datetime.now() - datetime.timedelta(minutes=1)
   PastTime=TmPastTime.strftime("%H:%M")
   print PastTime 
 
-  TmFutureTime = datetime.datetime.now() + datetime.timedelta(hours=1)
+  TmFutureTime = datetime.datetime.now() + datetime.timedelta(minutes=1)
   FutueTime=TmFutureTime.strftime("%H:%M") 
   print FutueTime 
 
@@ -241,33 +241,40 @@ def Light():
     a=QueryDatabase('Light')
     print a
     if a==0:
-    	#turn off the output
-    	GPIO.digitalWrite(LIGHT4, GPIO.LOW)
-    	UpdatesActuators('Lignt',a)
+    	
+    	if (GPIO.digitalRead(LIGHT4) == GPIO.HIGH):
+    		#turn off the output
+    		GPIO.digitalWrite(LIGHT4, GPIO.LOW)
+    		LogLogger("Light","OFF")
 
     elif a==1:
-    	#turn on output
-    	GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
-    	UpdatesActuators('Lignt',a)
+
+    	if (GPIO.digitalRead(LIGHT4) == GPIO.LOW):
+    		#turn on output
+    		GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
+    		LogLogger("Light","ON")
+
+
     else:
     	UpdatesActuators('Lignt',a)
+
 
 def Pump():
     print "Query DB For Pump\n"
     a=QueryDatabase('Pump')
     print a
-    UpdatesActuators('Pump',a)
+    #UpdatesActuators('Pump',a)
 
 def Air():
     print "Query DB For Air\n"
     a=QueryDatabase('Air')
     print a
-    UpdatesActuators('Pump',a)
+    #UpdatesActuators('Pump',a)
 
 def CO2():
     print "Query DB For CO2\n"
     a=QueryDatabase('CO2')
-    UpdatesActuators('CO2',a)
+    #UpdatesActuators('CO2',a)
     print a
 
 #Options to allow the program to go through the outputs
@@ -330,7 +337,7 @@ def loop():
 		Zone="Fishtank"
 		print(temperaturevar, Zone)
 		LogTemperature( temperaturevar, Zone )
-
+		
 		pressurevar=measurePressure()
 		Zone="Fishtank"
 		print(pressurevar, Zone)
