@@ -23,9 +23,16 @@ QueryBatonNo = 0
 #***********************#
 #   GPIO Declarations   #
 #************************
+
+global LIGHT
+global WATERPUMP
+global CO2
+global LIGHT4
+global LIGHT5
+
 LIGHT = 17 # GPIO pin using BCM numbering       AUX1
-LIGHT2 = 23 # GPIO pin using BCM numbering      WATER PUMP
-LIGHT3 = 18 # GPIO pin using BCM numbering      AIR PUMP
+WATERPUMP = 23 # GPIO pin using BCM numbering      WATER PUMP
+CO2 = 18 # GPIO pin using BCM numbering      AIR PUMP
 LIGHT4 = 22 # GPIO pin using BCM numbering      LIGHT
 LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
@@ -42,6 +49,11 @@ def setup():
     global TimeNextLog
     global SamplingTimeQuery_Sec
     global SamplingTimeLog_Sec
+    global LIGHT
+    global WATERPUMP
+    global CO2
+    global LIGHT4
+    global LIGHT5
     #baton
     global QueryBaton
     QueryBaton= "Air"
@@ -50,8 +62,11 @@ def setup():
 
     x = 0
     y = 0
-
-
+    LIGHT = 17 # GPIO pin using BCM numbering       AUX1
+    WATERPUMP = 23 # GPIO pin using BCM numbering      WATER PUMP
+    CO2 = 18 # GPIO pin using BCM numbering      AIR PUMP
+    LIGHT4 = 22 # GPIO pin using BCM numbering      LIGHT
+    LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
     # set the GPIO used by the light to output
     import os
@@ -61,8 +76,8 @@ def setup():
 
     # set the GPIO used by the light to output
     GPIO.setFunction(LIGHT, GPIO.OUT)
-    GPIO.setFunction(LIGHT2, GPIO.OUT)
-    GPIO.setFunction(LIGHT3, GPIO.OUT)
+    GPIO.setFunction(WATERPUMP, GPIO.OUT)
+    GPIO.setFunction(CO2, GPIO.OUT)
     GPIO.setFunction(LIGHT4, GPIO.OUT)
     GPIO.setFunction(LIGHT5, GPIO.OUT)
 
@@ -98,6 +113,9 @@ def setup():
 
     #TimeToSample= InitialTimeSample + datetime.timedelta(minutes=5)
     print TimeToSample
+
+
+
 
 def QueryDatabase(actuator):
  try:
@@ -214,49 +232,27 @@ except:
 
 #---------- Drives outputs and logs states on the DB
 def UpdatesActuators(output,state):
+	if state==0:	
+		if (GPIO.digitalRead(output) == GPIO.HIGH):
+			#turn off the output
+			GPIO.digitalWrite(output, GPIO.LOW)
+			LogLogger("Light","OFF")
+	if state==1:
+		if (GPIO.digitalRead(output) == GPIO.LOW):
+    		#turn on output
+			GPIO.digitalWrite(output, GPIO.HIGH)
+			LogLogger("Light","ON")	
 	
-
-	if state == 0:
-		print "Turn OFF"
-	elif state == 1:
-		print "Turn ON"
-	else :
-		print "Remains the same"
-	
-	if state == 1 or state == 0:
- 		print "Save states to DB"
- 		if state==1:
- 			LogLogger(output,"ON")
- 		else :
- 			LogLogger(output,"OFF")
-
-
-
-
+    	
 
 def Light():
-    print "Query DB For Light.\n"
-    sCurrentStatus=GPIO.digitalRead(LIGHT3)
-    print "Current Status of light: ", sCurrentStatus
-    a=QueryDatabase('Light')
-    print a
-    if a==0:
-    	
-    	if (GPIO.digitalRead(LIGHT4) == GPIO.HIGH):
-    		#turn off the output
-    		GPIO.digitalWrite(LIGHT4, GPIO.LOW)
-    		LogLogger("Light","OFF")
-
-    elif a==1:
-
-    	if (GPIO.digitalRead(LIGHT4) == GPIO.LOW):
-    		#turn on output
-    		GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
-    		LogLogger("Light","ON")
-
-
-    else:
-    	UpdatesActuators('Lignt',a)
+	print "Query DB For Light.\n"
+	sCurrentStatus=GPIO.digitalRead(CO2)
+	print "Current Status of light: ", sCurrentStatus
+	a=QueryDatabase('Light')
+	print a
+	UpdatesActuators(LIGHT4,a)
+    
 
 
 def Pump():
@@ -353,8 +349,8 @@ def loop():
 def destroy():
     GPIO.digitalWrite(LIGHT, GPIO.HIGH)
     #Light2
-    GPIO.digitalWrite(LIGHT2, GPIO.HIGH)
-    GPIO.digitalWrite(LIGHT3, GPIO.HIGH)
+    GPIO.digitalWrite(WATERPUMP, GPIO.HIGH)
+    GPIO.digitalWrite(CO2, GPIO.HIGH)
     GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
     GPIO.digitalWrite(LIGHT5, GPIO.HIGH)
 
