@@ -27,13 +27,13 @@ QueryBatonNo = 0
 global LIGHT
 global WATERPUMP
 global CO2
-global LIGHT4
+global AIR
 global LIGHT5
 
 LIGHT = 17 # GPIO pin using BCM numbering       AUX1
 WATERPUMP = 23 # GPIO pin using BCM numbering      WATER PUMP
 CO2 = 18 # GPIO pin using BCM numbering      AIR PUMP
-LIGHT4 = 22 # GPIO pin using BCM numbering      LIGHT
+AIR = 22 # GPIO pin using BCM numbering      LIGHT
 LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
 #Variable definitions
@@ -52,7 +52,7 @@ def setup():
     global LIGHT
     global WATERPUMP
     global CO2
-    global LIGHT4
+    global AIR
     global LIGHT5
     #baton
     global QueryBaton
@@ -65,7 +65,7 @@ def setup():
     LIGHT = 17 # GPIO pin using BCM numbering       AUX1
     WATERPUMP = 23 # GPIO pin using BCM numbering      WATER PUMP
     CO2 = 18 # GPIO pin using BCM numbering      AIR PUMP
-    LIGHT4 = 22 # GPIO pin using BCM numbering      LIGHT
+    AIR = 22 # GPIO pin using BCM numbering      LIGHT
     LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
     # set the GPIO used by the light to output
@@ -78,7 +78,7 @@ def setup():
     GPIO.setFunction(LIGHT, GPIO.OUT)
     GPIO.setFunction(WATERPUMP, GPIO.OUT)
     GPIO.setFunction(CO2, GPIO.OUT)
-    GPIO.setFunction(LIGHT4, GPIO.OUT)
+    GPIO.setFunction(AIR, GPIO.OUT)
     GPIO.setFunction(LIGHT5, GPIO.OUT)
 
 
@@ -236,42 +236,48 @@ def UpdatesActuators(output,state):
 		if (GPIO.digitalRead(output) == GPIO.HIGH):
 			#turn off the output
 			GPIO.digitalWrite(output, GPIO.LOW)
-			LogLogger("Light","OFF")
+			LogLogger(output,"OFF")
 	if state==1:
 		if (GPIO.digitalRead(output) == GPIO.LOW):
     		#turn on output
 			GPIO.digitalWrite(output, GPIO.HIGH)
-			LogLogger("Light","ON")	
+			LogLogger(output,"ON")	
 	
     	
 
 def Light():
 	print "Query DB For Light.\n"
-	sCurrentStatus=GPIO.digitalRead(CO2)
-	print "Current Status of light: ", sCurrentStatus
+	#sCurrentStatus=GPIO.digitalRead(CO2)
+	#print "Current Status of light: ", sCurrentStatus
 	a=QueryDatabase('Light')
-	print a
-	UpdatesActuators(LIGHT4,a)
-    
+	print "Light Query : ",a
+	UpdatesActuators(LIGHT,a)
 
 
 def Pump():
-    print "Query DB For Pump\n"
-    a=QueryDatabase('Pump')
-    print a
-    #UpdatesActuators('Pump',a)
+	print "Query DB For Light.\n"
+	#sCurrentStatus=GPIO.digitalRead(CO2)
+	#print "Current Status of light: ", sCurrentStatus
+	a=QueryDatabase('Pump')
+	print "Light Query : ",a
+	UpdatesActuators(WATERPUMP,a)
 
 def Air():
-    print "Query DB For Air\n"
-    a=QueryDatabase('Air')
-    print a
-    #UpdatesActuators('Pump',a)
+	print "Query DB For Light.\n"
+	#sCurrentStatus=GPIO.digitalRead(CO2)
+	#print "Current Status of light: ", sCurrentStatus
+	a=QueryDatabase('Air')
+	print "Light Query : ",a
+	UpdatesActuators(AIR,a)
+
 
 def CO2():
-    print "Query DB For CO2\n"
-    a=QueryDatabase('CO2')
-    #UpdatesActuators('CO2',a)
-    print a
+	print "Query DB For Light.\n"
+	#sCurrentStatus=GPIO.digitalRead(CO2)
+	#print "Current Status of light: ", sCurrentStatus
+	a=QueryDatabase('CO2')
+	print "Light Query : ",a
+	UpdatesActuators(CO2,a)
 
 #Options to allow the program to go through the outputs
 options = {0 : Light,
@@ -279,6 +285,10 @@ options = {0 : Light,
            2 : Air,
            3 : CO2,
 }
+
+
+
+
 #JV 24/02/2017 Included it back
 #↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
@@ -289,11 +299,29 @@ def LogTemperature( Temperature, Zone ):
     db.commit()
     return True 
 
-def LogLogger( Output, State ):
-    sql = "INSERT INTO log(tdate, ttime,output,state) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (Output ,State)
-    curs.execute(sql)
-    db.commit()
-    return True 
+def LogLogger(Output, State ):
+	#print "Output to log", Output 
+	sOutput="Undefined"
+
+	if Output == 17:
+		sOutput="Light"
+
+	if Output == 23:
+		sOutput="Pump"
+
+	if Output == 18:
+		sOutput="Air"
+
+	if Output == 24:
+		sOutput="Auxiliar"
+
+	if Output == 22:
+		sOutput="CO2"		
+	
+	sql = "INSERT INTO log(tdate, ttime,output,state) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (sOutput ,State)	
+	curs.execute(sql)
+	db.commit()
+	return True 
 
 
 # loop function is repeatedly called by WebIOPi 
@@ -351,7 +379,7 @@ def destroy():
     #Light2
     GPIO.digitalWrite(WATERPUMP, GPIO.HIGH)
     GPIO.digitalWrite(CO2, GPIO.HIGH)
-    GPIO.digitalWrite(LIGHT4, GPIO.HIGH)
+    GPIO.digitalWrite(AIR, GPIO.HIGH)
     GPIO.digitalWrite(LIGHT5, GPIO.HIGH)
 
 
