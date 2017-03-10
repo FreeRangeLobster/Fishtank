@@ -30,11 +30,11 @@ global CO2
 global AIR
 global LIGHT5
 
-LIGHT = 17 # GPIO pin using BCM numbering       AUX1
-WATERPUMP = 23 # GPIO pin using BCM numbering      WATER PUMP
-CO2 = 18 # GPIO pin using BCM numbering      AIR PUMP
-AIR = 22 # GPIO pin using BCM numbering      LIGHT
-LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
+#LIGHT = 17 # GPIO pin using BCM numbering       AUX1
+#WATERPUMP = 23 # GPIO pin using BCM numbering      WATER PUMP
+#CO2 = 18 # GPIO pin using BCM numbering      AIR PUMP
+#AIR = 22 # GPIO pin using BCM numbering      LIGHT
+#LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
 #Variable definitions
 #global TempRead
@@ -62,10 +62,10 @@ def setup():
 
     x = 0
     y = 0
-    LIGHT = 17 # GPIO pin using BCM numbering       AUX1
+    LIGHT = 22 # GPIO pin using BCM numbering       AUX1
     WATERPUMP = 23 # GPIO pin using BCM numbering      WATER PUMP
-    CO2 = 18 # GPIO pin using BCM numbering      AIR PUMP
-    AIR = 22 # GPIO pin using BCM numbering      LIGHT
+    CO2 = 17 # GPIO pin using BCM numbering      AIR PUMP
+    AIR = 18 # GPIO pin using BCM numbering      LIGHT
     LIGHT5 = 24 # GPIO pin using BCM numbering      AUX2
 
     # set the GPIO used by the light to output
@@ -91,8 +91,8 @@ def setup():
 
     #initialising sampling time
     InitialTimeSample = datetime.datetime.now()
-    SamplingTimeQuery_Sec=5
-    SamplingTimeLog_Sec=6
+    SamplingTimeQuery_Sec=30
+    SamplingTimeLog_Sec=60
 
 
     TimeNextQuery = InitialTimeSample + datetime.timedelta(seconds=SamplingTimeQuery_Sec)
@@ -183,7 +183,7 @@ def measurePressure():
 
         for pair in lines:
             cv = pair.split("-")       # split channel/value
-            channel = int(cv[0])
+            #channel = int(cv[0])
             Pressure = int(cv[1])
             print(Pressure)
     return (Pressure)
@@ -232,15 +232,16 @@ except:
 
 #---------- Drives outputs and logs states on the DB
 def UpdatesActuators(output,state):
+    #Outputs are negated
 	if state==0:	
-		if (GPIO.digitalRead(output) == GPIO.HIGH):
+		if (GPIO.digitalRead(output) == GPIO.LOW):
 			#turn off the output
-			GPIO.digitalWrite(output, GPIO.LOW)
+			GPIO.digitalWrite(output, GPIO.HIGH)
 			LogLogger(output,"OFF")
 	if state==1:
-		if (GPIO.digitalRead(output) == GPIO.LOW):
+		if (GPIO.digitalRead(output) == GPIO.HIGH):
     		#turn on output
-			GPIO.digitalWrite(output, GPIO.HIGH)
+			GPIO.digitalWrite(output, GPIO.LOW)
 			LogLogger(output,"ON")	
 	
     	
@@ -303,11 +304,11 @@ def LogLogger(Output, State ):
 	#print "Output to log", Output 
 	sOutput="Undefined"
 
-	if Output == 17:
+	if Output == 22:
 		sOutput="Light"
 
 	if Output == 23:
-		sOutput="Pump"
+		sOutput="WaterPump"
 
 	if Output == 18:
 		sOutput="Air"
@@ -315,9 +316,10 @@ def LogLogger(Output, State ):
 	if Output == 24:
 		sOutput="Auxiliar"
 
-	if Output == 22:
+	if Output == 17:
 		sOutput="CO2"		
-	
+
+
 	sql = "INSERT INTO log(tdate, ttime,output,state) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (sOutput ,State)	
 	curs.execute(sql)
 	db.commit()
