@@ -85,14 +85,14 @@ def setup():
     # empty input buffer before starting processing used for 
     # used for pressure sensor
     while (serial.available() > 0):
-    	serial.readString()
+        serial.readString()
     # retrieve current datetime
     now = datetime.datetime.now()
 
     #initialising sampling time
     InitialTimeSample = datetime.datetime.now()
     SamplingTimeQuery_Sec=30
-    SamplingTimeLog_Sec=60
+    SamplingTimeLog_Sec=60*5
 
 
     TimeNextQuery = InitialTimeSample + datetime.timedelta(seconds=SamplingTimeQuery_Sec)
@@ -210,13 +210,13 @@ try:
             values(CURRENT_DATE(), NOW() - INTERVAL 12 HOUR, 'Sys Restart', 00.6)""")
     db.commit()
 
-    print "After Commit"
-    curs.execute ("SELECT * FROM tempdat")
-    print "\nDate       Time        Zone        Temperature"
-    print "==========================================================="
+#    print "After Commit"
+#    curs.execute ("SELECT * FROM tempdat")
+#    print "\nDate       Time        Zone        Temperature"
+#    print "==========================================================="
 
-    for reading in curs.fetchall():
-        print str(reading[0])+" "+str(reading[1])+"     "+reading[2]+"      "+str(reading[3])
+#    for reading in curs.fetchall():
+#        print str(reading[0])+" "+str(reading[1])+"     "+reading[2]+"      "+str(reading[3])
 
 
 except:
@@ -233,52 +233,52 @@ except:
 #---------- Drives outputs and logs states on the DB
 def UpdatesActuators(output,state):
     #Outputs are negated
-	if state==0:	
-		if (GPIO.digitalRead(output) == GPIO.LOW):
-			#turn off the output
-			GPIO.digitalWrite(output, GPIO.HIGH)
-			LogLogger(output,"OFF")
-	if state==1:
-		if (GPIO.digitalRead(output) == GPIO.HIGH):
-    		#turn on output
-			GPIO.digitalWrite(output, GPIO.LOW)
-			LogLogger(output,"ON")	
-	
-    	
+    if state==0:    
+        if (GPIO.digitalRead(output) == GPIO.LOW):
+            #turn off the output
+            GPIO.digitalWrite(output, GPIO.HIGH)
+            LogLogger(output,"OFF")
+    if state==1:
+        if (GPIO.digitalRead(output) == GPIO.HIGH):
+            #turn on output
+            GPIO.digitalWrite(output, GPIO.LOW)
+            LogLogger(output,"ON")  
+    
+        
 
 def Light():
-	print "Query DB For Light.\n"
-	#sCurrentStatus=GPIO.digitalRead(CO2)
-	#print "Current Status of light: ", sCurrentStatus
-	a=QueryDatabase('Light')
-	print "Light Query : ",a
-	UpdatesActuators(LIGHT,a)
+    print "Query DB For Light.\n"
+    #sCurrentStatus=GPIO.digitalRead(CO2)
+    #print "Current Status of light: ", sCurrentStatus
+    a=QueryDatabase('Light')
+    print "Light Query : ",a
+    UpdatesActuators(LIGHT,a)
 
 
 def Pump():
-	print "Query DB For Light.\n"
-	#sCurrentStatus=GPIO.digitalRead(CO2)
-	#print "Current Status of light: ", sCurrentStatus
-	a=QueryDatabase('Pump')
-	print "Light Query : ",a
-	UpdatesActuators(WATERPUMP,a)
+    print "Query DB For Light.\n"
+    #sCurrentStatus=GPIO.digitalRead(CO2)
+    #print "Current Status of light: ", sCurrentStatus
+    a=QueryDatabase('Pump')
+    print "Light Query : ",a
+    UpdatesActuators(WATERPUMP,a)
 
 def Air():
-	print "Query DB For Light.\n"
-	#sCurrentStatus=GPIO.digitalRead(CO2)
-	#print "Current Status of light: ", sCurrentStatus
-	a=QueryDatabase('Air')
-	print "Light Query : ",a
-	UpdatesActuators(AIR,a)
+    print "Query DB For Light.\n"
+    #sCurrentStatus=GPIO.digitalRead(CO2)
+    #print "Current Status of light: ", sCurrentStatus
+    a=QueryDatabase('Air')
+    print "Light Query : ",a
+    UpdatesActuators(AIR,a)
 
 
 def CO2():
-	print "Query DB For Light.\n"
-	#sCurrentStatus=GPIO.digitalRead(CO2)
-	#print "Current Status of light: ", sCurrentStatus
-	a=QueryDatabase('CO2')
-	print "Light Query : ",a
-	UpdatesActuators(CO2,a)
+    print "Query DB For Light.\n"
+    #sCurrentStatus=GPIO.digitalRead(CO2)
+    #print "Current Status of light: ", sCurrentStatus
+    a=QueryDatabase('CO2')
+    print "Light Query : ",a
+    UpdatesActuators(CO2,a)
 
 #Options to allow the program to go through the outputs
 options = {0 : Light,
@@ -301,29 +301,29 @@ def LogTemperature( Temperature, Zone ):
     return True 
 
 def LogLogger(Output, State ):
-	#print "Output to log", Output 
-	sOutput="Undefined"
+    #print "Output to log", Output 
+    sOutput="Undefined"
 
-	if Output == 22:
-		sOutput="Light"
+    if Output == 22:
+        sOutput="Light"
 
-	if Output == 23:
-		sOutput="WaterPump"
+    if Output == 23:
+        sOutput="WaterPump"
 
-	if Output == 18:
-		sOutput="Air"
+    if Output == 18:
+        sOutput="Air"
 
-	if Output == 24:
-		sOutput="Auxiliar"
+    if Output == 24:
+        sOutput="Auxiliar"
 
-	if Output == 17:
-		sOutput="CO2"		
+    if Output == 17:
+        sOutput="CO2"       
 
 
-	sql = "INSERT INTO log(tdate, ttime,output,state) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (sOutput ,State)	
-	curs.execute(sql)
-	db.commit()
-	return True 
+    sql = "INSERT INTO log(tdate, ttime,output,state) VALUES (CURRENT_DATE(), NOW(), '%s', '%s' )" % (sOutput ,State)   
+    curs.execute(sql)
+    db.commit()
+    return True 
 
 
 # loop function is repeatedly called by WebIOPi 
@@ -347,26 +347,26 @@ def loop():
         #print ("Baton no: ", QueryBatonNo)
         options[QueryBatonNo]()
         if QueryBatonNo >= 3:
-        	QueryBatonNo=0
+            QueryBatonNo=0
         else:
-        	QueryBatonNo = QueryBatonNo + 1
+            QueryBatonNo = QueryBatonNo + 1
         #LogLogger("Input1","ON")
 
 
 
-	#Logging time
-	TimeNow = datetime.datetime.now()
-    if TimeNow > TimeNextLog:	
-		TimeNextLog= TimeNow + datetime.timedelta(seconds=SamplingTimeLog_Sec)
-		print " Log time NOW"
-		temperaturevar=measure()
-		Zone="Fishtank"
-		print(temperaturevar, Zone)
-		LogTemperature( temperaturevar, Zone )
-		
-		pressurevar=measurePressure()
-		Zone="Fishtank"
-		print(pressurevar, Zone)
+    #Logging time
+    TimeNow = datetime.datetime.now()
+    if TimeNow > TimeNextLog:   
+        TimeNextLog= TimeNow + datetime.timedelta(seconds=SamplingTimeLog_Sec)
+        print " Log time NOW"
+        temperaturevar=measure()
+        Zone="Fishtank"
+        print(temperaturevar, Zone)
+        LogTemperature( temperaturevar, Zone )
+        
+        pressurevar=measurePressure()
+        Zone="Fishtank"
+        print(pressurevar, Zone)
         #Implement Log pressure
   
     # gives CPU some time before looping again
